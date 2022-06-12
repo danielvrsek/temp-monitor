@@ -103,5 +103,5 @@ dist
 # TernJS port file
 .tern-port
 
-dashboard/server/public/profile-photos/*
-!dashboard/server/public/profile-photos/default.jpg
+dashboard/backend/public/profile-photos/*
+!dashboard/backend/public/profile-photos/default.jpg
