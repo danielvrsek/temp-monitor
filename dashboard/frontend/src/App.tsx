@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { UserContext, WorkspaceContext } from './components/context/AuthContext';
 import ApiClient from './api/ApiClient';
-import MainLayout from './common/MainLayout';
 import Loading from './admin_console/components/core/Loading';
-import Router from './Router';
+import AppRouter from './AppRouter';
 
 const App = () => {
     const [userContext, setUserContext] = useState(null);
@@ -36,9 +35,7 @@ const App = () => {
     return (
         <UserContext.Provider value={[userContext, setUserContext]}>
             <WorkspaceContext.Provider value={[workspaceContext, setWorkspaceContext]}>
-                <MainLayout>
-                    <Router />
-                </MainLayout>
+                <AppRouter />
             </WorkspaceContext.Provider>
         </UserContext.Provider>
     );

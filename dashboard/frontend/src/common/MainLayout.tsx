@@ -1,16 +1,15 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 import FooterNavBar from '../components/navBars/FooterNavBar';
 import MenuAppBar from '../components/navBars/MenuAppBar';
 
-type Props = {
-    children: JSX.Element;
-};
-
-const MainLayout = ({ children }: Props) => {
+const MainLayout: React.FC = () => {
     return (
         <>
             <MenuAppBar />
-            <div className="container">{children}</div>
+            <div className="container">
+                <Outlet />
+            </div>
             <FooterNavBar />
         </>
     );
