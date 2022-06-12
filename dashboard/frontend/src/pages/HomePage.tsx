@@ -8,7 +8,6 @@ const HomePage = () => {
     return (
         <div>
             <div style={{ marginTop: '1px' }}>
-                {' '}
                 <TopHome />
             </div>
             <div className="ui vertical stripe segment" style={{ marginTop: '50px' }}>
