@@ -3,7 +3,7 @@ import { useUserContext, useWorkspaceContext } from '../context/AuthContext';
 import { NavLink } from 'react-router-dom';
 import UserLogedIn from '../login/UserLogedIn';
 
-export default function MenuAppBar() {
+const MenuAppBar = () => {
     const [workspaceContext] = useWorkspaceContext();
     const [userContext] = useUserContext();
 
@@ -43,4 +43,6 @@ export default function MenuAppBar() {
             </div>
         </div>
     );
-}
+};
+
+export default MenuAppBar;

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
-import CreateUser from '../../../components/adminDashboard/CreateUser';
 import Modal from '@mui/material/Modal';
 import ApiClient from '../../../api/ApiClient';
 
@@ -40,13 +39,13 @@ const AddUser = () => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <div className='field'>
+                    <div className="field">
                         <input
                             type="text"
                             name="name"
                             placeholder="Username"
-                            onChange={(e)=> setUsername(e.target.value)}
-                            style={{padding: "6px", width: "100%"}}
+                            onChange={(e) => setUsername(e.target.value)}
+                            style={{ padding: '6px', width: '100%' }}
                         />
                     </div>
                     <Button
@@ -55,9 +54,11 @@ const AddUser = () => {
                         color="primary"
                         onClick={submit}
                         sx={{
-                            mt: 2
+                            mt: 2,
                         }}
-                    >Přidat</Button>
+                    >
+                        Přidat
+                    </Button>
                 </Box>
             </Modal>
         </div>

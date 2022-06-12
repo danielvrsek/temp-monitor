@@ -1,11 +1,11 @@
-import WorkspaceListReady from '../components/workspace/WorkspaceListReady';
-import Error from '../components/core/Error';
-import Loading from '../components/core/Loading';
 import React, { useEffect, useState } from 'react';
-import ApiClient from '../../api/ApiClient';
-import { ApiState } from '../../components/common/apiHelper';
+import Error from '../admin_console/components/core/Error';
+import Loading from '../admin_console/components/core/Loading';
+import WorkspaceListReady from '../admin_console/components/workspace/WorkspaceListReady';
+import ApiClient from '../api/ApiClient';
+import { ApiState } from '../components/common/apiHelper';
 
-const WorkspaceListPage = () => {
+const AvailableWorkspaceListPage = () => {
     const [availableWorkspaces, setAvailableWorkspaces] = useState(null);
     const [status, setStatus] = useState(ApiState.Loading);
 
@@ -31,4 +31,4 @@ const WorkspaceListPage = () => {
     }
 };
 
-export default WorkspaceListPage;
+export default AvailableWorkspaceListPage;

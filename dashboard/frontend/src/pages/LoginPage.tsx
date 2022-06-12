@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Grid, Paper, Avatar, TextField, Button, InputAdornment, IconButton } from '@mui/material';
+import { Container, Grid, Paper, Avatar, TextField, Button } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import ApiClient from '../api/ApiClient';
 import MicrosoftLoginButton from '../components/login/MicrosoftLoginButton';
 import { useUserContext } from '../components/context/AuthContext';
 
-const Login = () => {
+const LoginPage = () => {
     //Style
     const paperStyle = {
         padding: '30px 20px',
@@ -26,21 +24,7 @@ const Login = () => {
     const navigate = useNavigate();
     const [, setUserContext] = useUserContext();
 
-    // Functionality
-    const handleClickShowPassword = () => {
-        setState({
-            ...state,
-            pswdVisibility: !state.pswdVisibility,
-        });
-    };
-
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
-
-    //LogIn
-
-    const submit = async (e) => {
+    const submit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const { status } = await ApiClient.login({
             username,
@@ -59,7 +43,7 @@ const Login = () => {
     return (
         <Container style={{ height: '500px', paddingTop: '50px' }}>
             <Paper style={paperStyle}>
-                <Grid align="center">
+                <Grid justifyContent="center">
                     <Avatar>
                         <LoginIcon />
                     </Avatar>
@@ -79,18 +63,6 @@ const Login = () => {
                         label="Password"
                         margin="normal"
                         onChange={(e) => setPassword(e.target.value)}
-                        endadornment={
-                            <InputAdornment position="end">
-                                <IconButton
-                                    aria-label="Toggle password visibility"
-                                    onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}
-                                    edge="end"
-                                >
-                                    {state.pswdVisibility ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                                </IconButton>
-                            </InputAdornment>
-                        }
                     />
                     <Button sx={{ mb: 2 }} type="submit" variant="contained" color="primary">
                         Login
@@ -104,4 +76,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default LoginPage;

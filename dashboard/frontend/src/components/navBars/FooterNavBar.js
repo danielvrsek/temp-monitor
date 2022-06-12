@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useUserContext } from '../context/AuthContext';
 
-export default function BottomAppBar() {
+const FooterNavBar = () => {
     const [userContext] = useUserContext();
     return (
         <div className="footer">
@@ -48,4 +48,6 @@ export default function BottomAppBar() {
             </div>
         </div>
     );
-}
+};
+
+export default FooterNavBar;
