@@ -1,5 +1,5 @@
 import React from 'react';
-import { getBasePath } from '../utils/pathHelper';
+import { getBasePath } from '../../utils/pathHelper';
 
 const MicrosoftLoginButton = ({ url }) => (
     <a href={getBasePath() + url}>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useUserContext } from '../contexts/AuthContext';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
-import { getBasePath } from '../../components/utils/pathHelper';
+import { getBasePath } from '../../utils/pathHelper';
 import LogoutButton from './LogoutButton';
 
 const NavUser = () => {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getBasePath } from '../components/utils/pathHelper';
+import { getBasePath } from '../utils/pathHelper';
 import { LoginDto, RegisterDto } from 'shared/dto';
 
 const ApiClient = {
