@@ -30,6 +30,7 @@ export class UserService {
     }
 
     async updateAsync(id: string, userDto: UpdateUserDto): Promise<UserViewModel> {
-        return UserMapper.mapToViewModel(await this.model.findByIdAndUpdate(id, userDto, { new: true }));
+        const user = await this.model.findByIdAndUpdate(id, userDto, { new: true });
+        return UserMapper.mapToViewModel(user);
     }
 }

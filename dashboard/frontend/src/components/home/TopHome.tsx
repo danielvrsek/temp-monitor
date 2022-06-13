@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useUserContext } from '../context/AuthContext';
+import { useUserContext } from '../../common/contexts/AuthContext';
 import { Button } from '@mui/material';
 import RegisterModal from '../user/RegisterModal';
 

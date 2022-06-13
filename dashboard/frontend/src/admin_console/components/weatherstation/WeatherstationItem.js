@@ -15,7 +15,7 @@ import {
 
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Line from '../core/Line';
-import { useWorkspaceContext } from '../../../components/context/AuthContext';
+import { useWorkspaceContext } from '../../../common/contexts/AuthContext';
 import ApiClient from '../../../api/ApiClient';
 
 const WeatherstationItem = ({ data, onClick }) => {

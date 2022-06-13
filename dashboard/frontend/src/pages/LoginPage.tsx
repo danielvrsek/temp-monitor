@@ -4,7 +4,7 @@ import { Container, Grid, Paper, Avatar, TextField, Button } from '@mui/material
 import LoginIcon from '@mui/icons-material/Login';
 import ApiClient from '../api/ApiClient';
 import MicrosoftLoginButton from '../components/login/MicrosoftLoginButton';
-import { useUserContext } from '../components/context/AuthContext';
+import { useUserContext } from '../common/contexts/AuthContext';
 
 const LoginPage = () => {
     //Style

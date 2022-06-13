@@ -5,7 +5,7 @@ import ApiClient from '../../../api/ApiClient';
 import Error from '../core/Error';
 import Loading from '../core/Loading';
 import AddUser from './AddUser';
-import { useWorkspaceContext } from '../../../components/context/AuthContext';
+import { useWorkspaceContext } from '../../../common/contexts/AuthContext';
 
 const WorkspaceUsersList = () => {
     const [users, setUsers] = useState();

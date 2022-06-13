@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useUserContext } from '../context/AuthContext';
-import Logout from '../logOut/Logout';
+import { useUserContext } from '../contexts/AuthContext';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
-import { getBasePath } from '../utils/pathHelper';
+import { getBasePath } from '../../components/utils/pathHelper';
+import LogoutButton from './LogoutButton';
 
-const UserLogedIn = () => {
+const NavUser = () => {
     const [userContext] = useUserContext();
 
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [firstName, setFirstName] = useState();
-    const [lastname, setLastname] = useState();
-    const [profilePhotoUrl, setProfilePhotoUrl] = useState();
+    const [firstName, setFirstName] = useState<string>();
+    const [lastname, setLastname] = useState<string>();
+    const [profilePhotoUrl, setProfilePhotoUrl] = useState<string>();
 
     useEffect(() => {
         if (!userContext) {
@@ -36,7 +36,7 @@ const UserLogedIn = () => {
                             {firstName} {lastname}
                         </h3>
                         <div style={{ marginTop: '5px' }}>
-                            <Logout />
+                            <LogoutButton />
                         </div>
                     </Stack>
                 </div>
@@ -47,4 +47,4 @@ const UserLogedIn = () => {
     );
 };
 
-export default UserLogedIn;
+export default NavUser;

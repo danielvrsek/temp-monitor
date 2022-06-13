@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
-import { useWorkspaceContext } from '../../../components/context/AuthContext';
+import { useWorkspaceContext } from '../../../common/contexts/AuthContext';
 import UserItem from './UserItem';
 import AddUser from './AddUser';
 import ApiClient from '../../../api/ApiClient';

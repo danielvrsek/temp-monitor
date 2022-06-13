@@ -2,7 +2,7 @@ import WorkspaceItem from './WorkspaceItem';
 
 import { Container, Grid, Typography } from '@mui/material';
 import ApiClient from '../../../api/ApiClient';
-import { useWorkspaceContext } from '../../../components/context/AuthContext';
+import { useWorkspaceContext } from '../../../common/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const WorkspaceListReady = ({ data }) => {

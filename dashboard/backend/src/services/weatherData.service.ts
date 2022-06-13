@@ -19,25 +19,7 @@ export class WeatherDataService {
         return length;
     }
 
-    async deleteAsync(id: Types.ObjectId): Promise<WeatherData> {
-        return await this.model.findByIdAndRemove(id);
-    }
-
-    async updateAsync(id: Types.ObjectId, item: WeatherData): Promise<WeatherData> {
-        return await this.model.findByIdAndUpdate(id, item, {
-            new: true,
-        });
-    }
-
     sortWeatherData(data: WeatherData[]): WeatherData[] {
         return data.sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime());
-    }
-
-    mapToWeatherDataDto(data: WeatherData[]): WeatherDataDto[] {
-        return data.map((x) => ({
-            temperature: x.temperature,
-            humidity: x.humidity,
-            timestamp: x.timestamp,
-        }));
     }
 }

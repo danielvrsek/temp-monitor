@@ -1,9 +1,9 @@
 import React from 'react';
-import { useUserContext, useWorkspaceContext } from '../context/AuthContext';
 import { NavLink } from 'react-router-dom';
-import UserLogedIn from '../login/UserLogedIn';
+import { useUserContext, useWorkspaceContext } from '../contexts/AuthContext';
+import NavUser from './NavUser';
 
-const MenuAppBar = () => {
+const NavBar = () => {
     const [workspaceContext] = useWorkspaceContext();
     const [userContext] = useUserContext();
 
@@ -34,7 +34,7 @@ const MenuAppBar = () => {
                 )}
                 <div className="right menu">
                     <div className="ui item">
-                        <UserLogedIn />
+                        <NavUser />
                     </div>
                     <div className="ui item" style={{ marginRight: '30px' }}>
                         <h2>- MeteoStanice -</h2>
@@ -45,4 +45,4 @@ const MenuAppBar = () => {
     );
 };
 
-export default MenuAppBar;
+export default NavBar;

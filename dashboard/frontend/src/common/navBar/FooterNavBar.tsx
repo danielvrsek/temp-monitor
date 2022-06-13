@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useUserContext } from '../context/AuthContext';
+import { useUserContext } from '../contexts/AuthContext';
 
 const FooterNavBar = () => {
     const [userContext] = useUserContext();
@@ -40,9 +40,7 @@ const FooterNavBar = () => {
                         ''
                     )}
                     <NavLink to="/in-development" className="item">
-                        <div href="/" className="item">
-                            Obchodní podmínky
-                        </div>
+                        <div className="item">Obchodní podmínky</div>
                     </NavLink>
                 </div>
             </div>

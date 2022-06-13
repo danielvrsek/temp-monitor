@@ -4,7 +4,7 @@ import { Grid, Card, Divider, CardHeader, CardContent, IconButton, Popover, Menu
 
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Line from '../core/Line';
-import { useUserContext, useWorkspaceContext } from '../../../components/context/AuthContext';
+import { useUserContext, useWorkspaceContext } from '../../../common/contexts/AuthContext';
 import ApiClient from '../../../api/ApiClient';
 
 const UserItem = ({ data }) => {

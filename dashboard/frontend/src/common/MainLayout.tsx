@@ -1,12 +1,12 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import FooterNavBar from '../components/navBars/FooterNavBar';
-import MenuAppBar from '../components/navBars/MenuAppBar';
+import NavBar from './navBar/NavBar';
+import FooterNavBar from './navBar/FooterNavBar';
 
 const MainLayout: React.FC = () => {
     return (
         <>
-            <MenuAppBar />
+            <NavBar />
             <div className="container">
                 <Outlet />
             </div>

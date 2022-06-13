@@ -1,44 +1,32 @@
 import { useEffect, useState } from 'react';
-import { UserContext, WorkspaceContext } from './components/context/AuthContext';
+import { useUserContext, useWorkspaceContext } from './common/contexts/AuthContext';
 import ApiClient from './api/ApiClient';
 import Loading from './admin_console/components/core/Loading';
 import AppRouter from './AppRouter';
 
 const App = () => {
-    const [userContext, setUserContext] = useState(null);
-    const [workspaceContext, setWorkspaceContext] = useState(null);
+    const [, setUserContext] = useUserContext();
+    const [, setWorkspaceContext] = useWorkspaceContext();
     const [isUserInitialized, setIsUserInitialized] = useState(false);
     const [isWorkspaceInitialized, setIsWorkspaceInitialized] = useState(false);
 
     useEffect(() => {
         ApiClient.getUserInfo()
-            .then(({ data }) => {
-                setUserContext(data);
-                setIsUserInitialized(true);
-            })
-            .catch(() => setIsUserInitialized(true));
+            .then(({ data }) => setUserContext(data))
+            .finally(() => setIsUserInitialized(true));
     }, []);
 
     useEffect(() => {
         ApiClient.getWorkspaceInfo()
-            .then(({ data }) => {
-                setWorkspaceContext(data);
-                setIsWorkspaceInitialized(true);
-            })
-            .catch(() => setIsWorkspaceInitialized(true));
+            .then(({ data }) => setWorkspaceContext(data))
+            .finally(() => setIsWorkspaceInitialized(true));
     }, []);
 
     if (!isUserInitialized || !isWorkspaceInitialized) {
         return <Loading />;
     }
 
-    return (
-        <UserContext.Provider value={[userContext, setUserContext]}>
-            <WorkspaceContext.Provider value={[workspaceContext, setWorkspaceContext]}>
-                <AppRouter />
-            </WorkspaceContext.Provider>
-        </UserContext.Provider>
-    );
+    return <AppRouter />;
 };
 
 export default App;
