@@ -15,7 +15,7 @@ const LoginPage = () => {
     };
 
     // UseState
-    const [state, setState] = useState({
+    const [state] = useState({
         pswdVisibility: false,
     });
     const [username, setUserName] = useState('');

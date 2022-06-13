@@ -1,6 +1,5 @@
-import Line from '../core/Line';
-
 import { Grid, Card, CardActionArea, CardHeader, CardContent, Divider } from '@mui/material';
+import Line from '../../../common/Line';
 
 const WorkspaceItem = ({ data, onClick }) => {
     const created = new Date(data.createdAt).toLocaleString();

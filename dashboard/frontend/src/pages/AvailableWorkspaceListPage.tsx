@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Error from '../admin_console/components/core/Error';
-import Loading from '../admin_console/components/core/Loading';
 import WorkspaceListReady from '../admin_console/components/workspace/WorkspaceListReady';
 import ApiClient from '../api/ApiClient';
+import Error from '../common/Error';
+import Loading from '../common/Loading';
 import { ApiState } from '../components/common/apiHelper';
 
 const AvailableWorkspaceListPage = () => {

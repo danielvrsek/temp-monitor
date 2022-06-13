@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
-import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
@@ -8,11 +6,11 @@ import Box from '@mui/material/Box';
 import { Container } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 import WorkspaceDetailReady from '../admin_console/components/workspace/WorkspaceDetailReady';
-import Error from '../admin_console/components/core/Error';
-import Loading from '../admin_console/components/core/Loading';
 import WeatherstationListReady from '../admin_console/components/weatherstation/WeatherstationListReady';
 import UserListReady from '../admin_console/components/weatherstation/UserWeatherStationListReady';
 import ApiClient from '../api/ApiClient';
+import Error from '../common/Error';
+import Loading from '../common/Loading';
 
 type Props = {
     index: number;
@@ -20,7 +18,7 @@ type Props = {
     children: JSX.Element;
 };
 
-function TabPanel({ children, value, index, ...other }: Props) {
+const TabPanel: React.FC<Props> = ({ children, value, index, ...other }) => {
     return (
         <div
             role="tabpanel"
@@ -36,12 +34,6 @@ function TabPanel({ children, value, index, ...other }: Props) {
             )}
         </div>
     );
-}
-
-TabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired,
 };
 
 function a11yProps(index: number) {
@@ -67,13 +59,13 @@ const WorkspaceDetailPage = () => {
     useEffect(() => {
         const param = parseInt(searchParams.get('tab') ?? '');
         setValue(param ? param : 0);
-    }, []);
+    }, [searchParams, setValue]);
 
     useEffect(() => {
         if (value !== -1) {
             setSearchParams({ tab: value.toString() });
         }
-    }, [value]);
+    }, [value, setSearchParams]);
 
     useEffect(() => {
         ApiClient.getGateways()

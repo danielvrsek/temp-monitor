@@ -1,11 +1,11 @@
 import { Container, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Error from '../admin_console/components/core/Error';
-import Loading from '../admin_console/components/core/Loading';
-import WeatherstationDetailReady from '../admin_console/components/weatherstation/WeatherstationDetailReady';
-import MainChartLoad from '../admin_console/components/chart/MainChartLoad';
 import ApiClient from '../api/ApiClient';
+import Error from '../common/Error';
+import Loading from '../common/Loading';
+import WeatherstationDetailReady from '../admin_console/components/weatherstation/WeatherstationDetailReady';
+import MainChartLoad from '../components/charts/MainChartLoad';
 
 const WeatherstationDetailPage = () => {
     const { id } = useParams();
