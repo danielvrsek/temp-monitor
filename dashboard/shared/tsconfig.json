@@ -6,12 +6,12 @@
         "declaration": true,
         "declarationMap": true,
         "outDir": "./dist",
-        "rootDir": "./src",
         "strict": true,
         "noImplicitAny": true,
         "typeRoots": ["./src/types"],
         "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "include": ["dto", "authorizations"]
 }

@@ -1,4 +1,4 @@
-import { WeatherDataDto } from 'shared/src/dto';
+import { WeatherDataDto } from 'shared/dto';
 
 export class WeatherDataIterator {
     private lowerIndex: number;

@@ -4,7 +4,7 @@ import { Container, Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useWorkspaceContext } from '../../common/contexts/AuthContext';
 import ApiClient from '../../api/ApiClient';
-import { WorkspaceViewModel } from 'shared/src/dto';
+import { WorkspaceViewModel } from 'shared/dto';
 
 type Props = {
     data: WorkspaceViewModel[];

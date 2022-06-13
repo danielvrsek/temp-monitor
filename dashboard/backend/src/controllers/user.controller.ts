@@ -11,8 +11,8 @@ import { createReadStream } from 'fs';
 import { join } from 'path';
 import { ControllerBase } from './controllerBase';
 import { CookieHelper } from 'utils/cookieHelper';
-import { TokenType } from 'shared/src/authorization';
-import { CreateUserDto, UserViewModel } from 'shared/src/dto';
+import { TokenType } from 'shared/authorization';
+import { CreateUserDto, UserViewModel } from 'shared/dto';
 import { UserMapper } from '../mappers/user.mapper';
 
 @Controller('users')

@@ -3,7 +3,7 @@ import ChartControls from './ChartControls';
 import SimpleLineChart from './SimpleLineChart';
 import { Card } from '@mui/material';
 import { ChartGranularity } from './chartGranularity';
-import { WeatherDataViewModel } from 'shared/src/dto';
+import { WeatherDataViewModel } from 'shared/dto';
 import { lines } from './chartLines';
 
 type Props = {

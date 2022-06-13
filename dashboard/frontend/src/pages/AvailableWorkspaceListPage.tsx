@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { WorkspaceViewModel } from 'shared/src/dto';
+import { WorkspaceViewModel } from 'shared/dto';
 import ApiClient from '../api/ApiClient';
 import Error from '../common/Error';
 import Loading from '../common/Loading';

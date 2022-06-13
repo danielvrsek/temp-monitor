@@ -1,6 +1,6 @@
 import { UserRole } from 'dataLayer/entities/enums/userRole.enum';
 import { User } from 'dataLayer/entities/user.entity';
-import { UserRoleDto, UserViewModel } from 'shared/src/dto';
+import { UserRoleDto, UserViewModel } from 'shared/dto';
 
 export const UserMapper = {
     mapToViewModel: (user: User): UserViewModel => {

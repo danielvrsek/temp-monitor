@@ -1,4 +1,4 @@
-import { WeatherDataDto } from 'shared/src/dto';
+import { WeatherDataDto } from 'shared/dto';
 
 export class WeatherDataIndexer {
     findIndex(

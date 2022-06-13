@@ -1,5 +1,5 @@
 import { Container, Typography, Table, TableBody, TableRow, TableCell } from '@mui/material';
-import { WorkspaceViewModel } from 'shared/src/dto';
+import { WorkspaceViewModel } from 'shared/dto';
 
 type Props = {
     data: WorkspaceViewModel;

@@ -8,7 +8,7 @@ export class Gateway {
 
     @Prop() name: string;
     @Prop() state: GatewayState;
-    @Prop() createdAt: Date;
+    @Prop() createdAt?: Date;
 }
 
 export const GatewaySchema = SchemaFactory.createForClass(Gateway);

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getBasePath } from '../utils/pathHelper';
 import {
+    CreateGatewayResult,
     GatewayViewModel,
     LoginDto,
     RegisterDto,
@@ -9,7 +10,7 @@ import {
     WeatherDataViewModel,
     WorkspaceInfo,
     WorkspaceViewModel,
-} from 'shared/src/dto';
+} from 'shared/dto';
 
 const ApiClient = {
     getUserInfo: async () => getMethod<UserInfo>('/auth/user-info'),
@@ -24,7 +25,7 @@ const ApiClient = {
         getMethod<WeatherDataViewModel[]>(
             `/weather-data/gateway/${gatewayId}?dateFrom=${dateFrom.toISOString()}&dateTo=${dateTo.toISOString()}&granularity=${granularity}`
         ),
-    createGateway: async (name: string) => postMethod<GatewayViewModel>('/gateways', { name }),
+    createGateway: async (name: string) => postMethod<CreateGatewayResult>('/gateways', { name }),
     getGateway: async (gatewayId: string) => getMethod<GatewayViewModel>(`/gateways/${gatewayId}`),
     getGateways: async () => getMethod<GatewayViewModel[]>(`/gateways`),
     removeGatewayFromWokspace: async (gatewayId: string) => deleteMethod<void>(`/gateways/${gatewayId}/workspace`),

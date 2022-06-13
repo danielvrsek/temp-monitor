@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { WeatherData } from 'dataLayer/entities/weatherData.entity';
 import { SchemaConstants } from 'dataLayer/common/schemaConstants';
 import { objectId } from 'utils/schemaHelper';
-import { InsertWeatherDataDto } from 'shared/src/dto';
+import { InsertWeatherDataDto } from 'shared/dto';
 
 @Injectable()
 export class WeatherDataService {

@@ -16,9 +16,9 @@ const style = {
     p: 4,
 };
 
-const AddUser = () => {
+const AddUser: React.FC = () => {
     const [open, setOpen] = useState(false);
-    const [username, setUsername] = useState();
+    const [username, setUsername] = useState<string>('');
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);

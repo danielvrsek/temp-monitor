@@ -14,6 +14,7 @@ export interface GatewayViewModel {
     id: string;
     name: string;
     state: GatewayStateDto;
+    createdAt: Date;
 }
 
 export interface AuthenticateGatewayDto {

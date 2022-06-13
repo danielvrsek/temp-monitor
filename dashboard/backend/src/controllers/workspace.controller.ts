@@ -28,16 +28,18 @@ import { Response } from 'express';
 import { WorkspaceMembershipRepository } from 'dataLayer/repositories/workspaceMembership.repository';
 import { UserRepository } from 'dataLayer/repositories/user.repository';
 import { WorkspaceType } from 'dataLayer/entities/enums/workspaceType.enum';
-import { TokenType } from 'shared/src/authorization';
+import { TokenType } from 'shared/authorization';
 import {
     AddUserToWorkspaceDto,
     CreateWorkspaceDto,
     SetCurrentWorkspaceDto,
     UserDto,
+    UserViewModel,
     WorkspaceViewModel,
-} from 'shared/src/dto';
+} from 'shared/dto';
 import { UserRole } from 'dataLayer/entities/enums/userRole.enum';
 import { WorkspaceMapper } from 'mappers/workspace.mapper';
+import { UserMapper } from 'mappers/user.mapper';
 
 @Controller('workspaces')
 @EnforceTokenType(TokenType.User)
@@ -95,12 +97,13 @@ export class WorkspaceController extends ControllerBase {
     }
 
     @Get(':id')
-    findByIdAsync(@Param('id') id): Promise<Workspace> {
-        return this.workspaceRepository.findByIdAsync(id);
+    async findByIdAsync(@Param('id') id): Promise<WorkspaceViewModel> {
+        const workspace = await this.workspaceRepository.findByIdAsync(id);
+        return WorkspaceMapper.mapToViewModel(workspace);
     }
 
     @Get('current/users')
-    async getAllUsersForWorkspaceAsync(@Req() request: UserRequest<void>): Promise<UserDto[]> {
+    async getAllUsersForWorkspaceAsync(@Req() request: UserRequest<void>): Promise<UserViewModel[]> {
         const workspace = await this.getCurrentWorkspaceAsync(request);
         if (!workspace) {
             throw new UnauthorizedException('No workspace selected.');
@@ -108,13 +111,7 @@ export class WorkspaceController extends ControllerBase {
 
         const memberships = await this.workspaceMembershipRepository.getAllMembershipsByWorkspaceAsync(workspace._id);
         const users = await this.userRepository.findAllByIdsAsync(memberships.map((x) => x.userId));
-        return users.map((x) => ({
-            userId: x._id.toString(),
-            firstName: x.firstName,
-            lastname: x.lastname,
-            email: x.email,
-            username: x.username,
-        }));
+        return users.map(UserMapper.mapToViewModel);
     }
 
     @Post('current/users')

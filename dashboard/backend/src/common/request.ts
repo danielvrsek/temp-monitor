@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
-import { GatewayInfo, UserInfo } from 'shared/src/dto';
+import { GatewayInfo, UserInfo } from 'shared/dto';
 
 export interface ClientRequest<TPayload, TClientInfo> {
     payload: TPayload;

@@ -1,5 +1,5 @@
 import { Grid, Card, CardActionArea, CardHeader, CardContent, Divider } from '@mui/material';
-import { WorkspaceViewModel } from 'shared/src/dto';
+import { WorkspaceViewModel } from 'shared/dto';
 import Line from '../../common/Line';
 
 type Props = {

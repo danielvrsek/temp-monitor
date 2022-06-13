@@ -1,6 +1,11 @@
 import { Typography, Table, TableBody, TableRow, TableCell, Chip } from '@mui/material';
+import { GatewayViewModel } from 'shared/dto';
 
-const WeatherstationDetailReady = ({ data }) => {
+type Props = {
+    data: GatewayViewModel;
+};
+
+const WeatherstationDetailReady: React.FC<Props> = ({ data }) => {
     return (
         <div>
             <Typography mt={8} variant="h3">
@@ -12,7 +17,7 @@ const WeatherstationDetailReady = ({ data }) => {
                         <TableCell>
                             <Typography sx={{ fontWeight: 'bold' }}>Id</Typography>
                         </TableCell>
-                        <TableCell>{data._id}</TableCell>
+                        <TableCell>{data.id}</TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell>
@@ -25,7 +30,11 @@ const WeatherstationDetailReady = ({ data }) => {
                             <Typography sx={{ fontWeight: 'bold' }}>Stav</Typography>
                         </TableCell>
                         <TableCell>
-                            {data.state ? <Chip label="Aktivní" color="success"/> : <Chip label="Čekající" color="warning"/>}
+                            {data.state ? (
+                                <Chip label="Aktivní" color="success" />
+                            ) : (
+                                <Chip label="Čekající" color="warning" />
+                            )}
                         </TableCell>
                     </TableRow>
                 </TableBody>

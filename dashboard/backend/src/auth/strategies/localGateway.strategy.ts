@@ -3,7 +3,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from 'services/auth.service';
 import { Guards } from 'auth/common/guards';
-import { GatewayInfo } from 'shared/src/dto';
+import { GatewayInfo } from 'shared/dto';
 
 @Injectable()
 export class LocalGatewayStrategy extends PassportStrategy(Strategy, Guards.LocalGateway) {

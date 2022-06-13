@@ -5,7 +5,7 @@ import ApiClient from '../api/ApiClient';
 import Error from '../common/Error';
 import Loading from '../common/Loading';
 import MainChartLoad from '../components/charts/MainChartLoad';
-import { GatewayViewModel } from 'shared/src/dto';
+import { GatewayViewModel } from 'shared/dto';
 import WeatherstationDetailReady from '../components/weatherstation/WeatherstationDetailReady';
 
 const WeatherstationDetailPage = () => {

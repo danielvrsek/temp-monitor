@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 
 import {
     Grid,
@@ -17,13 +17,19 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useWorkspaceContext } from '../../common/contexts/AuthContext';
 import ApiClient from '../../api/ApiClient';
 import Line from '../../common/Line';
+import { GatewayViewModel, UserRoleDto } from 'shared/dto';
 
-const WeatherstationItem = ({ data, onClick }) => {
+type Props = {
+    data: GatewayViewModel;
+    onClick: (item: GatewayViewModel) => void;
+};
+
+const WeatherstationItem: React.FC<Props> = ({ data, onClick }) => {
     const [workspaceContext] = useWorkspaceContext();
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
-    const handleOpenSettings = (event) => {
+    const handleOpenSettings = (event: MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
 
@@ -32,13 +38,13 @@ const WeatherstationItem = ({ data, onClick }) => {
     };
 
     const handleRemoveGateway = () => {
-        ApiClient.removeGatewayFromWokspace(data._id).then(() => window.location.reload());
+        ApiClient.removeGatewayFromWokspace(data.id).then(() => window.location.reload());
     };
 
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
-    const popover = workspaceContext.roles.includes('Admin') ? (
+    const popover = workspaceContext?.roles.includes(UserRoleDto.Admin) ? (
         <div>
             <IconButton onClick={handleOpenSettings} aria-label="settings">
                 <MoreVertIcon />
@@ -69,7 +75,7 @@ const WeatherstationItem = ({ data, onClick }) => {
                 <Divider />
                 <CardActionArea onClick={() => onClick(data)}>
                     <CardContent>
-                        <Line header="Id" content={data._id} />
+                        <Line header="Id" content={data.id} />
                         <Line header="Přidáno" content={new Date(data.createdAt).toLocaleString()} />
                     </CardContent>
                 </CardActionArea>

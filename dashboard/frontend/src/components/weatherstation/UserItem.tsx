@@ -6,13 +6,18 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useUserContext, useWorkspaceContext } from '../../common/contexts/AuthContext';
 import Line from '../../common/Line';
 import ApiClient from '../../api/ApiClient';
+import { UserRoleDto, UserViewModel } from 'shared/dto';
 
-const UserItem = ({ data }) => {
+type Props = {
+    data: UserViewModel;
+};
+
+const UserItem: React.FC<Props> = ({ data }) => {
     const [workspaceContext] = useWorkspaceContext();
     const [userContext] = useUserContext();
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
-    const handleOpenSettings = (event) => {
+    const handleOpenSettings = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
 
@@ -21,14 +26,14 @@ const UserItem = ({ data }) => {
     };
 
     const handleUserRemove = () => {
-        ApiClient.removeUserFromCurrentWokspace(data.userId).then(() => window.location.reload());
+        ApiClient.removeUserFromCurrentWokspace(data.id).then(() => window.location.reload());
     };
 
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
     const popover =
-        userContext.userId !== data.userId && workspaceContext.roles.includes('Admin') ? (
+        userContext?.userId !== data.id && workspaceContext?.roles.includes(UserRoleDto.Admin) ? (
             <div>
                 <IconButton onClick={handleOpenSettings} aria-label="settings">
                     <MoreVertIcon />
@@ -53,14 +58,13 @@ const UserItem = ({ data }) => {
         );
 
     return (
-        <Grid item xs={12} sm={6} md={4} lg={3} key={data.userId}>
+        <Grid key={data.id} item xs={12} sm={6} md={4} lg={3}>
             <Card>
                 <CardHeader title={`${data.firstName} ${data.lastname}`} action={popover} />
                 <Divider />
                 <CardContent>
-                    <Line header="User id" content={data.userId} />
+                    <Line header="User id" content={data.id} />
                     <Line header="Email" content={data.email} />
-                    <Line header="Username" content={data.username} />
                 </CardContent>
             </Card>
         </Grid>

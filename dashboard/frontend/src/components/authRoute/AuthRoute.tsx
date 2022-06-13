@@ -2,9 +2,12 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../common/contexts/AuthContext';
 
-const AuthRoute = (props) => {
+type Props = {
+    children: JSX.Element;
+};
+
+const AuthRoute: React.FC<Props> = ({ children }) => {
     const [user] = useUserContext();
-    const { children } = props;
     const navigate = useNavigate();
 
     useEffect(() => {

@@ -8,10 +8,10 @@ import { useSearchParams } from 'react-router-dom';
 import ApiClient from '../api/ApiClient';
 import Error from '../common/Error';
 import Loading from '../common/Loading';
-import { GatewayViewModel, WorkspaceViewModel } from 'shared/src/dto';
+import { WorkspaceViewModel } from 'shared/dto';
 import WorkspaceDetailReady from '../components/workspace/WorkspaceDetailReady';
-import WeatherstationListReady from '../components/weatherstation/WeatherstationListReady';
-import UserListReady from '../components/weatherstation/UserWeatherStationListReady';
+import WeatherstationListLoader from '../components/weatherstation/WeatherstationListLoader';
+import UserListLoader from '../components/weatherstation/UserListLoader';
 
 type Props = {
     index: number;
@@ -45,13 +45,10 @@ function a11yProps(index: number) {
 }
 
 const WorkspaceDetailPage = () => {
-    const [gateways, setGateways] = useState<GatewayViewModel[]>();
     const [currentWorkspace, setCurrentWorkspace] = useState<WorkspaceViewModel>();
     const [value, setValue] = useState<number>(-1);
-    const [detailStatus, setDetailStatus] = useState('loading');
-    const [listStatus, setListStatus] = useState('loading');
-
     const [searchParams, setSearchParams] = useSearchParams();
+    const [error, setError] = useState();
 
     const handleChange = (_: any, newValue: number) => {
         setValue(newValue);
@@ -69,59 +66,28 @@ const WorkspaceDetailPage = () => {
     }, [value, setSearchParams]);
 
     useEffect(() => {
-        ApiClient.getGateways()
-            .then((response) => {
-                setGateways(response.data);
-                setListStatus('success');
-            })
-            .catch((error) => {
-                setListStatus('error');
-                return error;
-            });
-    }, []);
-
-    useEffect(() => {
         ApiClient.getCurrentWorkspace()
             .then((response) => {
                 setCurrentWorkspace(response.data);
-                setDetailStatus('success');
             })
             .catch((error) => {
-                setDetailStatus('error');
-                return error;
+                setError(error);
             });
     }, []);
 
-    let detailResult;
-    let listResult;
-
-    switch (detailStatus) {
-        case 'success':
-            detailResult = <WorkspaceDetailReady data={currentWorkspace as WorkspaceViewModel} />;
-            break;
-        case 'error':
-            detailResult = <Error content="Error" />;
-            break;
-        default:
-            detailResult = <Loading />;
-            break;
+    if (error) {
+        return <Error content={error} />;
     }
 
-    switch (listStatus) {
-        case 'success':
-            listResult = <WeatherstationListReady data={gateways} />;
-            break;
-        case 'error':
-            listResult = <Error content="Error" />;
-            break;
-        default:
-            listResult = <Loading />;
-            break;
+    if (!currentWorkspace) {
+        return <Loading />;
     }
 
     return (
         <Container sx={{ pt: 4 }}>
-            <div style={{ marginBottom: '20px' }}>{detailResult}</div>
+            <div style={{ marginBottom: '20px' }}>
+                <WorkspaceDetailReady data={currentWorkspace as WorkspaceViewModel} />
+            </div>
             <Box>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
@@ -130,10 +96,10 @@ const WorkspaceDetailPage = () => {
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
-                    {listResult}
+                    <WeatherstationListLoader />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    <UserListReady />
+                    <UserListLoader />
                 </TabPanel>
             </Box>
         </Container>

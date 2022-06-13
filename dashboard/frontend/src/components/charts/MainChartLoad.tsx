@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MainChartReady from './MainChartReady';
 import { ChartGranularity, granularityList } from './chartGranularity';
 import ApiClient from '../../api/ApiClient';
-import { GatewayViewModel, WeatherDataViewModel } from 'shared/src/dto';
+import { GatewayViewModel, WeatherDataViewModel } from 'shared/dto';
 import Error from '../../common/Error';
 import Loading from '../../common/Loading';
 

@@ -1,5 +1,5 @@
 import { Workspace } from 'dataLayer/entities/workspace.entity';
-import { WorkspaceViewModel } from 'shared/src/dto';
+import { WorkspaceViewModel } from 'shared/dto';
 
 export const WorkspaceMapper = {
     mapToViewModel: (workspace: Workspace): WorkspaceViewModel => {
