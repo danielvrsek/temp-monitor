@@ -1,20 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import { Model, Types } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
+import { Types } from 'mongoose';
 import { WeatherData } from 'dataLayer/entities/weatherData.entity';
 import { SchemaConstants } from 'dataLayer/common/schemaConstants';
 import { objectId } from 'utils/schemaHelper';
 import { InsertWeatherDataDto } from 'shared/dto';
+import { UnitOfWork, UnitOfWorkFactory } from 'dataLayer/unitOfWork';
 
 @Injectable()
 export class WeatherDataService {
-    constructor(@InjectModel(SchemaConstants.WeatherData) private readonly model: Model<WeatherData>) {}
+    private unitOfWork: UnitOfWork<WeatherData>;
 
+    constructor(unitOfWorkFactory: UnitOfWorkFactory) {
+        this.unitOfWork = unitOfWorkFactory.create<WeatherData>(SchemaConstants.WeatherData);
+    }
     async insertAsync(gatewayId: Types.ObjectId, dto: InsertWeatherDataDto): Promise<number> {
         const length = dto.data.length;
-        await this.model.insertMany(
-            dto.data.map((data) => new this.model({ gatewayId: objectId(gatewayId), ...data }))
-        );
+        await this.unitOfWork.insertManyAsync(dto.data.map((data) => ({ gatewayId: objectId(gatewayId), ...data })));
 
         return length;
     }

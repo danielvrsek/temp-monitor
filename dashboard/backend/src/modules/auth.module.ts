@@ -1,40 +1,36 @@
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
-import { JwtModule } from '@nestjs/jwt';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 import { AuthConstants } from 'auth/common/authConstants';
-import { UserModule } from './user.module';
 import { LocalUserStrategy } from 'auth/strategies/localUser.strategy';
 import { JwtStrategy } from 'auth/strategies/jwt.strategy';
-import { AuthService } from 'services/auth.service';
-import { AuthController } from 'controllers/auth.controller';
-import { GatewayModule } from './gateway.module';
+import { AuthService } from 'auth/auth.service';
 import { LocalGatewayStrategy } from 'auth/strategies/localGateway.strategy';
 import { SharedModule } from './shared.module';
-import { WorkspaceModule } from './workspace.module';
 import { MicrosoftAuthorizationService } from 'services/microsoftAuthorizationService';
-import { ExternalAuthController } from 'controllers/externalAuth.controller';
 import { MicrosoftGraphApi } from 'services/microsoftGraphApi';
+import { DataLayerModule } from './dataLayer.module';
+import { ServicesModule } from './services.module';
 
 @Module({
     imports: [
-        UserModule,
-        GatewayModule,
         PassportModule,
         JwtModule.register({
             secret: AuthConstants.JwtSecret,
             signOptions: { expiresIn: '240s' },
         }),
+        DataLayerModule,
+        ServicesModule,
         SharedModule,
-        WorkspaceModule,
     ],
-    controllers: [AuthController, ExternalAuthController],
     providers: [
-        AuthService,
+        JwtService,
         LocalUserStrategy,
         LocalGatewayStrategy,
         JwtStrategy,
         MicrosoftGraphApi,
         MicrosoftAuthorizationService,
+        AuthService,
     ],
     exports: [AuthService],
 })

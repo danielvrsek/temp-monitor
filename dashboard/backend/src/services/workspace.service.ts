@@ -1,56 +1,30 @@
 import { Injectable } from '@nestjs/common';
-import { Model, Types } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
+import { Types } from 'mongoose';
 import { Workspace } from 'dataLayer/entities/workspace.entity';
 import { SchemaConstants } from 'dataLayer/common/schemaConstants';
-import { WorkspaceMembership } from 'dataLayer/entities/workspaceMembership.entity';
-import { WorkspaceMembershipRepository } from 'dataLayer/repositories/workspaceMembership.repository';
-import { UserRole } from 'dataLayer/entities/enums/userRole.enum';
 import { WorkspaceType } from 'dataLayer/entities/enums/workspaceType.enum';
-import { CreateWorkspaceDto } from 'shared/dto';
+import { CreateWorkspaceDto, UpdateWorkspaceDto } from 'shared/dto';
+import { UnitOfWork, UnitOfWorkFactory } from 'dataLayer/unitOfWork';
+import { WorkspaceRepository } from 'dataLayer/repositories/workspace.repository';
 
 @Injectable()
 export class WorkspaceService {
-    constructor(
-        @InjectModel(SchemaConstants.Workspace) private readonly model: Model<Workspace>,
-        @InjectModel(SchemaConstants.WorkspaceMembership) private readonly membershipModel: Model<WorkspaceMembership>,
-        private readonly workspaceMembershipRepository: WorkspaceMembershipRepository
-    ) {}
+    private unitOfWork: UnitOfWork<Workspace>;
 
-    async createAsync(item: CreateWorkspaceDto, workspaceType: WorkspaceType): Promise<Workspace> {
-        const newItem = new this.model({ ...item, type: workspaceType });
-        return await newItem.save();
+    constructor(unitOfWorkFactory: UnitOfWorkFactory) {
+        this.unitOfWork = unitOfWorkFactory.create<Workspace>(SchemaConstants.Workspace);
+    }
+    createAsync(item: CreateWorkspaceDto, workspaceType: WorkspaceType): Promise<Workspace> {
+        return this.unitOfWork.insertAsync({ ...item, type: workspaceType });
     }
 
-    async deleteAsync(id: Types.ObjectId): Promise<Workspace> {
-        return await this.model.findByIdAndRemove(id);
+    deleteAsync(id: Types.ObjectId): Promise<Workspace> {
+        return this.unitOfWork.deleteByIdAsync(id);
     }
 
-    async updateAsync(id: Types.ObjectId, item: Workspace): Promise<Workspace> {
-        return await this.model.findByIdAndUpdate(id, item, {
-            new: true,
+    updateAsync(id: Types.ObjectId, updateDto: UpdateWorkspaceDto): Promise<Workspace> {
+        return this.unitOfWork.updateWithCallbackAsync(id, (workspace) => {
+            workspace.name = updateDto.name;
         });
-    }
-
-    async addUserToWorkspaceAsync(workspaceId: Types.ObjectId, userId: Types.ObjectId, roles: UserRole[]) {
-        const newItem = new this.membershipModel({
-            workspaceId,
-            userId,
-            roles,
-        });
-        return await newItem.save();
-    }
-
-    async removeUserFromWorkspace(workspaceId: Types.ObjectId, userId: Types.ObjectId): Promise<Types.ObjectId> {
-        const membership = await this.workspaceMembershipRepository.getMembershipForUserByWorkspaceAsync(
-            userId,
-            workspaceId
-        );
-        if (!membership) {
-            return null;
-        }
-
-        await this.membershipModel.remove({ _id: membership._id });
-        return membership._id;
     }
 }

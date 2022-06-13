@@ -1,11 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Types } from 'mongoose';
+import { Entity } from './entity';
 import { GatewayState } from './enums/gatewayState.enum';
 
 @Schema({ timestamps: true })
-export class Gateway {
-    _id: Types.ObjectId;
-
+export class Gateway extends Entity {
     @Prop() name: string;
     @Prop() state: GatewayState;
     @Prop() createdAt?: Date;

@@ -1,19 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { Model } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
 import { encodePassword } from 'utils/bcrypt';
 import { User } from 'dataLayer/entities/user.entity';
-import { SchemaConstants } from 'dataLayer/common/schemaConstants';
 import { CreateUserDto, UpdateUserDto, UserViewModel } from 'shared/dto';
 import { UserMapper } from 'mappers/user.mapper';
+import { UnitOfWork, UnitOfWorkFactory } from 'dataLayer/unitOfWork';
+import { SchemaConstants } from 'dataLayer/common/schemaConstants';
+import { objectId } from 'utils/schemaHelper';
 
 @Injectable()
 export class UserService {
-    constructor(@InjectModel(SchemaConstants.User) private readonly model: Model<User>) {}
+    private unitOfWork: UnitOfWork<User>;
+
+    constructor(unitOfWorkFactory: UnitOfWorkFactory) {
+        this.unitOfWork = unitOfWorkFactory.create<User>(SchemaConstants.User);
+    }
 
     async createAsync(user: CreateUserDto): Promise<User> {
         const passwordHash = !user.isExternal ? encodePassword(user.passwordRaw) : null;
-        const newUser = new this.model({
+        return await this.unitOfWork.insertAsync({
             firstName: user.firstName,
             lastname: user.lastname,
             email: user.email,
@@ -22,15 +26,17 @@ export class UserService {
             profilePhotoUrl: user.profilePhotoUrl,
             passwordHash,
         });
-        return await newUser.save();
     }
 
     async deleteAsync(id: string): Promise<UserViewModel> {
-        return await this.model.findByIdAndRemove(id);
+        return UserMapper.mapToViewModel(await this.unitOfWork.deleteByIdAsync(objectId(id)));
     }
 
     async updateAsync(id: string, userDto: UpdateUserDto): Promise<UserViewModel> {
-        const user = await this.model.findByIdAndUpdate(id, userDto, { new: true });
+        const user = await this.unitOfWork.updateWithCallbackAsync(objectId(id), (user) => {
+            user.firstName = userDto.firstName;
+            user.lastname = userDto.lastname;
+        });
         return UserMapper.mapToViewModel(user);
     }
 }

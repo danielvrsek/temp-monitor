@@ -33,13 +33,13 @@ import {
     AddUserToWorkspaceDto,
     CreateWorkspaceDto,
     SetCurrentWorkspaceDto,
-    UserDto,
     UserViewModel,
     WorkspaceViewModel,
 } from 'shared/dto';
 import { UserRole } from 'dataLayer/entities/enums/userRole.enum';
 import { WorkspaceMapper } from 'mappers/workspace.mapper';
 import { UserMapper } from 'mappers/user.mapper';
+import { WorkspaceMembershipService } from 'services/workspaceMembership.service';
 
 @Controller('workspaces')
 @EnforceTokenType(TokenType.User)
@@ -47,6 +47,7 @@ import { UserMapper } from 'mappers/user.mapper';
 export class WorkspaceController extends ControllerBase {
     constructor(
         private readonly workspaceMembershipRepository: WorkspaceMembershipRepository,
+        private readonly workspaceMembershipService: WorkspaceMembershipService,
         private readonly workspaceRepository: WorkspaceRepository,
         private readonly workspaceService: WorkspaceService,
         private readonly userRepository: UserRepository,
@@ -129,7 +130,7 @@ export class WorkspaceController extends ControllerBase {
             throw new BadRequestException('User does not exist');
         }
 
-        await this.workspaceService.addUserToWorkspaceAsync(workspace._id, user._id, [UserRole.User]);
+        await this.workspaceMembershipService.addUserToWorkspaceAsync(workspace._id, user._id, [UserRole.User]);
     }
 
     @Delete('current/users/:userId')
@@ -139,7 +140,7 @@ export class WorkspaceController extends ControllerBase {
             throw new UnauthorizedException('No workspace selected.');
         }
 
-        if (!(await this.workspaceService.removeUserFromWorkspace(workspace._id, objectId(userId)))) {
+        if (!(await this.workspaceMembershipService.removeUserFromWorkspace(workspace._id, objectId(userId)))) {
             throw new BadRequestException();
         }
     }
@@ -151,7 +152,7 @@ export class WorkspaceController extends ControllerBase {
     ): Promise<WorkspaceViewModel> {
         const user = await this.getCurrentUserAsync(request);
         const workspace = await this.workspaceService.createAsync(createDto, WorkspaceType.Private);
-        await this.workspaceService.addUserToWorkspaceAsync(workspace._id, user._id, [UserRole.Admin]);
+        await this.workspaceMembershipService.addUserToWorkspaceAsync(workspace._id, user._id, [UserRole.Admin]);
 
         return WorkspaceMapper.mapToViewModel(workspace);
     }

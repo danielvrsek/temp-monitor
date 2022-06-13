@@ -10,7 +10,7 @@ import { MicrosoftAuthorizationService } from 'services/microsoftAuthorizationSe
 import { MicrosoftGraphApi } from 'services/microsoftGraphApi';
 import { UserRepository } from 'dataLayer/repositories/user.repository';
 import { UserService } from 'services/user.service';
-import { AuthService } from 'services/auth.service';
+import { AuthService } from 'auth/auth.service';
 import { cookieOptions, Cookies } from 'common/cookies';
 import { AssetService } from 'services/assetService';
 import * as msal from '@azure/msal-node';

@@ -20,7 +20,7 @@ import { UserRequest } from 'common/request';
 import { UserRepository } from 'dataLayer/repositories/user.repository';
 import { WorkspaceRepository } from 'dataLayer/repositories/workspace.repository';
 import { Response } from 'express';
-import { AuthService } from 'services/auth.service';
+import { AuthService } from 'auth/auth.service';
 import { CookieHelper } from 'utils/cookieHelper';
 import { ControllerBase } from './controllerBase';
 import { UserService } from '../services/user.service';

@@ -1,4 +1,4 @@
-import { BadRequestException, HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Cookies } from 'common/cookies';
 import { GatewayRepository } from 'dataLayer/repositories/gateway.repository';
@@ -8,11 +8,10 @@ import { WorkspaceMembershipRepository } from 'dataLayer/repositories/workspaceM
 import { comparePasswords } from 'utils/bcrypt';
 import { objectId } from 'utils/schemaHelper';
 import { Types } from 'mongoose';
-import { GatewayService } from './gateway.service';
+import { GatewayService } from '../services/gateway.service';
 import { GatewayInfo, UserInfo, UserRoleDto } from 'shared/dto';
 import { TokenType } from 'shared/authorization';
 import { GatewayState } from 'dataLayer/entities/enums/gatewayState.enum';
-import { UserRole } from 'dataLayer/entities/enums/userRole.enum';
 import { GatewayMapper } from 'mappers/gateway.mapper';
 import { UserMapper } from 'mappers/user.mapper';
 

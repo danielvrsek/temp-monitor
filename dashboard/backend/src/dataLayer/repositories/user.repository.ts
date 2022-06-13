@@ -4,17 +4,20 @@ import { Types } from 'mongoose';
 import { Model } from 'mongoose';
 import { User } from 'dataLayer/entities/user.entity';
 import { SchemaConstants } from 'dataLayer/common/schemaConstants';
+import { Repository } from './respository';
 
 @Injectable()
-export class UserRepository {
-    constructor(@InjectModel(SchemaConstants.User) private readonly model: Model<User>) {}
+export class UserRepository extends Repository<User> {
+    constructor(@InjectModel(SchemaConstants.User) model: Model<User>) {
+        super(model);
+    }
 
-    async findAllAsync(): Promise<User[]> {
-        return await this.model.find();
+    findAllAsync(): Promise<User[]> {
+        return super.findAllAsync();
     }
 
     async findByIdAsync(id: Types.ObjectId): Promise<User> {
-        const user = await this.model.findById(id);
+        const user = await super.findByIdAsync(id);
         if (!user) {
             throw new HttpException('User with this ID does not exist', HttpStatus.NOT_FOUND);
         }
@@ -22,16 +25,12 @@ export class UserRepository {
         return user;
     }
 
-    async findAllByIdsAsync(userIds: Types.ObjectId[]): Promise<User[]> {
-        return await this.model.find({
-            _id: {
-                $in: userIds,
-            },
-        });
+    findAllByIdsAsync(userIds: Types.ObjectId[]): Promise<User[]> {
+        return super.findAllByIdAsync(userIds);
     }
 
     async findByUsernameAsync(username: string): Promise<User> {
-        const user = await this.model.findOne({ username });
+        const user = await super.findOneAsync({ username });
         if (!user) {
             return null;
         }

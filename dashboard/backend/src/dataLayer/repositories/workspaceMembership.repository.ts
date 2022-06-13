@@ -4,23 +4,26 @@ import { InjectModel } from '@nestjs/mongoose';
 import { SchemaConstants } from 'dataLayer/common/schemaConstants';
 import { Types } from 'mongoose';
 import { WorkspaceMembership } from 'dataLayer/entities/workspaceMembership.entity';
+import { Repository } from './respository';
 
 @Injectable()
-export class WorkspaceMembershipRepository {
-    constructor(@InjectModel(SchemaConstants.WorkspaceMembership) private readonly model: Model<WorkspaceMembership>) {}
+export class WorkspaceMembershipRepository extends Repository<WorkspaceMembership> {
+    constructor(@InjectModel(SchemaConstants.WorkspaceMembership) model: Model<WorkspaceMembership>) {
+        super(model);
+    }
 
     async getMembershipForUserByWorkspaceAsync(
         userId: Types.ObjectId,
         workspaceId: Types.ObjectId
     ): Promise<WorkspaceMembership> {
-        return await this.model.findOne({ userId, workspaceId });
+        return await this.findOneAsync({ userId, workspaceId });
     }
 
     async getAllMembershipsForUserAsync(userId: Types.ObjectId): Promise<WorkspaceMembership[]> {
-        return await this.model.find({ userId });
+        return await super.findAsync({ userId });
     }
 
     async getAllMembershipsByWorkspaceAsync(workspaceId: Types.ObjectId): Promise<WorkspaceMembership[]> {
-        return await this.model.find({ workspaceId });
+        return await super.findAsync({ workspaceId });
     }
 }

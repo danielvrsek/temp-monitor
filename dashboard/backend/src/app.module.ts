@@ -1,15 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AuthModule } from './modules/auth.module';
-import { GatewayModule } from './modules/gateway.module';
-import { UserModule } from './modules/user.module';
-import { WeatherDataModule } from './modules/weatherData.module';
-import { WorkspaceModule } from './modules/workspace.module';
 import { CommandModule } from 'nestjs-command';
 import { SeedCommand } from 'seed/seed.command';
 import { SharedModule } from 'modules/shared.module';
 import { ConfigurationProvider } from 'configuration/configuration';
+import { DataLayerModule } from 'modules/dataLayer.module';
+import { ServicesModule } from 'modules/services.module';
+import { ControllersModule } from 'modules/controllers.module';
+import { AuthModule } from 'modules/auth.module';
 
 @Module({
     imports: [
@@ -23,15 +22,13 @@ import { ConfigurationProvider } from 'configuration/configuration';
         ConfigModule.forRoot({
             isGlobal: true,
         }),
-        SharedModule,
+        DataLayerModule,
+        ServicesModule,
         AuthModule,
-        UserModule,
-        WeatherDataModule,
-        WorkspaceModule,
-        GatewayModule,
+        ControllersModule,
+        SharedModule,
         CommandModule,
     ],
-    providers: [SeedCommand, ConfigurationProvider],
-    exports: [ConfigurationProvider],
+    providers: [SeedCommand],
 })
 export class AppModule {}

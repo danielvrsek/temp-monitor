@@ -7,12 +7,14 @@ import { GatewayService } from 'services/gateway.service';
 import { WorkspaceType } from 'dataLayer/entities/enums/workspaceType.enum';
 import { objectId } from 'utils/schemaHelper';
 import { UserRole } from 'dataLayer/entities/enums/userRole.enum';
+import { WorkspaceMembershipService } from 'services/workspaceMembership.service';
 
 @Injectable()
 export class SeedCommand {
     constructor(
         private readonly userService: UserService,
         private readonly workspaceService: WorkspaceService,
+        private readonly workspaceMembershipService: WorkspaceMembershipService,
         private readonly gatewayService: GatewayService
     ) {}
 
@@ -67,21 +69,25 @@ export class SeedCommand {
         );
         console.log(workspace1);
 
-        const workspaceMembership1 = await this.workspaceService.addUserToWorkspaceAsync(
+        const workspaceMembership1 = await this.workspaceMembershipService.addUserToWorkspaceAsync(
             adminWorkspace._id,
             superAdmin._id,
             [UserRole.Admin]
         );
         console.log(workspaceMembership1);
 
-        const workspaceMembership2 = await this.workspaceService.addUserToWorkspaceAsync(workspace1._id, user1._id, [
-            UserRole.User,
-        ]);
+        const workspaceMembership2 = await this.workspaceMembershipService.addUserToWorkspaceAsync(
+            workspace1._id,
+            user1._id,
+            [UserRole.User]
+        );
         console.log(workspaceMembership2);
 
-        const workspaceMembership3 = await this.workspaceService.addUserToWorkspaceAsync(workspace1._id, user2._id, [
-            UserRole.Admin,
-        ]);
+        const workspaceMembership3 = await this.workspaceMembershipService.addUserToWorkspaceAsync(
+            workspace1._id,
+            user2._id,
+            [UserRole.Admin]
+        );
         console.log(workspaceMembership3);
 
         const gateway1 = await this.gatewayService.createWithIdAsync(workspace1._id, {

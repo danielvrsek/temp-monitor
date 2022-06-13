@@ -2,11 +2,10 @@ import { Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { SchemaConstants } from 'dataLayer/common/schemaConstants';
 import { GatewayAuthorizationType } from './enums/gatewayAuthorizationType';
+import { Entity } from './entity';
 
 @Schema({ timestamps: true })
-export class GatewayAuthorization {
-    _id: Types.ObjectId;
-
+export class GatewayAuthorization extends Entity {
     @Prop() secret: string;
 
     @Prop() authorizationType: GatewayAuthorizationType;

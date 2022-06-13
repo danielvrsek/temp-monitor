@@ -1,10 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Types } from 'mongoose';
+import { Entity } from './entity';
 
 @Schema({ timestamps: true })
-export class User {
-    _id: Types.ObjectId;
-
+export class User extends Entity {
     @Prop() firstName: string;
     @Prop() lastname: string;
     @Prop() email: string;

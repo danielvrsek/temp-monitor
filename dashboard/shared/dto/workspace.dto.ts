@@ -19,6 +19,10 @@ export interface CreateWorkspaceDto {
     name: string;
 }
 
+export interface UpdateWorkspaceDto {
+    name: string;
+}
+
 export interface SetCurrentWorkspaceDto {
     workspaceId: string;
 }
