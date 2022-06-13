@@ -32,8 +32,8 @@ const RegisterModal = () => {
             firstName: data['firstName'],
             lastname: data['lastname'],
             email: data['email'],
-            password: data['password'],
-        });
+            passwordRaw: data['password'],
+        }).then();
     };
 
     return (

@@ -53,9 +53,7 @@ export class WeatherDataController extends ControllerBase {
             granularity = this.weatherDataGranuralityService.calculateGranularity(dateFrom, dateTo);
         }
 
-        dataDto = this.weatherDataGranuralityService.transformByGranularity(dataDto, dateFrom, dateTo, granularity);
-
-        return dataDto;
+        return this.weatherDataGranuralityService.transformByGranularity(dataDto, dateFrom, dateTo, granularity);
     }
 
     @Post()

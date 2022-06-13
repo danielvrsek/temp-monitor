@@ -14,6 +14,11 @@ export interface UserViewModel {
     profilePhotoUrl: string;
 }
 
+export interface LoginDto {
+    username: string;
+    password: string;
+}
+
 export interface RegisterDto {
     firstName: string;
     lastname: string;

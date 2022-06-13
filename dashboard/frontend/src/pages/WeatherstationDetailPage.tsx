@@ -11,9 +11,14 @@ const WeatherstationDetailPage = () => {
     const { id } = useParams();
 
     const [data, setData] = useState(null);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
+        if (!id) {
+            setError('Bad request');
+            return;
+        }
+
         ApiClient.getGateway(id)
             .then(({ data }) => setData(data))
             .catch((e) => setError(e));
