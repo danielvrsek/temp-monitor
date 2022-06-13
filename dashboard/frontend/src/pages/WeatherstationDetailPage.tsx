@@ -4,13 +4,14 @@ import { useEffect, useState } from 'react';
 import ApiClient from '../api/ApiClient';
 import Error from '../common/Error';
 import Loading from '../common/Loading';
-import WeatherstationDetailReady from '../admin_console/components/weatherstation/WeatherstationDetailReady';
 import MainChartLoad from '../components/charts/MainChartLoad';
+import { GatewayViewModel } from 'shared/src/dto';
+import WeatherstationDetailReady from '../components/weatherstation/WeatherstationDetailReady';
 
 const WeatherstationDetailPage = () => {
     const { id } = useParams();
 
-    const [data, setData] = useState(null);
+    const [data, setData] = useState<GatewayViewModel | null>(null);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {

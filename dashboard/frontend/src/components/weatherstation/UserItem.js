@@ -3,9 +3,9 @@ import React from 'react';
 import { Grid, Card, Divider, CardHeader, CardContent, IconButton, Popover, MenuList, MenuItem } from '@mui/material';
 
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { useUserContext, useWorkspaceContext } from '../../../common/contexts/AuthContext';
-import ApiClient from '../../../api/ApiClient';
-import Line from '../../../common/Line';
+import { useUserContext, useWorkspaceContext } from '../../common/contexts/AuthContext';
+import Line from '../../common/Line';
+import ApiClient from '../../api/ApiClient';
 
 const UserItem = ({ data }) => {
     const [workspaceContext] = useWorkspaceContext();

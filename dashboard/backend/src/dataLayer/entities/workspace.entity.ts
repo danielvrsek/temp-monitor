@@ -8,6 +8,7 @@ export class Workspace {
 
     @Prop() name: string;
     @Prop() type: WorkspaceType;
+    @Prop() createdAt: Date;
 }
 
 export const WorkspaceSchema = SchemaFactory.createForClass(Workspace);

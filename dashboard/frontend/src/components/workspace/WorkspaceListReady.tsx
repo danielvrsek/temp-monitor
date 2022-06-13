@@ -1,16 +1,21 @@
 import WorkspaceItem from './WorkspaceItem';
 
 import { Container, Grid, Typography } from '@mui/material';
-import ApiClient from '../../../api/ApiClient';
-import { useWorkspaceContext } from '../../../common/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { useWorkspaceContext } from '../../common/contexts/AuthContext';
+import ApiClient from '../../api/ApiClient';
+import { WorkspaceViewModel } from 'shared/src/dto';
 
-const WorkspaceListReady = ({ data }) => {
+type Props = {
+    data: WorkspaceViewModel[];
+};
+
+const WorkspaceListReady: React.FC<Props> = ({ data }) => {
     const navigate = useNavigate();
     const [, setWorkspaceContext] = useWorkspaceContext();
 
-    const handleItemOnClick = (item) => {
-        ApiClient.setUserWorkspace(item._id)
+    const handleItemOnClick = (item: WorkspaceViewModel) => {
+        ApiClient.setUserWorkspace(item.id)
             .then(() => ApiClient.getWorkspaceInfo().then(({ data }) => setWorkspaceContext(data)))
             .then(() => navigate('/workspace'));
     };
@@ -22,7 +27,7 @@ const WorkspaceListReady = ({ data }) => {
             </Typography>
             <Grid container spacing={2}>
                 {data.length ? (
-                    data.map((item) => <WorkspaceItem key={item._id} data={item} onClick={handleItemOnClick} />)
+                    data.map((item) => <WorkspaceItem key={item.id} data={item} onClick={handleItemOnClick} />)
                 ) : (
                     <div>Žádná dostupná zóna</div>
                 )}

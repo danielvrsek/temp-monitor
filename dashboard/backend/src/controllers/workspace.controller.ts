@@ -28,16 +28,16 @@ import { Response } from 'express';
 import { WorkspaceMembershipRepository } from 'dataLayer/repositories/workspaceMembership.repository';
 import { UserRepository } from 'dataLayer/repositories/user.repository';
 import { WorkspaceType } from 'dataLayer/entities/enums/workspaceType.enum';
-import { GatewayService } from 'services/gateway.service';
-import { TokenType } from 'shared/dist/authorization';
+import { TokenType } from 'shared/src/authorization';
 import {
     AddUserToWorkspaceDto,
     CreateWorkspaceDto,
-    CurrentWorkspaceViewModel,
     SetCurrentWorkspaceDto,
     UserDto,
-} from 'shared/dist/dto';
+    WorkspaceViewModel,
+} from 'shared/src/dto';
 import { UserRole } from 'dataLayer/entities/enums/userRole.enum';
+import { WorkspaceMapper } from 'mappers/workspace.mapper';
 
 @Controller('workspaces')
 @EnforceTokenType(TokenType.User)
@@ -59,21 +59,22 @@ export class WorkspaceController extends ControllerBase {
     }
 
     @Get('user')
-    async findAllForCurrentUserAsync(@Req() request: UserRequest<void>): Promise<Workspace[]> {
+    async findAllForCurrentUserAsync(@Req() request: UserRequest<void>): Promise<WorkspaceViewModel[]> {
         const userId = objectId(request.user.userId);
         const memberships = await this.workspaceMembershipRepository.getAllMembershipsForUserAsync(userId);
 
-        return this.workspaceRepository.findAllByIdsAsync(memberships.map((x) => x.workspaceId));
+        const data = await this.workspaceRepository.findAllByIdsAsync(memberships.map((x) => x.workspaceId));
+        return data.map(WorkspaceMapper.mapToViewModel);
     }
 
     @Get('user/current')
-    async getCurrentAsync(@Req() request: UserRequest<void>): Promise<CurrentWorkspaceViewModel> {
+    async getCurrentAsync(@Req() request: UserRequest<void>): Promise<WorkspaceViewModel> {
         const workspace = await this.getCurrentWorkspaceAsync(request);
         if (!workspace) {
             throw new UnauthorizedException('No workspace selected.');
         }
 
-        return await this.workspaceRepository.findByIdAsync(workspace._id);
+        return WorkspaceMapper.mapToViewModel(workspace);
     }
 
     @Put('user/current')
@@ -147,11 +148,14 @@ export class WorkspaceController extends ControllerBase {
     }
 
     @Post()
-    async createAsync(@Req() request: UserRequest<void>, @Body() createDto: CreateWorkspaceDto): Promise<Workspace> {
+    async createAsync(
+        @Req() request: UserRequest<void>,
+        @Body() createDto: CreateWorkspaceDto
+    ): Promise<WorkspaceViewModel> {
         const user = await this.getCurrentUserAsync(request);
         const workspace = await this.workspaceService.createAsync(createDto, WorkspaceType.Private);
         await this.workspaceService.addUserToWorkspaceAsync(workspace._id, user._id, [UserRole.Admin]);
 
-        return workspace;
+        return WorkspaceMapper.mapToViewModel(workspace);
     }
 }

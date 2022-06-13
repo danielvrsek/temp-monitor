@@ -1,5 +1,11 @@
 import { UserRoleDto } from './user.dto';
 
+export type WorkspaceViewModel = {
+    id: string;
+    name: string;
+    createdAt: Date;
+};
+
 export enum WorkspaceTypeDto {
     Admin,
     Private,
@@ -15,11 +21,6 @@ export interface CreateWorkspaceDto {
 
 export interface SetCurrentWorkspaceDto {
     workspaceId: string;
-}
-
-export interface CurrentWorkspaceViewModel {
-    id?: string;
-    name?: string;
 }
 
 export interface WorkspaceInfo {

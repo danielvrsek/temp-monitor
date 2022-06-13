@@ -24,8 +24,8 @@ import { AuthService } from 'services/auth.service';
 import { CookieHelper } from 'utils/cookieHelper';
 import { ControllerBase } from './controllerBase';
 import { UserService } from '../services/user.service';
-import { RegisterDto, UserInfo, WorkspaceInfo } from 'shared/dist/dto';
-import { TokenType } from 'shared/dist/authorization';
+import { RegisterDto, UserInfo, WorkspaceInfo } from 'shared/src/dto';
+import { TokenType } from 'shared/src/authorization';
 
 @Controller('auth')
 export class AuthController extends ControllerBase {

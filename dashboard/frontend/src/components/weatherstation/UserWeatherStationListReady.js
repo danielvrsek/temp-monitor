@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
-import { useWorkspaceContext } from '../../../common/contexts/AuthContext';
 import UserItem from './UserItem';
 import AddUser from './AddUser';
-import ApiClient from '../../../api/ApiClient';
+import { useWorkspaceContext } from '../../common/contexts/AuthContext';
+import ApiClient from '../../api/ApiClient';
+
+//TODO
 
 const UserListReady = () => {
     const [workspaceContext] = useWorkspaceContext();

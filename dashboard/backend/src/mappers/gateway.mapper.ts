@@ -1,6 +1,6 @@
 import { GatewayState } from 'dataLayer/entities/enums/gatewayState.enum';
 import { Gateway } from 'dataLayer/entities/gateway.entity';
-import { GatewayStateDto, GatewayViewModel } from 'shared/dist/dto';
+import { GatewayStateDto, GatewayViewModel } from 'shared/src/dto';
 
 export const GatewayMapper = {
     mapToViewModel: (gateway: Gateway): GatewayViewModel => {

@@ -11,8 +11,8 @@ import { createReadStream } from 'fs';
 import { join } from 'path';
 import { ControllerBase } from './controllerBase';
 import { CookieHelper } from 'utils/cookieHelper';
-import { TokenType } from 'shared/dist/authorization';
-import { CreateUserDto, UserViewModel } from 'shared/dist/dto';
+import { TokenType } from 'shared/src/authorization';
+import { CreateUserDto, UserViewModel } from 'shared/src/dto';
 import { UserMapper } from '../mappers/user.mapper';
 
 @Controller('users')
@@ -56,12 +56,14 @@ export class UserController extends ControllerBase {
     }
 
     @Get(':id')
-    findByIdAsync(@Param('id') id): Promise<User> {
-        return this.userRepository.findByIdAsync(id);
+    async findByIdAsync(@Param('id') id): Promise<UserViewModel> {
+        const user = await this.userRepository.findByIdAsync(id);
+        return UserMapper.mapToViewModel(user);
     }
 
     @Post()
-    createAsync(@Body() createUserDto: CreateUserDto): Promise<User> {
-        return this.userService.createAsync(createUserDto);
+    async createAsync(@Body() createUserDto: CreateUserDto): Promise<UserViewModel> {
+        const user = await this.userService.createAsync(createUserDto);
+        return UserMapper.mapToViewModel(user);
     }
 }

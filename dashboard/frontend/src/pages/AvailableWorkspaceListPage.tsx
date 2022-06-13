@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import WorkspaceListReady from '../admin_console/components/workspace/WorkspaceListReady';
+import { WorkspaceViewModel } from 'shared/src/dto';
 import ApiClient from '../api/ApiClient';
 import Error from '../common/Error';
 import Loading from '../common/Loading';
 import { ApiState } from '../components/common/apiHelper';
+import WorkspaceListReady from '../components/workspace/WorkspaceListReady';
 
-const AvailableWorkspaceListPage = () => {
-    const [availableWorkspaces, setAvailableWorkspaces] = useState(null);
+const AvailableWorkspaceListPage: React.FC = () => {
+    const [availableWorkspaces, setAvailableWorkspaces] = useState<WorkspaceViewModel[]>([]);
     const [status, setStatus] = useState(ApiState.Loading);
 
     useEffect(() => {

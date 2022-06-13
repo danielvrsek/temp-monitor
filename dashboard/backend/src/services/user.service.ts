@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { encodePassword } from 'utils/bcrypt';
 import { User } from 'dataLayer/entities/user.entity';
 import { SchemaConstants } from 'dataLayer/common/schemaConstants';
-import { CreateUserDto, UpdateUserDto, UserViewModel } from 'shared/dist/dto';
+import { CreateUserDto, UpdateUserDto, UserViewModel } from 'shared/src/dto';
 import { UserMapper } from 'mappers/user.mapper';
 
 @Injectable()

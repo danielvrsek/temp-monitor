@@ -22,8 +22,8 @@ import { objectId } from 'utils/schemaHelper';
 import { ControllerBase } from './controllerBase';
 import { WorkspaceRepository } from 'dataLayer/repositories/workspace.repository';
 import { UserRequest } from 'common/request';
-import { TokenType } from 'shared/dist/authorization';
-import { CreateGatewayDto, CreateGatewayResult } from 'shared/dist/dto';
+import { TokenType } from 'shared/src/authorization';
+import { CreateGatewayDto, CreateGatewayResult, GatewayViewModel } from 'shared/src/dto';
 import { GatewayMapper } from 'mappers/gateway.mapper';
 
 @Controller('gateways')
@@ -40,19 +40,20 @@ export class GatewayController extends ControllerBase {
     }
 
     @Get()
-    async findAllByWorkspaceAsync(@Req() request: UserRequest<void>): Promise<Gateway[]> {
+    async findAllByWorkspaceAsync(@Req() request: UserRequest<void>): Promise<GatewayViewModel[]> {
         const workspace = await this.getCurrentWorkspaceAsync(request);
-        return this.gatewayService.getAllGatewaysForWorkspace(workspace._id);
+        const data = await this.gatewayService.getAllGatewaysForWorkspace(workspace._id);
+        return data.map(GatewayMapper.mapToViewModel);
     }
 
     @Get(':id')
-    async findByIdAsync(@Param('id') id: string): Promise<Gateway> {
+    async findByIdAsync(@Param('id') id: string): Promise<GatewayViewModel> {
         const gateway = await this.gatewayRepository.findByIdAsync(objectId(id));
         if (!gateway) {
             throw new NotFoundException();
         }
 
-        return gateway;
+        return GatewayMapper.mapToViewModel(gateway);
     }
 
     @Post()

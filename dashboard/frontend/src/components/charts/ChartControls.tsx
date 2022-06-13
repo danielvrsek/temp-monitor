@@ -4,7 +4,7 @@ import { TextField, Select, MenuItem, Button, Grid } from '@mui/material';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider/LocalizationProvider';
 import { ChartGranularity } from './chartGranularity';
-import { WeatherDataViewModel } from 'shared/dist/dto';
+import { WeatherDataViewModel } from 'shared/src/dto';
 
 type Props = {
     data: WeatherDataViewModel[];

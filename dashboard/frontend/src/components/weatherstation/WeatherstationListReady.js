@@ -2,8 +2,8 @@ import React from 'react';
 import WeatherstationItem from './WeatherstationItem';
 import AddWeatherStation from './AddWeatherStation';
 import { Grid } from '@mui/material';
-import { useWorkspaceContext } from '../../../common/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { useWorkspaceContext } from '../../common/contexts/AuthContext';
 
 const WeatherstationListReady = ({ data }) => {
     const [workspaceContext] = useWorkspaceContext();

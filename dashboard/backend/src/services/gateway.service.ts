@@ -9,7 +9,7 @@ import { CryptoHelper } from 'utils/cryptoHelper';
 import { GatewayAuthorizationRepository } from 'dataLayer/repositories/gatewayAuthorization.repository';
 import { GatewayRepository } from 'dataLayer/repositories/gateway.repository';
 import { objectId } from 'utils/schemaHelper';
-import { CreateGatewayDto, CreateGatewayResult, GatewayViewModel, UpdateGatewayDto } from 'shared/dist/dto';
+import { CreateGatewayDto, CreateGatewayResult, GatewayViewModel, UpdateGatewayDto } from 'shared/src/dto';
 import { GatewayMapper } from 'mappers/gateway.mapper';
 import { GatewayState } from 'dataLayer/entities/enums/gatewayState.enum';
 import { GatewayAuthorizationType } from 'dataLayer/entities/enums/gatewayAuthorizationType';

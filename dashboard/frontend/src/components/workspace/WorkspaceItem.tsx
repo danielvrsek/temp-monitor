@@ -1,7 +1,13 @@
 import { Grid, Card, CardActionArea, CardHeader, CardContent, Divider } from '@mui/material';
-import Line from '../../../common/Line';
+import { WorkspaceViewModel } from 'shared/src/dto';
+import Line from '../../common/Line';
 
-const WorkspaceItem = ({ data, onClick }) => {
+type Props = {
+    data: WorkspaceViewModel;
+    onClick: (item: WorkspaceViewModel) => void;
+};
+
+const WorkspaceItem: React.FC<Props> = ({ data, onClick }) => {
     const created = new Date(data.createdAt).toLocaleString();
     return (
         <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -10,7 +16,7 @@ const WorkspaceItem = ({ data, onClick }) => {
                 <Divider />
                 <CardActionArea onClick={() => onClick(data)}>
                     <CardContent>
-                        <Line header="Id" content={data._id} />
+                        <Line header="Id" content={data.id} />
                         <Line header="Vytvořeno" content={created} />
                     </CardContent>
                 </CardActionArea>

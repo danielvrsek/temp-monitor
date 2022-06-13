@@ -5,8 +5,8 @@
     "author": "",
     "license": "ISC",
     "exports": {
-        "./dist/authorization": "./dist/authorization/index.js",
-        "./dist/dto": "./dist/dto/index.js"
+        "./src/authorization": "./dist/authorization/index.js",
+        "./src/dto": "./dist/dto/index.js"
     },
     "dependencies": {
         "typescript": "^4.7.3"

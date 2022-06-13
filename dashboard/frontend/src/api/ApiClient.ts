@@ -1,54 +1,63 @@
 import axios from 'axios';
 import { getBasePath } from '../utils/pathHelper';
-import { LoginDto, RegisterDto } from 'shared/dist/dto';
+import {
+    GatewayViewModel,
+    LoginDto,
+    RegisterDto,
+    UserInfo,
+    UserViewModel,
+    WeatherDataViewModel,
+    WorkspaceInfo,
+    WorkspaceViewModel,
+} from 'shared/src/dto';
 
 const ApiClient = {
-    getUserInfo: async () => getMethod('/auth/user-info'),
-    getWorkspaceInfo: async () => getMethod('/auth/workspace-info'),
-    getUserAvailableWorkspaces: async () => getMethod('/workspaces/user'),
+    getUserInfo: async () => getMethod<UserInfo>('/auth/user-info'),
+    getWorkspaceInfo: async () => getMethod<WorkspaceInfo>('/auth/workspace-info'),
+    getUserAvailableWorkspaces: async () => getMethod<WorkspaceViewModel[]>('/workspaces/user'),
     setUserWorkspace: async (workspaceId: string) =>
-        putMethod('/workspaces/user/current', { workspaceId }, getHeaders()),
-    login: async (payload: LoginDto) => postMethod('/auth/login', payload),
-    register: (payload: RegisterDto) => postMethod('/auth/register', payload),
-    logout: () => postMethod('/auth/logout', null),
+        putMethod<void>('/workspaces/user/current', { workspaceId }, getHeaders()),
+    login: async (payload: LoginDto) => postMethod<void>('/auth/login', payload),
+    register: (payload: RegisterDto) => postMethod<void>('/auth/register', payload),
+    logout: () => postMethod<void>('/auth/logout', null),
     getWeatherData: async (gatewayId: string, dateFrom: Date, dateTo: Date, granularity: number) =>
-        getMethod(
+        getMethod<WeatherDataViewModel[]>(
             `/weather-data/gateway/${gatewayId}?dateFrom=${dateFrom.toISOString()}&dateTo=${dateTo.toISOString()}&granularity=${granularity}`
         ),
-    createGateway: async (name: string) => postMethod('/gateways', { name }),
-    getGateway: async (gatewayId: string) => getMethod(`/gateways/${gatewayId}`),
-    getGateways: async () => getMethod(`/gateways`),
-    removeGatewayFromWokspace: async (gatewayId: string) => deleteMethod(`/gateways/${gatewayId}/workspace`),
-    getCurrentWorkspace: async () => getMethod(`/workspaces/user/current`),
-    getCurrentWorkspaceUsers: async () => getMethod(`/workspaces/current/users`),
-    addUserToCurrentWorkspace: async (username: string) => postMethod(`/workspaces/current/users`, { username }),
-    removeUserFromCurrentWokspace: async (userId: string) => deleteMethod(`/workspaces/current/users/${userId}`),
+    createGateway: async (name: string) => postMethod<GatewayViewModel>('/gateways', { name }),
+    getGateway: async (gatewayId: string) => getMethod<GatewayViewModel>(`/gateways/${gatewayId}`),
+    getGateways: async () => getMethod<GatewayViewModel[]>(`/gateways`),
+    removeGatewayFromWokspace: async (gatewayId: string) => deleteMethod<void>(`/gateways/${gatewayId}/workspace`),
+    getCurrentWorkspace: async () => getMethod<WorkspaceViewModel>(`/workspaces/user/current`),
+    getCurrentWorkspaceUsers: async () => getMethod<UserViewModel[]>(`/workspaces/current/users`),
+    addUserToCurrentWorkspace: async (username: string) => postMethod<void>(`/workspaces/current/users`, { username }),
+    removeUserFromCurrentWokspace: async (userId: string) => deleteMethod<void>(`/workspaces/current/users/${userId}`),
 };
 
 type Headers = {
     [key: string]: string;
 };
 
-const getMethod = (path: string, headers?: Headers) =>
-    axios.get(getBasePath() + path, {
+const getMethod = <T>(path: string, headers?: Headers) =>
+    axios.get<T>(getBasePath() + path, {
         headers,
         withCredentials: true,
     });
 
-const postMethod = (path: string, payload: any, headers?: Headers) =>
-    axios.post(getBasePath() + path, payload, {
+const postMethod = <T>(path: string, payload: any, headers?: Headers) =>
+    axios.post<T>(getBasePath() + path, payload, {
         headers,
         withCredentials: true,
     });
 
-const deleteMethod = (path: string, headers?: Headers) =>
-    axios.delete(getBasePath() + path, {
+const deleteMethod = <T>(path: string, headers?: Headers) =>
+    axios.delete<T>(getBasePath() + path, {
         headers,
         withCredentials: true,
     });
 
-const putMethod = (path: string, payload: any, headers?: Headers) =>
-    axios.put(getBasePath() + path, payload, {
+const putMethod = <T>(path: string, payload: any, headers?: Headers) =>
+    axios.put<T>(getBasePath() + path, payload, {
         headers,
         withCredentials: true,
     });

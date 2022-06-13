@@ -7,7 +7,7 @@ import { WorkspaceMembership } from 'dataLayer/entities/workspaceMembership.enti
 import { WorkspaceMembershipRepository } from 'dataLayer/repositories/workspaceMembership.repository';
 import { UserRole } from 'dataLayer/entities/enums/userRole.enum';
 import { WorkspaceType } from 'dataLayer/entities/enums/workspaceType.enum';
-import { CreateWorkspaceDto } from 'shared/dist/dto';
+import { CreateWorkspaceDto } from 'shared/src/dto';
 
 @Injectable()
 export class WorkspaceService {

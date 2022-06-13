@@ -5,12 +5,13 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { Container } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
-import WorkspaceDetailReady from '../admin_console/components/workspace/WorkspaceDetailReady';
-import WeatherstationListReady from '../admin_console/components/weatherstation/WeatherstationListReady';
-import UserListReady from '../admin_console/components/weatherstation/UserWeatherStationListReady';
 import ApiClient from '../api/ApiClient';
 import Error from '../common/Error';
 import Loading from '../common/Loading';
+import { GatewayViewModel, WorkspaceViewModel } from 'shared/src/dto';
+import WorkspaceDetailReady from '../components/workspace/WorkspaceDetailReady';
+import WeatherstationListReady from '../components/weatherstation/WeatherstationListReady';
+import UserListReady from '../components/weatherstation/UserWeatherStationListReady';
 
 type Props = {
     index: number;
@@ -44,9 +45,9 @@ function a11yProps(index: number) {
 }
 
 const WorkspaceDetailPage = () => {
-    const [gateways, setGateways] = useState();
-    const [currentWorkspace, setCurrentWorkspace] = useState();
-    const [value, setValue] = useState(-1);
+    const [gateways, setGateways] = useState<GatewayViewModel[]>();
+    const [currentWorkspace, setCurrentWorkspace] = useState<WorkspaceViewModel>();
+    const [value, setValue] = useState<number>(-1);
     const [detailStatus, setDetailStatus] = useState('loading');
     const [listStatus, setListStatus] = useState('loading');
 
@@ -96,7 +97,7 @@ const WorkspaceDetailPage = () => {
 
     switch (detailStatus) {
         case 'success':
-            detailResult = <WorkspaceDetailReady data={currentWorkspace} />;
+            detailResult = <WorkspaceDetailReady data={currentWorkspace as WorkspaceViewModel} />;
             break;
         case 'error':
             detailResult = <Error content="Error" />;
