@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { encodePassword } from 'utils/bcrypt';
-import { CreateUserDto, UpdateUserDto } from './dto/user.dto';
 import { User } from 'dataLayer/entities/user.entity';
 import { SchemaConstants } from 'dataLayer/common/schemaConstants';
-import { WorkspaceMembership } from 'dataLayer/entities/workspaceMembership.entity';
+import { CreateUserDto, UpdateUserDto, UserViewModel } from 'shared/dto';
+import { UserMapper } from 'mappers/user.mapper';
 
 @Injectable()
 export class UserService {
@@ -25,11 +25,11 @@ export class UserService {
         return await newUser.save();
     }
 
-    async deleteAsync(id: string): Promise<User> {
+    async deleteAsync(id: string): Promise<UserViewModel> {
         return await this.model.findByIdAndRemove(id);
     }
 
-    async updateAsync(id: string, user: UpdateUserDto): Promise<User> {
-        return await this.model.findByIdAndUpdate(id, user, { new: true });
+    async updateAsync(id: string, userDto: UpdateUserDto): Promise<UserViewModel> {
+        return UserMapper.mapToViewModel(await this.model.findByIdAndUpdate(id, userDto, { new: true }));
     }
 }

@@ -1,4 +1,4 @@
-import { TokenType } from 'auth/common/tokenType';
+import { TokenType } from '../authorization';
 
 export interface TokenInfo {
     tokenType: TokenType;

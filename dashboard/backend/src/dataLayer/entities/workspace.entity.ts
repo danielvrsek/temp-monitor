@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
-import { WorkspaceType } from './enums/workspaceType.enum';
+import { WorkspaceType } from 'shared/dto';
 
 @Schema({ timestamps: true })
 export class Workspace {

@@ -1,5 +1,18 @@
-import { UserRole } from 'dataLayer/entities/enums/role.enum';
 import { TokenInfo } from './token';
+
+export enum UserRole {
+    Member = 'Member',
+    Admin = 'Admin',
+    User = 'User',
+}
+
+export interface UserViewModel {
+    id: string;
+    firstName: string;
+    lastname: string;
+    email: string;
+    profilePhotoUrl: string;
+}
 
 export interface RegisterDto {
     firstName: string;

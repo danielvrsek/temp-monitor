@@ -1,6 +1,20 @@
-import { GatewayState } from 'dataLayer/entities/enums/gatewayState.enum';
-import { Gateway } from 'dataLayer/entities/gateway.entity';
 import { TokenInfo } from './token';
+
+export enum GatewayState {
+    Created,
+    Registered,
+}
+
+export enum GatewayAuthorizationType {
+    Master,
+    Slave,
+}
+
+export interface GatewayViewModel {
+    id: string;
+    name: string;
+    state: GatewayState;
+}
 
 export interface AuthenticateGatewayDto {
     secret: string;
@@ -16,7 +30,7 @@ export interface UpdateGatewayDto {
 }
 
 export interface CreateGatewayResult {
-    gateway: Gateway;
+    gateway: GatewayViewModel;
     secret: string;
 }
 

@@ -1,19 +1,16 @@
 import { BadRequestException, HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { TokenType } from 'auth/common/tokenType';
 import { Cookies } from 'common/cookies';
-import { GatewayState } from 'dataLayer/entities/enums/gatewayState.enum';
-import { UserRole } from 'dataLayer/entities/enums/role.enum';
 import { GatewayRepository } from 'dataLayer/repositories/gateway.repository';
 import { GatewayAuthorizationRepository } from 'dataLayer/repositories/gatewayAuthorization.repository';
 import { UserRepository } from 'dataLayer/repositories/user.repository';
 import { WorkspaceMembershipRepository } from 'dataLayer/repositories/workspaceMembership.repository';
 import { comparePasswords } from 'utils/bcrypt';
 import { objectId } from 'utils/schemaHelper';
-import { GatewayInfo } from './dto/gateway.dto';
-import { UserInfo } from './dto/user.dto';
 import { Types } from 'mongoose';
 import { GatewayService } from './gateway.service';
+import { GatewayInfo, GatewayState, UserInfo, UserRole } from 'shared/dto';
+import { TokenType } from 'shared/authorization';
 
 @Injectable()
 export class AuthService {

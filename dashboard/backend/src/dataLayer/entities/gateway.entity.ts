@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { GatewayState } from 'dataLayer/entities/enums/gatewayState.enum';
+import { GatewayState } from 'shared/dto';
 import { Types } from 'mongoose';
 
 @Schema({ timestamps: true })

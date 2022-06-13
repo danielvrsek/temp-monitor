@@ -1,3 +1,8 @@
+export enum WorkspaceType {
+    Admin,
+    Private,
+}
+
 export interface AddUserToWorkspaceDto {
     username: string;
 }

@@ -1,7 +1,7 @@
 import { Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { SchemaConstants } from 'dataLayer/common/schemaConstants';
-import { UserRole } from 'dataLayer/entities/enums/role.enum';
+import { UserRole } from 'shared/dto';
 
 @Schema({ timestamps: true })
 export class WorkspaceMembership {

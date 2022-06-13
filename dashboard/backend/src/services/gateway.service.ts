@@ -3,15 +3,21 @@ import { Model, Types } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { WeatherData } from 'dataLayer/entities/weatherData.entity';
 import { Gateway } from 'dataLayer/entities/gateway.entity';
-import { CreateGatewayDto, CreateGatewayResult, UpdateGatewayDto } from './dto/gateway.dto';
 import { SchemaConstants } from 'dataLayer/common/schemaConstants';
-import { GatewayState } from 'dataLayer/entities/enums/gatewayState.enum';
 import { GatewayAuthorization } from 'dataLayer/entities/gatewayAuthorization.entity';
 import { CryptoHelper } from 'utils/cryptoHelper';
 import { GatewayAuthorizationRepository } from 'dataLayer/repositories/gatewayAuthorization.repository';
 import { GatewayRepository } from 'dataLayer/repositories/gateway.repository';
 import { objectId } from 'utils/schemaHelper';
-import { GatewayAuthorizationType } from 'dataLayer/entities/enums/gatewayAuthorizationType.enum';
+import {
+    CreateGatewayDto,
+    CreateGatewayResult,
+    GatewayAuthorizationType,
+    GatewayState,
+    GatewayViewModel,
+    UpdateGatewayDto,
+} from 'shared/dto';
+import { GatewayMapper } from 'mappers/gateway.mapper';
 
 @Injectable()
 export class GatewayService {
@@ -24,7 +30,7 @@ export class GatewayService {
         private readonly cryptoHelper: CryptoHelper
     ) {}
 
-    async createAsync(workspaceId: Types.ObjectId, createDto: CreateGatewayDto): Promise<CreateGatewayResult> {
+    async createAsync(workspaceId: Types.ObjectId, createDto: CreateGatewayDto): Promise<GatewayViewModel> {
         const gateway = await new this.model({
             name: createDto.name,
             state: GatewayState.Created,
@@ -38,13 +44,13 @@ export class GatewayService {
             authorizationType: GatewayAuthorizationType.Master,
         }).save();
 
-        return { gateway, secret };
+        return GatewayMapper.mapToViewModel(gateway);
     }
 
     async createWithIdAsync(
         workspaceId: Types.ObjectId,
         createDto: CreateGatewayDto & { _id: Types.ObjectId }
-    ): Promise<CreateGatewayResult> {
+    ): Promise<GatewayViewModel> {
         const gateway = await new this.model({
             _id: createDto._id,
             name: createDto.name,
@@ -59,7 +65,7 @@ export class GatewayService {
             authorizationType: GatewayAuthorizationType.Master,
         }).save();
 
-        return { gateway, secret };
+        return GatewayMapper.mapToViewModel(gateway);
     }
 
     async addSlaveToWorkspace(workspaceId: Types.ObjectId, gatewayId: Types.ObjectId): Promise<GatewayAuthorization> {

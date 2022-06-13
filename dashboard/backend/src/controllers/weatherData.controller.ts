@@ -1,5 +1,4 @@
 import { Controller, Get, Post, Body, Param, UseGuards, Req, BadRequestException, Query } from '@nestjs/common';
-import { TokenType } from 'auth/common/tokenType';
 import { EnforceTokenType } from 'auth/decorator/tokenType.decorator';
 import { JwtAuthGuard } from 'auth/guards/jwt.guard';
 import { TokenTypeGuard } from 'auth/guards/tokenType.guard';
@@ -8,11 +7,13 @@ import { WeatherDataRepository } from 'dataLayer/repositories/weatherData.reposi
 import { WeatherDataService } from 'services/weatherData.service';
 import { objectId } from 'utils/schemaHelper';
 import { ControllerBase } from './controllerBase';
-import { InsertWeatherDataDto, InsertWeatherDataResponse, WeatherDataDto } from 'services/dto/weatherData.dto';
+import { InsertWeatherDataDto, InsertWeatherDataResponse, WeatherDataDto } from 'shared/dto';
 import { WorkspaceRepository } from 'dataLayer/repositories/workspace.repository';
 import { GatewayRepository } from 'dataLayer/repositories/gateway.repository';
 import { GatewayRequest } from 'common/request';
 import { WeatherDataGranularityService } from 'services/weatherDataGranularity.service';
+import { TokenType } from 'shared/authorization';
+import { WeatherDataMapper } from 'mappers/weatherData.mapper';
 
 @Controller('weather-data')
 @UseGuards(JwtAuthGuard, TokenTypeGuard)
@@ -45,7 +46,7 @@ export class WeatherDataController extends ControllerBase {
         }
 
         data = this.weatherDataService.sortWeatherData(data);
-        let dataDto = this.weatherDataService.mapToWeatherDataDto(data);
+        let dataDto = data.map(WeatherDataMapper.mapToViewModel);
 
         let granularity = granularityString ? parseInt(granularityString) : 0;
         if (granularity === 0 || isNaN(granularity)) {
