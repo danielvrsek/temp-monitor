@@ -1,4 +1,6 @@
-export enum WorkspaceType {
+import { UserRoleDto } from './user.dto';
+
+export enum WorkspaceTypeDto {
     Admin,
     Private,
 }
@@ -18,4 +20,10 @@ export interface SetCurrentWorkspaceDto {
 export interface CurrentWorkspaceViewModel {
     id?: string;
     name?: string;
+}
+
+export interface WorkspaceInfo {
+    workspaceId: string;
+    name: string;
+    roles: UserRoleDto[];
 }

@@ -9,15 +9,10 @@ import { CryptoHelper } from 'utils/cryptoHelper';
 import { GatewayAuthorizationRepository } from 'dataLayer/repositories/gatewayAuthorization.repository';
 import { GatewayRepository } from 'dataLayer/repositories/gateway.repository';
 import { objectId } from 'utils/schemaHelper';
-import {
-    CreateGatewayDto,
-    CreateGatewayResult,
-    GatewayAuthorizationType,
-    GatewayState,
-    GatewayViewModel,
-    UpdateGatewayDto,
-} from 'shared/dto';
+import { CreateGatewayDto, CreateGatewayResult, GatewayViewModel, UpdateGatewayDto } from 'shared/dist/dto';
 import { GatewayMapper } from 'mappers/gateway.mapper';
+import { GatewayState } from 'dataLayer/entities/enums/gatewayState.enum';
+import { GatewayAuthorizationType } from 'dataLayer/entities/enums/gatewayAuthorizationType';
 
 @Injectable()
 export class GatewayService {
@@ -30,7 +25,7 @@ export class GatewayService {
         private readonly cryptoHelper: CryptoHelper
     ) {}
 
-    async createAsync(workspaceId: Types.ObjectId, createDto: CreateGatewayDto): Promise<GatewayViewModel> {
+    async createAsync(workspaceId: Types.ObjectId, createDto: CreateGatewayDto): Promise<CreateGatewayResult> {
         const gateway = await new this.model({
             name: createDto.name,
             state: GatewayState.Created,
@@ -44,7 +39,7 @@ export class GatewayService {
             authorizationType: GatewayAuthorizationType.Master,
         }).save();
 
-        return GatewayMapper.mapToViewModel(gateway);
+        return { gateway: GatewayMapper.mapToViewModel(gateway), secret };
     }
 
     async createWithIdAsync(
@@ -100,7 +95,13 @@ export class GatewayService {
     }
 
     async updateAsync(id: Types.ObjectId, item: UpdateGatewayDto): Promise<WeatherData> {
-        return await this.model.findByIdAndUpdate(id, item, {
+        const entity: Gateway = {
+            _id: id,
+            name: item.name,
+            state: GatewayMapper.mapGatewayStateFromDto(item.state),
+        };
+
+        return await this.model.findByIdAndUpdate(id, entity, {
             new: true,
         });
     }

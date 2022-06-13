@@ -6,7 +6,7 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "allowSyntheticDefaultImports": true,
-        "target": "es2017",
+        "target": "es6",
         "sourceMap": true,
         "outDir": "./dist",
         "baseUrl": "./src",
@@ -14,8 +14,9 @@
         "skipLibCheck": true,
         "strictNullChecks": false,
         "noImplicitAny": false,
+        "strict": true,
         "strictBindCallApply": false,
-        "forceConsistentCasingInFileNames": false,
+        "forceConsistentCasingInFileNames": true,
         "noFallthroughCasesInSwitch": false
     }
 }

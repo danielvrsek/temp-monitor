@@ -1,7 +1,7 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { TokenType } from 'auth/common/tokenType';
 import { TOKENTYPE_KEY } from 'auth/decorator/tokenType.decorator';
+import { TokenType } from 'shared/dist/authorization';
 
 @Injectable()
 export class TokenTypeGuard implements CanActivate {

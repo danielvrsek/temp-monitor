@@ -3,10 +3,10 @@ import { Command } from 'nestjs-command';
 import { Injectable } from '@nestjs/common';
 import { UserService } from 'services/user.service';
 import { WorkspaceService } from 'services/workspace.service';
-import { UserRole } from 'dataLayer/entities/enums/role.enum';
 import { GatewayService } from 'services/gateway.service';
 import { WorkspaceType } from 'dataLayer/entities/enums/workspaceType.enum';
 import { objectId } from 'utils/schemaHelper';
+import { UserRole } from 'dataLayer/entities/enums/userRole.enum';
 
 @Injectable()
 export class SeedCommand {

@@ -1,5 +1,5 @@
 import { atom, useAtom } from 'jotai';
-import { UserInfo, WorkspaceInfo } from 'shared/dto';
+import { UserInfo, WorkspaceInfo } from 'shared/dist/dto';
 
 export const UserContext = atom<UserInfo | null>(null);
 export const WorkspaceContext = atom<WorkspaceInfo | null>(null);

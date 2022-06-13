@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { GatewayState } from 'shared/dto';
 import { Types } from 'mongoose';
+import { GatewayState } from './enums/gatewayState.enum';
 
 @Schema({ timestamps: true })
 export class Gateway {

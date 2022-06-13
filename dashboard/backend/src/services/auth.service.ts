@@ -9,8 +9,12 @@ import { comparePasswords } from 'utils/bcrypt';
 import { objectId } from 'utils/schemaHelper';
 import { Types } from 'mongoose';
 import { GatewayService } from './gateway.service';
-import { GatewayInfo, GatewayState, UserInfo, UserRole } from 'shared/dto';
-import { TokenType } from 'shared/authorization';
+import { GatewayInfo, UserInfo, UserRoleDto } from 'shared/dist/dto';
+import { TokenType } from 'shared/dist/authorization';
+import { GatewayState } from 'dataLayer/entities/enums/gatewayState.enum';
+import { UserRole } from 'dataLayer/entities/enums/userRole.enum';
+import { GatewayMapper } from 'mappers/gateway.mapper';
+import { UserMapper } from 'mappers/user.mapper';
 
 @Injectable()
 export class AuthService {
@@ -57,7 +61,7 @@ export class AuthService {
 
         const gateway = await this.gatewayRepository.findByIdAsync(authorization.gatewayId);
         await this.gatewayService.updateAsync(gateway._id, {
-            state: GatewayState.Registered,
+            state: GatewayMapper.mapGatewayStateToDto(GatewayState.Registered),
         });
 
         return {
@@ -75,11 +79,11 @@ export class AuthService {
         return this.jwtService.sign(data);
     }
 
-    async getUserRolesForWorkspaceAsync(userId: Types.ObjectId, workspaceId: Types.ObjectId): Promise<UserRole[]> {
+    async getUserRolesForWorkspaceAsync(userId: Types.ObjectId, workspaceId: Types.ObjectId): Promise<UserRoleDto[]> {
         const membership = await this.workspaceMembershipRepository.getMembershipForUserByWorkspaceAsync(
             userId,
             workspaceId
         );
-        return membership ? membership.roles : [];
+        return membership ? membership.roles.map(UserMapper.mapUserRoleToDto) : [];
     }
 }

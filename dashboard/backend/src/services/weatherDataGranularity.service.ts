@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { WeatherDataDto } from './dto/weatherData.dto';
+import { WeatherDataDto } from 'shared/dist/dto';
 import { WeatherDataIndexer } from './weatherDataIndexer.service';
 import { WeatherDataIterator } from './weatherDataIterator.service';
 

@@ -7,12 +7,12 @@ import { WeatherDataRepository } from 'dataLayer/repositories/weatherData.reposi
 import { WeatherDataService } from 'services/weatherData.service';
 import { objectId } from 'utils/schemaHelper';
 import { ControllerBase } from './controllerBase';
-import { InsertWeatherDataDto, InsertWeatherDataResponse, WeatherDataDto } from 'shared/dto';
+import { InsertWeatherDataDto, InsertWeatherDataResponse, WeatherDataDto } from 'shared/dist/dto';
 import { WorkspaceRepository } from 'dataLayer/repositories/workspace.repository';
 import { GatewayRepository } from 'dataLayer/repositories/gateway.repository';
 import { GatewayRequest } from 'common/request';
 import { WeatherDataGranularityService } from 'services/weatherDataGranularity.service';
-import { TokenType } from 'shared/authorization';
+import { TokenType } from 'shared/dist/authorization';
 import { WeatherDataMapper } from 'mappers/weatherData.mapper';
 
 @Controller('weather-data')

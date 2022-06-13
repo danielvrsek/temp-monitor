@@ -1,5 +1,5 @@
 import { WeatherData } from 'dataLayer/entities/weatherData.entity';
-import { WeatherDataViewModel } from 'shared/dto';
+import { WeatherDataViewModel } from 'shared/dist/dto';
 
 export const WeatherDataMapper = {
     mapToViewModel(weatherData: WeatherData): WeatherDataViewModel {

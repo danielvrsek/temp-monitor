@@ -1,6 +1,6 @@
 import { TokenInfo } from './token';
 
-export enum UserRole {
+export enum UserRoleDto {
     Member = 'Member',
     Admin = 'Admin',
     User = 'User',
@@ -57,10 +57,4 @@ export interface UserInfo extends TokenInfo {
     lastname: string;
     email: string;
     profilePhotoUrl: string;
-}
-
-export interface WorkspaceInfo {
-    workspaceId: string;
-    name: string;
-    roles: UserRole[];
 }

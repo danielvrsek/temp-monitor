@@ -1,7 +1,7 @@
 import { Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { SchemaConstants } from 'dataLayer/common/schemaConstants';
-import { GatewayAuthorizationType } from 'shared/dto';
+import { GatewayAuthorizationType } from './enums/gatewayAuthorizationType';
 
 @Schema({ timestamps: true })
 export class GatewayAuthorization {

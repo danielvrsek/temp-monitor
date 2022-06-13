@@ -1,11 +1,11 @@
 import { TokenInfo } from './token';
 
-export enum GatewayState {
+export enum GatewayStateDto {
     Created,
     Registered,
 }
 
-export enum GatewayAuthorizationType {
+export enum GatewayAuthorizationTypeDto {
     Master,
     Slave,
 }
@@ -13,7 +13,7 @@ export enum GatewayAuthorizationType {
 export interface GatewayViewModel {
     id: string;
     name: string;
-    state: GatewayState;
+    state: GatewayStateDto;
 }
 
 export interface AuthenticateGatewayDto {
@@ -26,7 +26,7 @@ export interface CreateGatewayDto {
 
 export interface UpdateGatewayDto {
     name?: string;
-    state?: GatewayState;
+    state?: GatewayStateDto;
 }
 
 export interface CreateGatewayResult {

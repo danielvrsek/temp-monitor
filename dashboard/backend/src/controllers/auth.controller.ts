@@ -10,7 +10,6 @@ import {
     Body,
     BadRequestException,
 } from '@nestjs/common';
-import { TokenType } from 'auth/common/tokenType';
 import { EnforceTokenType } from 'auth/decorator/tokenType.decorator';
 import { JwtAuthGuard } from 'auth/guards/jwt.guard';
 import { LocalGatewayAuthGuard } from 'auth/guards/local-gateway.guard';
@@ -22,10 +21,11 @@ import { UserRepository } from 'dataLayer/repositories/user.repository';
 import { WorkspaceRepository } from 'dataLayer/repositories/workspace.repository';
 import { Response } from 'express';
 import { AuthService } from 'services/auth.service';
-import { RegisterDto, UserDto, UserInfo, WorkspaceInfo } from 'services/dto/user.dto';
 import { CookieHelper } from 'utils/cookieHelper';
 import { ControllerBase } from './controllerBase';
 import { UserService } from '../services/user.service';
+import { RegisterDto, UserInfo, WorkspaceInfo } from 'shared/dist/dto';
+import { TokenType } from 'shared/dist/authorization';
 
 @Controller('auth')
 export class AuthController extends ControllerBase {

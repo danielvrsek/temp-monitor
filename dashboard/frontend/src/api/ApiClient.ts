@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getBasePath } from '../utils/pathHelper';
-import { LoginDto, RegisterDto } from 'shared/dto';
+import { LoginDto, RegisterDto } from 'shared/dist/dto';
 
 const ApiClient = {
     getUserInfo: async () => getMethod('/auth/user-info'),

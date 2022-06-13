@@ -14,7 +14,7 @@ import { AuthService } from 'services/auth.service';
 import { cookieOptions, Cookies } from 'common/cookies';
 import { AssetService } from 'services/assetService';
 import * as msal from '@azure/msal-node';
-import { TokenType } from 'auth/common/tokenType';
+import { TokenType } from 'shared/dist/authorization';
 
 @Controller('external-auth')
 export class ExternalAuthController extends ControllerBase {

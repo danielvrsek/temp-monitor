@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { SchemaConstants } from 'dataLayer/common/schemaConstants';
 import { Types } from 'mongoose';
 import { GatewayAuthorization } from 'dataLayer/entities/gatewayAuthorization.entity';
-import { GatewayAuthorizationType } from 'dataLayer/entities/enums/gatewayAuthorizationType.enum';
+import { GatewayAuthorizationType } from 'dataLayer/entities/enums/gatewayAuthorizationType';
 
 @Injectable()
 export class GatewayAuthorizationRepository {

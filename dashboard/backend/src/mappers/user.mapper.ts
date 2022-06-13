@@ -1,5 +1,6 @@
+import { UserRole } from 'dataLayer/entities/enums/userRole.enum';
 import { User } from 'dataLayer/entities/user.entity';
-import { UserViewModel } from 'shared/dto';
+import { UserRoleDto, UserViewModel } from 'shared/dist/dto';
 
 export const UserMapper = {
     mapToViewModel: (user: User): UserViewModel => {
@@ -10,5 +11,18 @@ export const UserMapper = {
             email: user.email,
             profilePhotoUrl: user.profilePhotoUrl,
         };
+    },
+
+    mapUserRoleToDto: (userRole: UserRole): UserRoleDto => {
+        switch (userRole) {
+            case UserRole.Admin:
+                return UserRoleDto.Admin;
+            case UserRole.User:
+                return UserRoleDto.User;
+            case UserRole.Member:
+                return UserRoleDto.Member;
+            default:
+                throw new Error(userRole);
+        }
     },
 };

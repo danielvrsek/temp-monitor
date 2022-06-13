@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { Model, Types } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { CreateWorkspaceDto } from './dto/workspace.dto';
 import { Workspace } from 'dataLayer/entities/workspace.entity';
 import { SchemaConstants } from 'dataLayer/common/schemaConstants';
 import { WorkspaceMembership } from 'dataLayer/entities/workspaceMembership.entity';
-import { UserRole } from 'dataLayer/entities/enums/role.enum';
-import { WorkspaceType } from 'dataLayer/entities/enums/workspaceType.enum';
 import { WorkspaceMembershipRepository } from 'dataLayer/repositories/workspaceMembership.repository';
+import { UserRole } from 'dataLayer/entities/enums/userRole.enum';
+import { WorkspaceType } from 'dataLayer/entities/enums/workspaceType.enum';
+import { CreateWorkspaceDto } from 'shared/dist/dto';
 
 @Injectable()
 export class WorkspaceService {

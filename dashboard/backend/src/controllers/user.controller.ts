@@ -1,32 +1,19 @@
-import {
-    Controller,
-    Get,
-    Post,
-    Put,
-    Delete,
-    Body,
-    Param,
-    UseGuards,
-    Req,
-    UnauthorizedException,
-    StreamableFile,
-    Res,
-    NotFoundException,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, UseGuards, Req, Res } from '@nestjs/common';
+import * as fs from 'fs';
 import { UserService } from 'services/user.service';
 import { JwtAuthGuard } from 'auth/guards/jwt.guard';
 import { UserRepository } from 'dataLayer/repositories/user.repository';
-import { CreateUserDto, UpdateUserDto, UserDto } from 'services/dto/user.dto';
 import { User } from 'dataLayer/entities/user.entity';
 import { EnforceTokenType } from 'auth/decorator/tokenType.decorator';
-import { TokenType } from 'auth/common/tokenType';
 import { TokenTypeGuard } from 'auth/guards/tokenType.guard';
 import { UserRequest } from 'common/request';
 import { createReadStream } from 'fs';
 import { join } from 'path';
 import { ControllerBase } from './controllerBase';
 import { CookieHelper } from 'utils/cookieHelper';
-import * as fs from 'fs';
+import { TokenType } from 'shared/dist/authorization';
+import { CreateUserDto, UserViewModel } from 'shared/dist/dto';
+import { UserMapper } from '../mappers/user.mapper';
 
 @Controller('users')
 @EnforceTokenType(TokenType.User)
@@ -41,15 +28,9 @@ export class UserController extends ControllerBase {
     }
 
     @Get()
-    async findAllAsync(): Promise<UserDto[]> {
+    async findAllAsync(): Promise<UserViewModel[]> {
         const data = await this.userRepository.findAllAsync();
-        return data.map((x) => ({
-            userId: x._id.toString(),
-            firstName: x.firstName,
-            lastname: x.lastname,
-            email: x.email,
-            username: x.username,
-        }));
+        return data.map(UserMapper.mapToViewModel);
     }
 
     @Get('profile-photo/:filename')
@@ -82,15 +63,5 @@ export class UserController extends ControllerBase {
     @Post()
     createAsync(@Body() createUserDto: CreateUserDto): Promise<User> {
         return this.userService.createAsync(createUserDto);
-    }
-
-    @Delete(':id')
-    delete(@Param('id') id): Promise<User> {
-        return this.userService.deleteAsync(id);
-    }
-
-    @Put(':id')
-    updateAsync(@Body() updateUserDto: UpdateUserDto, @Param('id') id: string): Promise<User> {
-        return this.userService.updateAsync(id, updateUserDto);
     }
 }

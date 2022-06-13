@@ -12,7 +12,6 @@ import {
     BadRequestException,
     Delete,
 } from '@nestjs/common';
-import { TokenType } from 'auth/common/tokenType';
 import { EnforceTokenType } from 'auth/decorator/tokenType.decorator';
 import { JwtAuthGuard } from 'auth/guards/jwt.guard';
 import { TokenTypeGuard } from 'auth/guards/tokenType.guard';
@@ -20,23 +19,25 @@ import { CookieHelper } from 'utils/cookieHelper';
 import { cookieOptions, Cookies } from 'common/cookies';
 import { Workspace } from 'dataLayer/entities/workspace.entity';
 import { WorkspaceRepository } from 'dataLayer/repositories/workspace.repository';
-import {
-    AddUserToWorkspaceDto,
-    CreateWorkspaceDto,
-    CurrentWorkspaceViewModel,
-    SetCurrentWorkspaceDto,
-} from 'services/dto/workspace.dto';
+
 import { WorkspaceService } from 'services/workspace.service';
-import { UserRole } from 'dataLayer/entities/enums/role.enum';
 import { ControllerBase } from './controllerBase';
 import { UserRequest } from 'common/request';
 import { objectId } from 'utils/schemaHelper';
 import { Response } from 'express';
 import { WorkspaceMembershipRepository } from 'dataLayer/repositories/workspaceMembership.repository';
 import { UserRepository } from 'dataLayer/repositories/user.repository';
-import { UserDto } from 'services/dto/user.dto';
 import { WorkspaceType } from 'dataLayer/entities/enums/workspaceType.enum';
 import { GatewayService } from 'services/gateway.service';
+import { TokenType } from 'shared/dist/authorization';
+import {
+    AddUserToWorkspaceDto,
+    CreateWorkspaceDto,
+    CurrentWorkspaceViewModel,
+    SetCurrentWorkspaceDto,
+    UserDto,
+} from 'shared/dist/dto';
+import { UserRole } from 'dataLayer/entities/enums/userRole.enum';
 
 @Controller('workspaces')
 @EnforceTokenType(TokenType.User)

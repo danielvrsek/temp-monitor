@@ -11,19 +11,20 @@ import {
     UnauthorizedException,
     UseGuards,
 } from '@nestjs/common';
-import { TokenType } from 'auth/common/tokenType';
 import { EnforceTokenType } from 'auth/decorator/tokenType.decorator';
 import { JwtAuthGuard } from 'auth/guards/jwt.guard';
 import { TokenTypeGuard } from 'auth/guards/tokenType.guard';
 import { CookieHelper } from 'utils/cookieHelper';
 import { Gateway } from 'dataLayer/entities/gateway.entity';
 import { GatewayRepository } from 'dataLayer/repositories/gateway.repository';
-import { CreateGatewayDto, CreateGatewayResult } from 'services/dto/gateway.dto';
 import { GatewayService } from 'services/gateway.service';
 import { objectId } from 'utils/schemaHelper';
 import { ControllerBase } from './controllerBase';
 import { WorkspaceRepository } from 'dataLayer/repositories/workspace.repository';
 import { UserRequest } from 'common/request';
+import { TokenType } from 'shared/dist/authorization';
+import { CreateGatewayDto, CreateGatewayResult } from 'shared/dist/dto';
+import { GatewayMapper } from 'mappers/gateway.mapper';
 
 @Controller('gateways')
 @EnforceTokenType(TokenType.User)
@@ -61,7 +62,7 @@ export class GatewayController extends ControllerBase {
     ): Promise<CreateGatewayResult> {
         const workspace = await this.getCurrentWorkspaceAsync(request);
         // TODO: check user authorization for the workspace
-        return this.gatewayService.createAsync(workspace._id, createDto);
+        return await this.gatewayService.createAsync(workspace._id, createDto);
     }
 
     @Delete(':gatewayId/workspace')
