@@ -24,7 +24,6 @@ import { ServicesModule } from './services.module';
         SharedModule,
     ],
     providers: [
-        JwtService,
         LocalUserStrategy,
         LocalGatewayStrategy,
         JwtStrategy,
