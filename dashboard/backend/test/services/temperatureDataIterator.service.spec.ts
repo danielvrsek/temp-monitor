@@ -4,9 +4,9 @@ describe('UserDataIterator', () => {
     describe('takePreviousFor', () => {
         it('should return one when first item equals', async () => {
             const data = [
-                { temperature: 20, humidity: 50, timestamp: new Date('2022-06-09T16:40:08.107Z') },
-                { temperature: 20, humidity: 50, timestamp: new Date('2022-06-09T16:45:08.107Z') },
-                { temperature: 20, humidity: 50, timestamp: new Date('2022-06-09T16:50:08.107Z') },
+                { value: 50, timestamp: new Date('2022-06-09T16:40:08.107Z') },
+                { value: 50, timestamp: new Date('2022-06-09T16:45:08.107Z') },
+                { value: 50, timestamp: new Date('2022-06-09T16:50:08.107Z') },
             ];
 
             const service = new UserDataIterator(data, 0, 0, 1);
@@ -24,9 +24,9 @@ describe('UserDataIterator', () => {
 
         it('should return none when first item is higher', async () => {
             const data = [
-                { temperature: 20, humidity: 50, timestamp: new Date('2022-06-09T16:40:08.107Z') },
-                { temperature: 20, humidity: 50, timestamp: new Date('2022-06-09T16:45:08.107Z') },
-                { temperature: 20, humidity: 50, timestamp: new Date('2022-06-09T16:50:08.107Z') },
+                { value: 50, timestamp: new Date('2022-06-09T16:40:08.107Z') },
+                { value: 50, timestamp: new Date('2022-06-09T16:45:08.107Z') },
+                { value: 50, timestamp: new Date('2022-06-09T16:50:08.107Z') },
             ];
 
             const service = new UserDataIterator(data, 0, 0, 1);
@@ -40,9 +40,9 @@ describe('UserDataIterator', () => {
     describe('takeNextFor', () => {
         it('should return one when last item equals', async () => {
             const data = [
-                { temperature: 20, humidity: 50, timestamp: new Date('2022-06-09T16:40:08.107Z') },
-                { temperature: 20, humidity: 50, timestamp: new Date('2022-06-09T16:45:08.107Z') },
-                { temperature: 20, humidity: 50, timestamp: new Date('2022-06-09T16:50:08.107Z') },
+                { value: 50, timestamp: new Date('2022-06-09T16:40:08.107Z') },
+                { value: 50, timestamp: new Date('2022-06-09T16:45:08.107Z') },
+                { value: 50, timestamp: new Date('2022-06-09T16:50:08.107Z') },
             ];
 
             const service = new UserDataIterator(data, 2, 2, 1);
@@ -60,9 +60,9 @@ describe('UserDataIterator', () => {
 
         it('should return none when last item is lower', async () => {
             const data = [
-                { temperature: 20, humidity: 50, timestamp: new Date('2022-06-09T16:40:08.107Z') },
-                { temperature: 20, humidity: 50, timestamp: new Date('2022-06-09T16:45:08.107Z') },
-                { temperature: 20, humidity: 50, timestamp: new Date('2022-06-09T16:50:08.107Z') },
+                { value: 50, timestamp: new Date('2022-06-09T16:40:08.107Z') },
+                { value: 50, timestamp: new Date('2022-06-09T16:45:08.107Z') },
+                { value: 50, timestamp: new Date('2022-06-09T16:50:08.107Z') },
             ];
 
             const service = new UserDataIterator(data, 2, 2, 1);

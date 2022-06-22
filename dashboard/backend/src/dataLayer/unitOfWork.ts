@@ -7,6 +7,7 @@ import { Gateway } from './entities/gateway.entity';
 import { GatewayAuthorization } from './entities/gatewayAuthorization.entity';
 import { User } from './entities/user.entity';
 import { UserData } from './entities/userData.entity';
+import { UserDataGroup } from './entities/userDataGroup.entity';
 import { Workspace } from './entities/workspace.entity';
 import { WorkspaceMembership } from './entities/workspaceMembership.entity';
 import { entityNameWeakMap } from './entityNameWeakMap';
@@ -23,6 +24,7 @@ export class UnitOfWorkFactory {
         @InjectModel(Entities.GatewayAuthorization) gatewayAuthorizationModel: Model<GatewayAuthorization>,
         @InjectModel(Entities.User) userModel: Model<User>,
         @InjectModel(Entities.UserData) userDataModel: Model<UserData>,
+        @InjectModel(Entities.UserDataGroup) userDataGroupModel: Model<UserDataGroup>,
         @InjectModel(Entities.Workspace) workspaceModel: Model<Workspace>,
         @InjectModel(Entities.WorkspaceMembership) workspaceMembershipModel: Model<WorkspaceMembership>
     ) {
@@ -30,6 +32,7 @@ export class UnitOfWorkFactory {
         this.#pushModel(gatewayAuthorizationModel);
         this.#pushModel(userModel);
         this.#pushModel(userDataModel);
+        this.#pushModel(userDataGroupModel);
         this.#pushModel(workspaceModel);
         this.#pushModel(workspaceMembershipModel);
     }
@@ -39,6 +42,7 @@ export class UnitOfWorkFactory {
     }
 
     #pushModel(model: Model<any>) {
+        //console.log(model.name);
         this.modelStore[model.name] = model;
     }
 }
@@ -47,6 +51,8 @@ export class UnitOfWork<T extends Entity> {
     constructor(private readonly defaultModel: Model<T>, private readonly modelStore: ModelStore) {}
 
     async insertAsync(entity: T): Promise<T> {
+        console.log('test');
+
         const entityModel = this.#getEntityModel(entity);
         return await new entityModel({ ...entity }).save();
     }
@@ -84,7 +90,7 @@ export class UnitOfWork<T extends Entity> {
     }
 
     #getEntityModel(entity: T): Model<any> {
-        if (!entity && !entityNameWeakMap.has(entity)) {
+        if (!entity || !entityNameWeakMap.has(entity)) {
             return this.defaultModel;
         }
 

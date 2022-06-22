@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
-import { Command } from 'nestjs-command';
-import { Injectable } from '@nestjs/common';
+import { Command, CommandRunner } from 'nest-commander';
 import { UserService } from 'services/user.service';
 import { WorkspaceService } from 'services/workspace.service';
 import { GatewayService } from 'services/gateway.service';
@@ -9,8 +8,8 @@ import { objectId } from 'utils/schemaHelper';
 import { UserRole } from 'dataLayer/entities/enums/userRole.enum';
 import { WorkspaceMembershipService } from 'services/workspaceMembership.service';
 
-@Injectable()
-export class SeedCommand {
+@Command({ name: 'seed', description: 'Seed data' })
+export class SeedCommand implements CommandRunner {
     constructor(
         private readonly userService: UserService,
         private readonly workspaceService: WorkspaceService,
@@ -18,8 +17,7 @@ export class SeedCommand {
         private readonly gatewayService: GatewayService
     ) {}
 
-    @Command({ command: 'seed', describe: 'Seed data' })
-    async seedAsync() {
+    async run() {
         const superAdmin = await this.userService.createAsync({
             firstName: 'Super',
             lastname: 'Admin',

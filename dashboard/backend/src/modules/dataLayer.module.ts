@@ -5,6 +5,7 @@ import { GatewaySchema } from 'dataLayer/entities/gateway.entity';
 import { GatewayAuthorizationSchema } from 'dataLayer/entities/gatewayAuthorization.entity';
 import { UserSchema } from 'dataLayer/entities/user.entity';
 import { UserDataSchema } from 'dataLayer/entities/userData.entity';
+import { UserDataGroupSchema } from 'dataLayer/entities/userDataGroup.entity';
 import { WorkspaceSchema } from 'dataLayer/entities/workspace.entity';
 import { WorkspaceMembershipSchema } from 'dataLayer/entities/workspaceMembership.entity';
 import { GatewayRepository } from 'dataLayer/repositories/gateway.repository';
@@ -21,6 +22,7 @@ import { UnitOfWorkFactory } from 'dataLayer/unitOfWork';
         MongooseModule.forFeature([{ name: Entities.GatewayAuthorization, schema: GatewayAuthorizationSchema }]),
         MongooseModule.forFeature([{ name: Entities.User, schema: UserSchema }]),
         MongooseModule.forFeature([{ name: Entities.UserData, schema: UserDataSchema }]),
+        MongooseModule.forFeature([{ name: Entities.UserDataGroup, schema: UserDataGroupSchema }]),
         MongooseModule.forFeature([{ name: Entities.Workspace, schema: WorkspaceSchema }]),
         MongooseModule.forFeature([{ name: Entities.WorkspaceMembership, schema: WorkspaceMembershipSchema }]),
     ],
