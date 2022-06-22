@@ -21,7 +21,7 @@ describe('UserDataGranuralityService', () => {
             const dateFrom = new Date('2022-06-09T16:40:08.107Z');
             const dateTo = new Date('2022-06-10T16:40:08.107Z');
 
-            const result = 432;
+            const result = 576;
             expect(service.calculateGranularity(dateFrom, dateTo)).toEqual(result);
         });
     });

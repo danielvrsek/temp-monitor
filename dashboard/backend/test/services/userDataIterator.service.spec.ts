@@ -13,8 +13,7 @@ describe('UserDataIterator', () => {
 
             const result = [
                 {
-                    temperature: 20,
-                    humidity: 50,
+                    value: 50,
                     timestamp: new Date('2022-06-09T16:40:08.107Z'),
                 },
             ];
@@ -49,8 +48,7 @@ describe('UserDataIterator', () => {
 
             const result = [
                 {
-                    temperature: 20,
-                    humidity: 50,
+                    value: 50,
                     timestamp: new Date('2022-06-09T16:50:08.107Z'),
                 },
             ];
