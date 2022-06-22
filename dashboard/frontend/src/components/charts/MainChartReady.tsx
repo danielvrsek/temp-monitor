@@ -21,8 +21,7 @@ type Props = {
 const MainChartReady: React.FC<Props> = (props) => {
     let chartData = props.data.map((item) => ({
         name: new Date(item.timestamp).toLocaleString(),
-        temperature: item.temperature.toFixed(1),
-        humidity: item.humidity.toFixed(1),
+        value: item.value.toFixed(1),
     }));
 
     return (

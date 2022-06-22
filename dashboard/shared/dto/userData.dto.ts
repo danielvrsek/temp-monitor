@@ -15,8 +15,3 @@ export interface InsertUserDataDto {
 export interface InsertUserDataResponse {
     count: number;
 }
-
-export interface GetUserDataForWorkspaceResponse {
-    gatewayId: string;
-    gatewayName: string;
-}
