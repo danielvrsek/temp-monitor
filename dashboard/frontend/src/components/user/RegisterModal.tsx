@@ -51,7 +51,9 @@ const RegisterModal = () => {
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         Registrace
                     </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2, marginBottom: '20px' }}></Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2, marginBottom: '20px' }}>
+                        Registrace desc
+                    </Typography>
                     <Grid justifyContent="center">
                         <Box sx={{ '& .MuiTextField-root': { width: '25ch' } }}>
                             <FormInputText

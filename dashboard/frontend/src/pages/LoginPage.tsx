@@ -37,7 +37,7 @@ const LoginPage = () => {
         const { data } = await ApiClient.getUserInfo();
         setUserContext(data);
 
-        navigate('/workspaces', { replace: true });
+        navigate('/', { replace: true });
     };
 
     return (

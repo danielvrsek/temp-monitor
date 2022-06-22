@@ -42,8 +42,7 @@ export class UnitOfWorkFactory {
     }
 
     #pushModel(model: Model<any>) {
-        //console.log(model.name);
-        this.modelStore[model.name] = model;
+        this.modelStore[model.modelName] = model;
     }
 }
 
@@ -51,8 +50,6 @@ export class UnitOfWork<T extends Entity> {
     constructor(private readonly defaultModel: Model<T>, private readonly modelStore: ModelStore) {}
 
     async insertAsync(entity: T): Promise<T> {
-        console.log('test');
-
         const entityModel = this.#getEntityModel(entity);
         return await new entityModel({ ...entity }).save();
     }

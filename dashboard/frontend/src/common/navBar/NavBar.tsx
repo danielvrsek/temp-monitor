@@ -1,11 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useUserContext, useWorkspaceContext } from '../contexts/AuthContext';
+import { useWorkspaceContext } from '../contexts/AuthContext';
 import NavUser from './NavUser';
 
 const NavBar = () => {
     const [workspaceContext] = useWorkspaceContext();
-    const [userContext] = useUserContext();
 
     return (
         <div>
@@ -14,14 +13,7 @@ const NavBar = () => {
                     <h4>Hlavní stránka</h4>
                 </NavLink>
 
-                {userContext ? (
-                    <NavLink to="/workspaces" className="item">
-                        <h4>Dostupné zóny</h4>
-                    </NavLink>
-                ) : (
-                    <></>
-                )}
-                {workspaceContext && workspaceContext.roles.some((x) => x === 'User') ? (
+                {workspaceContext ? (
                     <NavLink to="/workspace" className="item">
                         <h4>Klientská sekce</h4>
                     </NavLink>
