@@ -14,10 +14,6 @@ const NavBar = () => {
                     <h4>Hlavní stránka</h4>
                 </NavLink>
 
-                <NavLink to="/customer-info" className="item">
-                    <h4>Zákaznické prostředí</h4>
-                </NavLink>
-
                 {userContext ? (
                     <NavLink to="/workspaces" className="item">
                         <h4>Dostupné zóny</h4>
