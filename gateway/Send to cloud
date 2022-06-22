@@ -1,0 +1,1116 @@
+[
+    {
+        "id": "1961c2c7c7bd9d95",
+        "type": "subflow",
+        "name": "pingCloud",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 120,
+                "y": 100,
+                "wires": [
+                    {
+                        "id": "77c069b3f6288661"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "5a9f508587c757a3",
+        "type": "http request",
+        "z": "1961c2c7c7bd9d95",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": true,
+        "x": 490,
+        "y": 140,
+        "wires": [
+            [
+                "b4e366132316febf"
+            ]
+        ]
+    },
+    {
+        "id": "b4e366132316febf",
+        "type": "switch",
+        "z": "1961c2c7c7bd9d95",
+        "name": "validateStatusCode",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nnull"
+            },
+            {
+                "t": "eq",
+                "v": "ECONNREFUSED",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 670,
+        "y": 140,
+        "wires": [
+            [
+                "0b51717858cc69fb"
+            ],
+            [
+                "0a2c309cb0c2b034"
+            ]
+        ]
+    },
+    {
+        "id": "0b51717858cc69fb",
+        "type": "change",
+        "z": "1961c2c7c7bd9d95",
+        "name": "setOnline",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Online",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 860,
+        "y": 100,
+        "wires": [
+            [
+                "a2a3d9b378efe90a"
+            ]
+        ]
+    },
+    {
+        "id": "0a2c309cb0c2b034",
+        "type": "change",
+        "z": "1961c2c7c7bd9d95",
+        "name": "setOffline",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Offline",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 860,
+        "y": 180,
+        "wires": [
+            [
+                "a2a3d9b378efe90a"
+            ]
+        ]
+    },
+    {
+        "id": "efb5b5a4d4a9142f",
+        "type": "inject",
+        "z": "1961c2c7c7bd9d95",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 130,
+        "y": 200,
+        "wires": [
+            [
+                "77c069b3f6288661"
+            ]
+        ]
+    },
+    {
+        "id": "a2a3d9b378efe90a",
+        "type": "ui_text",
+        "z": "1961c2c7c7bd9d95",
+        "group": "51e95487f6c1eab5",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Cloud:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1030,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "77c069b3f6288661",
+        "type": "function",
+        "z": "1961c2c7c7bd9d95",
+        "name": "configURL",
+        "func": "const CLOUD_URL = env.get(\"CLOUD_URL\")\nconst path = \"\"\nmsg.url = CLOUD_URL + path\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 140,
+        "wires": [
+            [
+                "5a9f508587c757a3"
+            ]
+        ]
+    },
+    {
+        "id": "b11af126e424138a",
+        "type": "subflow",
+        "name": "pingGoogle",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 120,
+                "y": 120,
+                "wires": [
+                    {
+                        "id": "ed59f9ab12c881a4"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "1fb368516e59ec50",
+        "type": "ui_text",
+        "z": "b11af126e424138a",
+        "group": "51e95487f6c1eab5",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Connection:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 950,
+        "y": 120,
+        "wires": [],
+        "info": "if(true){\n    return yes;\n}else{\n    return no;\n}"
+    },
+    {
+        "id": "ed59f9ab12c881a4",
+        "type": "http request",
+        "z": "b11af126e424138a",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://www.google.com/",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": true,
+        "x": 290,
+        "y": 120,
+        "wires": [
+            [
+                "eb032d7ac202e75c"
+            ]
+        ]
+    },
+    {
+        "id": "eb032d7ac202e75c",
+        "type": "switch",
+        "z": "b11af126e424138a",
+        "name": "validateStatusCode",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "200",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "ECONNREFUSED",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 490,
+        "y": 120,
+        "wires": [
+            [
+                "b6a5a4b9de846be9"
+            ],
+            [
+                "94abc801c1f0d27c"
+            ]
+        ]
+    },
+    {
+        "id": "b6a5a4b9de846be9",
+        "type": "change",
+        "z": "b11af126e424138a",
+        "name": "setOnline",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Online",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 700,
+        "y": 80,
+        "wires": [
+            [
+                "1fb368516e59ec50"
+            ]
+        ]
+    },
+    {
+        "id": "94abc801c1f0d27c",
+        "type": "change",
+        "z": "b11af126e424138a",
+        "name": "setOffline",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Offline",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 700,
+        "y": 160,
+        "wires": [
+            [
+                "1fb368516e59ec50"
+            ]
+        ]
+    },
+    {
+        "id": "7e62edb8a301838d",
+        "type": "inject",
+        "z": "b11af126e424138a",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 90,
+        "y": 180,
+        "wires": [
+            [
+                "ed59f9ab12c881a4"
+            ]
+        ]
+    },
+    {
+        "id": "51e95487f6c1eab5",
+        "type": "ui_group",
+        "name": "Connection",
+        "tab": "ded90cb29638710a",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "ded90cb29638710a",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "4f7a04bf39dfe515",
+        "type": "subflow",
+        "name": "authGateway",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 120,
+                "y": 40,
+                "wires": [
+                    {
+                        "id": "17fb326d8faaadbc"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "9a21f64b0f4fbebc",
+        "type": "http request",
+        "z": "4f7a04bf39dfe515",
+        "name": "authGateway",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": true,
+        "x": 510,
+        "y": 300,
+        "wires": [
+            [
+                "723cdabc064ba643"
+            ]
+        ]
+    },
+    {
+        "id": "344390789f3012e9",
+        "type": "inject",
+        "z": "4f7a04bf39dfe515",
+        "name": "injectOnStart",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 110,
+        "y": 160,
+        "wires": [
+            [
+                "17fb326d8faaadbc"
+            ]
+        ]
+    },
+    {
+        "id": "ca1c27db12dfe959",
+        "type": "json",
+        "z": "4f7a04bf39dfe515",
+        "name": "parseToJson",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 190,
+        "y": 300,
+        "wires": [
+            [
+                "5d3fc0603db73ba0"
+            ]
+        ]
+    },
+    {
+        "id": "723cdabc064ba643",
+        "type": "json",
+        "z": "4f7a04bf39dfe515",
+        "name": "parseFromJson",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 680,
+        "y": 300,
+        "wires": [
+            [
+                "800f4fcfb62c7971"
+            ]
+        ]
+    },
+    {
+        "id": "8a768ec73a49767e",
+        "type": "change",
+        "z": "4f7a04bf39dfe515",
+        "name": "setAuthToken",
+        "rules": [
+            {
+                "t": "set",
+                "p": "token",
+                "pt": "global",
+                "to": "payload.token",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fb447e8f0da017cc",
+        "type": "json",
+        "z": "4f7a04bf39dfe515",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 610,
+        "y": 100,
+        "wires": [
+            [
+                "ca64f343fac42918"
+            ]
+        ]
+    },
+    {
+        "id": "c512820cdc7e9a4c",
+        "type": "file in",
+        "z": "4f7a04bf39dfe515",
+        "name": "Credentials.txt",
+        "filename": "",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "utf8",
+        "allProps": false,
+        "x": 460,
+        "y": 100,
+        "wires": [
+            [
+                "fb447e8f0da017cc"
+            ]
+        ]
+    },
+    {
+        "id": "ca64f343fac42918",
+        "type": "change",
+        "z": "4f7a04bf39dfe515",
+        "name": "setRequestHeadersAndBody",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "headers",
+                "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 100,
+        "wires": [
+            [
+                "ca1c27db12dfe959"
+            ]
+        ]
+    },
+    {
+        "id": "17fb326d8faaadbc",
+        "type": "function",
+        "z": "4f7a04bf39dfe515",
+        "name": "configFilePath",
+        "func": "const DOCS_PATH = env.get(\"DOCS_PATH\")\nconst filename = \"Credentials.txt\"\nmsg.filename = DOCS_PATH + filename\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 100,
+        "wires": [
+            [
+                "c512820cdc7e9a4c"
+            ]
+        ]
+    },
+    {
+        "id": "5d3fc0603db73ba0",
+        "type": "function",
+        "z": "4f7a04bf39dfe515",
+        "name": "configURL",
+        "func": "const CLOUD_URL = env.get(\"CLOUD_URL\")\nconst path = \"auth/gateway/authorize\"\nmsg.url = CLOUD_URL + path\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 300,
+        "wires": [
+            [
+                "9a21f64b0f4fbebc"
+            ]
+        ]
+    },
+    {
+        "id": "800f4fcfb62c7971",
+        "type": "switch",
+        "z": "4f7a04bf39dfe515",
+        "name": "validateStatusCode",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "btwn",
+                "v": "400",
+                "vt": "num",
+                "v2": "599",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "200",
+                "vt": "num",
+                "v2": "299",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 210,
+        "y": 400,
+        "wires": [
+            [
+                "8bd97345dd8aeff7"
+            ],
+            [
+                "8a768ec73a49767e"
+            ]
+        ]
+    },
+    {
+        "id": "e784dfbe67e5b8a8",
+        "type": "ui_toast",
+        "z": "4f7a04bf39dfe515",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "Cannot Authorize",
+        "name": "cannotAuthorizeNotification",
+        "x": 660,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8bd97345dd8aeff7",
+        "type": "change",
+        "z": "4f7a04bf39dfe515",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Cannot authorize gateway",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 380,
+        "wires": [
+            [
+                "e784dfbe67e5b8a8"
+            ]
+        ]
+    },
+    {
+        "id": "f0273a97bd0b2883",
+        "type": "tab",
+        "label": "Send to cloud",
+        "disabled": false,
+        "info": "This flow is reponsible for sendind data to cloud application.\nHappy day scenario:\n1. Data are loaded in msg.payload variable.\n2. Id of every document is stored in documentIds flow variable.\n3. Request is send to cloud app using bearer token for authorization, which was obtained from global variable token.\n4. Based on status code http response is validated.\n5. Property sent is changed to true for every sent document base on id match.\n\nAlternative scenario - statusCode 401 - not authorized:\n1. subflow authGateway is triggered\n2. token is requested using credentials stored in Credentials.txt\n\nAlternative scenario - statusCode ECONNREFUSED :\n1. Subflow pingGoogle is triggered\n2. Get request is sent to http.google.com\n3. Status connection in dashboard is based on reponse\n1. Subflow pingCloud is triggered\n2. Get request is sent to https.iotbe.heroku.com\n3. Status cloud in dashboard is based on\n\nAlternative scenario - unspecified error :\n1. All other errors are caught by catch node\n2. Error is logged in sentToCloudErrorLog.txt\n\n\n",
+        "env": []
+    },
+    {
+        "id": "a10e53eb4188a2e7",
+        "type": "catch",
+        "z": "f0273a97bd0b2883",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 100,
+        "y": 540,
+        "wires": [
+            [
+                "5a51ba1ca50bfffd",
+                "d16779bd4ed97fec"
+            ]
+        ]
+    },
+    {
+        "id": "5a51ba1ca50bfffd",
+        "type": "debug",
+        "z": "f0273a97bd0b2883",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 410,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "0ab40e0a5b0c3c2a",
+        "type": "inject",
+        "z": "f0273a97bd0b2883",
+        "name": "loadFromCollection",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "projection",
+                "v": "{\"temperature\":1,\"humidity\":1,\"timestamp\":1}",
+                "vt": "json"
+            }
+        ],
+        "repeat": "${INJECT_INTERVAL}",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"sent\":false}",
+        "payloadType": "json",
+        "x": 120,
+        "y": 120,
+        "wires": [
+            [
+                "440a25497398d609"
+            ]
+        ]
+    },
+    {
+        "id": "35f2b4fa90bfd12e",
+        "type": "mongodb in",
+        "z": "f0273a97bd0b2883",
+        "mongodb": "ecb43e63847ff54b",
+        "name": "",
+        "collection": "WeatherData",
+        "operation": "find",
+        "x": 570,
+        "y": 120,
+        "wires": [
+            [
+                "3e4ff2b5c399d2ad"
+            ]
+        ]
+    },
+    {
+        "id": "602c6c53dce22fef",
+        "type": "json",
+        "z": "f0273a97bd0b2883",
+        "name": "parseToJson",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 110,
+        "y": 200,
+        "wires": [
+            [
+                "16e693beef86f75b"
+            ]
+        ]
+    },
+    {
+        "id": "5a5ef348dd0bce86",
+        "type": "http request",
+        "z": "f0273a97bd0b2883",
+        "name": "postDataToCloud",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 490,
+        "y": 200,
+        "wires": [
+            [
+                "1514ba7e76668f6a",
+                "5cb8c2a02a753cf2"
+            ]
+        ]
+    },
+    {
+        "id": "3d7d0221419b99db",
+        "type": "function",
+        "z": "f0273a97bd0b2883",
+        "name": "setSentTrue",
+        "func": "const documentIds = flow.get(\"documentIds\")\nmsg.query = {\"_id\": {$in: documentIds }};\nmsg.payload = {\"$set\": {\"sent\": true}};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 440,
+        "wires": [
+            [
+                "226f56e8ba0307e7"
+            ]
+        ]
+    },
+    {
+        "id": "1514ba7e76668f6a",
+        "type": "switch",
+        "z": "f0273a97bd0b2883",
+        "name": "validateStatusCode",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "401",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "ECONNREFUSED",
+                "vt": "str"
+            },
+            {
+                "t": "btwn",
+                "v": "200",
+                "vt": "num",
+                "v2": "299",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 170,
+        "y": 360,
+        "wires": [
+            [
+                "1a05814ee1ccbda4"
+            ],
+            [
+                "d816a25ad97cadcd",
+                "876766f8edac308f"
+            ],
+            [
+                "3d7d0221419b99db"
+            ]
+        ]
+    },
+    {
+        "id": "226f56e8ba0307e7",
+        "type": "mongodb out",
+        "z": "f0273a97bd0b2883",
+        "mongodb": "ecb43e63847ff54b",
+        "name": "",
+        "collection": "WeatherData",
+        "payonly": false,
+        "upsert": false,
+        "multi": true,
+        "operation": "update",
+        "x": 750,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "b49810e46cdba53f",
+        "type": "file",
+        "z": "f0273a97bd0b2883",
+        "name": "sendToCloudErrorLog.txt",
+        "filename": "",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "utf8",
+        "x": 750,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ea26c5f415de9b18",
+        "type": "function",
+        "z": "f0273a97bd0b2883",
+        "name": "setRequestHeadersAndBody",
+        "func": "const token = global.get(\"token\")\nmsg.headers = {\n    Authorization: \"Bearer \"+ token,\n    [\"content-type\"]: \"application/json\"\n}\nmsg.payload = {\n    data: msg.payload\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
+        "y": 120,
+        "wires": [
+            [
+                "602c6c53dce22fef"
+            ]
+        ]
+    },
+    {
+        "id": "1a05814ee1ccbda4",
+        "type": "subflow:4f7a04bf39dfe515",
+        "z": "f0273a97bd0b2883",
+        "name": "",
+        "x": 510,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "d16779bd4ed97fec",
+        "type": "change",
+        "z": "f0273a97bd0b2883",
+        "name": "setErrorLog",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "error",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.timestamp",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 620,
+        "wires": [
+            [
+                "6163e262e8e5d88b"
+            ]
+        ]
+    },
+    {
+        "id": "d816a25ad97cadcd",
+        "type": "subflow:b11af126e424138a",
+        "z": "f0273a97bd0b2883",
+        "name": "",
+        "x": 510,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "876766f8edac308f",
+        "type": "subflow:1961c2c7c7bd9d95",
+        "z": "f0273a97bd0b2883",
+        "name": "",
+        "x": 500,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "2185295c43943d9e",
+        "type": "function",
+        "z": "f0273a97bd0b2883",
+        "name": "storeDocsIds",
+        "func": "let documentIds = []\nconst data = msg.payload.map(({_id, ...rest})=>{\n   documentIds.push(_id)\n    return rest\n})\nflow.set(\"documentIds\", documentIds)\nmsg.payload = data\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1010,
+        "y": 120,
+        "wires": [
+            [
+                "ea26c5f415de9b18"
+            ]
+        ]
+    },
+    {
+        "id": "3e4ff2b5c399d2ad",
+        "type": "switch",
+        "z": "f0273a97bd0b2883",
+        "name": "validateNotEmpty",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nempty"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 830,
+        "y": 120,
+        "wires": [
+            [
+                "2185295c43943d9e"
+            ]
+        ]
+    },
+    {
+        "id": "440a25497398d609",
+        "type": "delay",
+        "z": "f0273a97bd0b2883",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 300,
+        "y": 120,
+        "wires": [
+            [
+                "35f2b4fa90bfd12e"
+            ]
+        ]
+    },
+    {
+        "id": "6163e262e8e5d88b",
+        "type": "function",
+        "z": "f0273a97bd0b2883",
+        "name": "configFilePath",
+        "func": "const DOCS_PATH = env.get(\"DOCS_PATH\")\nconst filename = \"SendToCloudErrorLog.txt\"\nmsg.filename = DOCS_PATH + filename\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 620,
+        "wires": [
+            [
+                "b49810e46cdba53f"
+            ]
+        ]
+    },
+    {
+        "id": "16e693beef86f75b",
+        "type": "function",
+        "z": "f0273a97bd0b2883",
+        "name": "configURL",
+        "func": "const CLOUD_URL = env.get(\"CLOUD_URL\")\nconst path = \"weather-data\"\nmsg.url = CLOUD_URL + path\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 200,
+        "wires": [
+            [
+                "5a5ef348dd0bce86"
+            ]
+        ]
+    },
+    {
+        "id": "5cb8c2a02a753cf2",
+        "type": "debug",
+        "z": "f0273a97bd0b2883",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 710,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "ecb43e63847ff54b",
+        "type": "mongodb",
+        "hostname": "127.0.0.1",
+        "topology": "direct",
+        "connectOptions": "",
+        "port": "27017",
+        "db": "meteodata",
+        "name": ""
+    }
+]
