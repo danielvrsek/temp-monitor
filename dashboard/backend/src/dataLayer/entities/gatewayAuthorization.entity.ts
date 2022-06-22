@@ -1,6 +1,6 @@
 import { Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { SchemaConstants } from 'dataLayer/common/schemaConstants';
+import { Entities } from 'dataLayer/common/schemaConstants';
 import { GatewayAuthorizationType } from './enums/gatewayAuthorizationType';
 import { Entity } from './entity';
 
@@ -10,10 +10,10 @@ export class GatewayAuthorization extends Entity {
 
     @Prop() authorizationType: GatewayAuthorizationType;
 
-    @Prop({ type: Types.ObjectId, ref: SchemaConstants.Gateway })
+    @Prop({ type: Types.ObjectId, ref: Entities.Gateway })
     gatewayId: Types.ObjectId;
 
-    @Prop({ type: Types.ObjectId, ref: SchemaConstants.Workspace })
+    @Prop({ type: Types.ObjectId, ref: Entities.Workspace })
     workspaceId: Types.ObjectId;
 }
 

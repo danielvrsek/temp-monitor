@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MainChartReady from './MainChartReady';
 import { ChartGranularity, granularityList } from './chartGranularity';
 import ApiClient from '../../api/ApiClient';
-import { GatewayViewModel, WeatherDataViewModel } from 'shared/dto';
+import { GatewayViewModel, UserDataViewModel } from 'shared/dto';
 import Error from '../../common/Error';
 import Loading from '../../common/Loading';
 
@@ -29,7 +29,7 @@ const MainChartLoad: React.FC<Props> = ({ gateway }) => {
     }, [dateFrom, dateTo]);
 
     //Chart
-    const [chartData, setChartData] = useState<WeatherDataViewModel[]>([]);
+    const [chartData, setChartData] = useState<UserDataViewModel[]>([]);
     const [status, setStatus] = useState('loading');
 
     const reset = () => {
@@ -43,7 +43,7 @@ const MainChartLoad: React.FC<Props> = ({ gateway }) => {
             return;
         }
 
-        ApiClient.getWeatherData(gateway.id, dateFrom, dateTo, granularity)
+        ApiClient.getData(gateway.id, dateFrom, dateTo, granularity)
             .then((res) => {
                 if (res.status === 200) {
                     setChartData(res.data);

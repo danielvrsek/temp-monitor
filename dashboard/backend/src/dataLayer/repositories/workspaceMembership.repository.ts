@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { SchemaConstants } from 'dataLayer/common/schemaConstants';
+import { Entities } from 'dataLayer/common/schemaConstants';
 import { Types } from 'mongoose';
 import { WorkspaceMembership } from 'dataLayer/entities/workspaceMembership.entity';
 import { Repository } from './respository';
 
 @Injectable()
 export class WorkspaceMembershipRepository extends Repository<WorkspaceMembership> {
-    constructor(@InjectModel(SchemaConstants.WorkspaceMembership) model: Model<WorkspaceMembership>) {
+    constructor(@InjectModel(Entities.WorkspaceMembership) model: Model<WorkspaceMembership>) {
         super(model);
     }
 

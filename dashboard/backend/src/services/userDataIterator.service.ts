@@ -1,11 +1,11 @@
-import { WeatherDataDto } from 'shared/dto';
+import { UserDataDto } from 'shared/dto';
 
-export class WeatherDataIterator {
+export class UserDataIterator {
     private lowerIndex: number;
     private upperIndex: number;
 
     constructor(
-        private readonly data: WeatherDataDto[],
+        private readonly data: UserDataDto[],
         private readonly lowerIndexInit: number,
         private readonly upperIndexInit: number,
         private readonly ratio: number
@@ -31,7 +31,7 @@ export class WeatherDataIterator {
     }
 
     takePreviousFor(timestamp: Date) {
-        const result: WeatherDataDto[] = [];
+        const result: UserDataDto[] = [];
 
         while (this.hasPrevious()) {
             const previous = this.getPrevious();
@@ -44,8 +44,8 @@ export class WeatherDataIterator {
         return result;
     }
 
-    takeNextFor(timestamp: Date): WeatherDataDto[] {
-        const result: WeatherDataDto[] = [];
+    takeNextFor(timestamp: Date): UserDataDto[] {
+        const result: UserDataDto[] = [];
 
         while (this.hasNext()) {
             const next = this.getNext();

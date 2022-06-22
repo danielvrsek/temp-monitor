@@ -1,16 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { SchemaConstants } from 'dataLayer/common/schemaConstants';
+import { Entities } from 'dataLayer/common/schemaConstants';
 import { Types } from 'mongoose';
 import { GatewayAuthorization } from 'dataLayer/entities/gatewayAuthorization.entity';
 import { GatewayAuthorizationType } from 'dataLayer/entities/enums/gatewayAuthorizationType';
 
 @Injectable()
 export class GatewayAuthorizationRepository {
-    constructor(
-        @InjectModel(SchemaConstants.GatewayAuthorization) private readonly model: Model<GatewayAuthorization>
-    ) {}
+    constructor(@InjectModel(Entities.GatewayAuthorization) private readonly model: Model<GatewayAuthorization>) {}
 
     async getForGatewayByWorkspace(
         workspaceId: Types.ObjectId,

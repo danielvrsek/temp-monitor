@@ -1,9 +1,9 @@
-import { WeatherDataDto } from 'shared/dto';
+import { UserDataDto } from 'shared/dto';
 
-export class WeatherDataIndexer {
+export class UserDataIndexer {
     findIndex(
         timestamp: Date,
-        data: WeatherDataDto[],
+        data: UserDataDto[],
         startIndex: number,
         length: number
     ): [lowerIndex: number, upperIndex: number] {

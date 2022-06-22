@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { Model, Types } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { SchemaConstants } from 'dataLayer/common/schemaConstants';
+import { Entities } from 'dataLayer/common/schemaConstants';
 import { Gateway } from 'dataLayer/entities/gateway.entity';
 import { Repository } from './respository';
 
 @Injectable()
 export class GatewayRepository extends Repository<Gateway> {
-    constructor(@InjectModel(SchemaConstants.Gateway) model: Model<Gateway>) {
+    constructor(@InjectModel(Entities.Gateway) model: Model<Gateway>) {
         super(model);
     }
 

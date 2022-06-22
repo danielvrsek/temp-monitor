@@ -3,12 +3,12 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
 import { Model } from 'mongoose';
 import { User } from 'dataLayer/entities/user.entity';
-import { SchemaConstants } from 'dataLayer/common/schemaConstants';
+import { Entities } from 'dataLayer/common/schemaConstants';
 import { Repository } from './respository';
 
 @Injectable()
 export class UserRepository extends Repository<User> {
-    constructor(@InjectModel(SchemaConstants.User) model: Model<User>) {
+    constructor(@InjectModel(Entities.User) model: Model<User>) {
         super(model);
     }
 

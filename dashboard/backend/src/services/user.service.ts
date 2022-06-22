@@ -4,7 +4,7 @@ import { User } from 'dataLayer/entities/user.entity';
 import { CreateUserDto, UpdateUserDto, UserViewModel } from 'shared/dto';
 import { UserMapper } from 'mappers/user.mapper';
 import { UnitOfWork, UnitOfWorkFactory } from 'dataLayer/unitOfWork';
-import { SchemaConstants } from 'dataLayer/common/schemaConstants';
+import { Entities } from 'dataLayer/common/schemaConstants';
 import { objectId } from 'utils/schemaHelper';
 
 @Injectable()
@@ -12,7 +12,7 @@ export class UserService {
     private unitOfWork: UnitOfWork<User>;
 
     constructor(unitOfWorkFactory: UnitOfWorkFactory) {
-        this.unitOfWork = unitOfWorkFactory.create<User>(SchemaConstants.User);
+        this.unitOfWork = unitOfWorkFactory.create<User>(Entities.User);
     }
 
     async createAsync(user: CreateUserDto): Promise<User> {

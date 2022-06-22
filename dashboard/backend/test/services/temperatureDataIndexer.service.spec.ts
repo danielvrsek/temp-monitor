@@ -1,10 +1,10 @@
-import { WeatherDataIndexer } from '../../src/services/weatherDataIndexer.service';
+import { UserDataIndexer } from '../../src/services/userDataIndexer.service';
 
-describe('WeatherDataIndexer', () => {
-    let service: WeatherDataIndexer;
+describe('UserDataIndexer', () => {
+    let service: UserDataIndexer;
 
     beforeEach(() => {
-        service = new WeatherDataIndexer();
+        service = new UserDataIndexer();
     });
 
     describe('findIndex', () => {

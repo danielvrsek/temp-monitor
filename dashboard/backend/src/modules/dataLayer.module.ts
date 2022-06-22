@@ -1,34 +1,34 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { SchemaConstants } from 'dataLayer/common/schemaConstants';
+import { Entities } from 'dataLayer/common/schemaConstants';
 import { GatewaySchema } from 'dataLayer/entities/gateway.entity';
 import { GatewayAuthorizationSchema } from 'dataLayer/entities/gatewayAuthorization.entity';
 import { UserSchema } from 'dataLayer/entities/user.entity';
-import { WeatherDataSchema } from 'dataLayer/entities/weatherData.entity';
+import { UserDataSchema } from 'dataLayer/entities/userData.entity';
 import { WorkspaceSchema } from 'dataLayer/entities/workspace.entity';
 import { WorkspaceMembershipSchema } from 'dataLayer/entities/workspaceMembership.entity';
 import { GatewayRepository } from 'dataLayer/repositories/gateway.repository';
 import { GatewayAuthorizationRepository } from 'dataLayer/repositories/gatewayAuthorization.repository';
 import { UserRepository } from 'dataLayer/repositories/user.repository';
-import { WeatherDataRepository } from 'dataLayer/repositories/weatherData.repository';
+import { UserDataRepository } from 'dataLayer/repositories/userData.repository';
 import { WorkspaceRepository } from 'dataLayer/repositories/workspace.repository';
 import { WorkspaceMembershipRepository } from 'dataLayer/repositories/workspaceMembership.repository';
 import { UnitOfWorkFactory } from 'dataLayer/unitOfWork';
 
 @Module({
     imports: [
-        MongooseModule.forFeature([{ name: SchemaConstants.Gateway, schema: GatewaySchema }]),
-        MongooseModule.forFeature([{ name: SchemaConstants.GatewayAuthorization, schema: GatewayAuthorizationSchema }]),
-        MongooseModule.forFeature([{ name: SchemaConstants.User, schema: UserSchema }]),
-        MongooseModule.forFeature([{ name: SchemaConstants.WeatherData, schema: WeatherDataSchema }]),
-        MongooseModule.forFeature([{ name: SchemaConstants.Workspace, schema: WorkspaceSchema }]),
-        MongooseModule.forFeature([{ name: SchemaConstants.WorkspaceMembership, schema: WorkspaceMembershipSchema }]),
+        MongooseModule.forFeature([{ name: Entities.Gateway, schema: GatewaySchema }]),
+        MongooseModule.forFeature([{ name: Entities.GatewayAuthorization, schema: GatewayAuthorizationSchema }]),
+        MongooseModule.forFeature([{ name: Entities.User, schema: UserSchema }]),
+        MongooseModule.forFeature([{ name: Entities.UserData, schema: UserDataSchema }]),
+        MongooseModule.forFeature([{ name: Entities.Workspace, schema: WorkspaceSchema }]),
+        MongooseModule.forFeature([{ name: Entities.WorkspaceMembership, schema: WorkspaceMembershipSchema }]),
     ],
     providers: [
         GatewayRepository,
         GatewayAuthorizationRepository,
         UserRepository,
-        WeatherDataRepository,
+        UserDataRepository,
         WorkspaceRepository,
         WorkspaceMembershipRepository,
         UnitOfWorkFactory,
@@ -37,7 +37,7 @@ import { UnitOfWorkFactory } from 'dataLayer/unitOfWork';
         GatewayRepository,
         GatewayAuthorizationRepository,
         UserRepository,
-        WeatherDataRepository,
+        UserDataRepository,
         WorkspaceRepository,
         WorkspaceMembershipRepository,
         UnitOfWorkFactory,

@@ -1,6 +1,6 @@
-import { WeatherDataIterator } from '../../src/services/weatherDataIterator.service';
+import { UserDataIterator } from '../../src/services/userDataIterator.service';
 
-describe('WeatherDataIterator', () => {
+describe('UserDataIterator', () => {
     describe('takePreviousFor', () => {
         it('should return one when first item equals', async () => {
             const data = [
@@ -9,7 +9,7 @@ describe('WeatherDataIterator', () => {
                 { temperature: 20, humidity: 50, timestamp: new Date('2022-06-09T16:50:08.107Z') },
             ];
 
-            const service = new WeatherDataIterator(data, 0, 0, 1);
+            const service = new UserDataIterator(data, 0, 0, 1);
 
             const result = [
                 {
@@ -29,7 +29,7 @@ describe('WeatherDataIterator', () => {
                 { temperature: 20, humidity: 50, timestamp: new Date('2022-06-09T16:50:08.107Z') },
             ];
 
-            const service = new WeatherDataIterator(data, 0, 0, 1);
+            const service = new UserDataIterator(data, 0, 0, 1);
 
             const result = [];
 
@@ -45,7 +45,7 @@ describe('WeatherDataIterator', () => {
                 { temperature: 20, humidity: 50, timestamp: new Date('2022-06-09T16:50:08.107Z') },
             ];
 
-            const service = new WeatherDataIterator(data, 2, 2, 1);
+            const service = new UserDataIterator(data, 2, 2, 1);
 
             const result = [
                 {
@@ -65,7 +65,7 @@ describe('WeatherDataIterator', () => {
                 { temperature: 20, humidity: 50, timestamp: new Date('2022-06-09T16:50:08.107Z') },
             ];
 
-            const service = new WeatherDataIterator(data, 2, 2, 1);
+            const service = new UserDataIterator(data, 2, 2, 1);
 
             const result = [];
 

@@ -3,10 +3,10 @@ import { GatewayService } from 'services/gateway.service';
 import { MicrosoftAuthorizationService } from 'services/microsoftAuthorizationService';
 import { MicrosoftGraphApi } from 'services/microsoftGraphApi';
 import { UserService } from 'services/user.service';
-import { WeatherDataService } from 'services/weatherData.service';
-import { WeatherDataGranularityService } from 'services/weatherDataGranularity.service';
-import { WeatherDataIndexer } from 'services/weatherDataIndexer.service';
-import { WeatherDataIterator } from 'services/weatherDataIterator.service';
+import { UserDataService } from 'services/userData.service';
+import { UserDataGranularityService } from 'services/userDataGranularity.service';
+import { UserDataIndexer } from 'services/userDataIndexer.service';
+import { UserDataIterator } from 'services/userDataIterator.service';
 import { WorkspaceService } from 'services/workspace.service';
 import { WorkspaceMembershipService } from 'services/workspaceMembership.service';
 import { AuthModule } from './auth.module';
@@ -22,10 +22,10 @@ import { SharedModule } from './shared.module';
         WorkspaceMembershipService,
         MicrosoftAuthorizationService,
         MicrosoftGraphApi,
-        WeatherDataService,
-        WeatherDataGranularityService,
-        WeatherDataIndexer,
-        WeatherDataIterator,
+        UserDataService,
+        UserDataGranularityService,
+        UserDataIndexer,
+        UserDataIterator,
     ],
     exports: [
         GatewayService,
@@ -34,10 +34,10 @@ import { SharedModule } from './shared.module';
         WorkspaceMembershipService,
         MicrosoftAuthorizationService,
         MicrosoftGraphApi,
-        WeatherDataService,
-        WeatherDataGranularityService,
-        WeatherDataIndexer,
-        WeatherDataIterator,
+        UserDataService,
+        UserDataGranularityService,
+        UserDataIndexer,
+        UserDataIterator,
     ],
 })
 export class ServicesModule {}

@@ -3,25 +3,25 @@ import { EnforceTokenType } from 'auth/decorator/tokenType.decorator';
 import { JwtAuthGuard } from 'auth/guards/jwt.guard';
 import { TokenTypeGuard } from 'auth/guards/tokenType.guard';
 import { CookieHelper } from 'utils/cookieHelper';
-import { WeatherDataRepository } from 'dataLayer/repositories/weatherData.repository';
-import { WeatherDataService } from 'services/weatherData.service';
+import { UserDataRepository } from 'dataLayer/repositories/userData.repository';
+import { UserDataService } from 'services/userData.service';
 import { objectId } from 'utils/schemaHelper';
 import { ControllerBase } from './controllerBase';
-import { InsertWeatherDataDto, InsertWeatherDataResponse, WeatherDataDto, WeatherDataViewModel } from 'shared/dto';
+import { InsertUserDataDto, InsertUserDataResponse, UserDataViewModel } from 'shared/dto';
 import { WorkspaceRepository } from 'dataLayer/repositories/workspace.repository';
 import { GatewayRepository } from 'dataLayer/repositories/gateway.repository';
 import { GatewayRequest } from 'common/request';
-import { WeatherDataGranularityService } from 'services/weatherDataGranularity.service';
+import { UserDataGranularityService } from 'services/userDataGranularity.service';
 import { TokenType } from 'shared/authorization';
-import { WeatherDataMapper } from 'mappers/weatherData.mapper';
+import { UserDataMapper } from 'mappers/userData.mapper';
 
-@Controller('weather-data')
+@Controller('data')
 @UseGuards(JwtAuthGuard, TokenTypeGuard)
-export class WeatherDataController extends ControllerBase {
+export class UserDataController extends ControllerBase {
     constructor(
-        private readonly weatherDataGranuralityService: WeatherDataGranularityService,
-        private readonly weatherDataRepository: WeatherDataRepository,
-        private readonly weatherDataService: WeatherDataService,
+        private readonly userDataGranuralityService: UserDataGranularityService,
+        private readonly userDataRepository: UserDataRepository,
+        private readonly userDataService: UserDataService,
         private readonly gatewayRepository: GatewayRepository,
         workspaceRepository: WorkspaceRepository,
         cookieHelper: CookieHelper
@@ -36,38 +36,38 @@ export class WeatherDataController extends ControllerBase {
         @Query('dateFrom') dateFromString?: string,
         @Query('dateTo') dateToString?: string,
         @Query('granularity') granularityString?: string
-    ): Promise<WeatherDataViewModel[]> {
+    ): Promise<UserDataViewModel[]> {
         const dateFrom = new Date(dateFromString);
         const dateTo = new Date(dateToString);
 
-        let data = await this.weatherDataRepository.findAllByGatewayIdAsync(gatewayId, dateFrom, dateTo);
+        let data = await this.userDataRepository.findAllByGatewayIdAsync(gatewayId, dateFrom, dateTo);
         if (data.length === 0) {
             return [];
         }
 
-        data = this.weatherDataService.sortWeatherData(data);
-        let dataDto = data.map(WeatherDataMapper.mapToViewModel);
+        data = this.userDataService.sort(data);
+        let dataDto = data.map(UserDataMapper.mapToViewModel);
 
         let granularity = granularityString ? parseInt(granularityString) : 0;
         if (granularity === 0 || isNaN(granularity)) {
-            granularity = this.weatherDataGranuralityService.calculateGranularity(dateFrom, dateTo);
+            granularity = this.userDataGranuralityService.calculateGranularity(dateFrom, dateTo);
         }
 
-        return this.weatherDataGranuralityService.transformByGranularity(dataDto, dateFrom, dateTo, granularity);
+        return this.userDataGranuralityService.transformByGranularity(dataDto, dateFrom, dateTo, granularity);
     }
 
     @Post()
     @EnforceTokenType(TokenType.Gateway)
     async insertAsync(
         @Req() request: GatewayRequest<void>,
-        @Body() insertDto: InsertWeatherDataDto
-    ): Promise<InsertWeatherDataResponse> {
+        @Body() insertDto: InsertUserDataDto
+    ): Promise<InsertUserDataResponse> {
         const gateway = await this.gatewayRepository.findByIdAsync(objectId(request.user.gatewayId));
         if (!gateway) {
             throw new BadRequestException('Invalid gateway');
         }
 
-        const count = await this.weatherDataService.insertAsync(gateway._id, insertDto);
+        const count = await this.userDataService.insertAsync(gateway._id, insertDto);
         return {
             count,
         };

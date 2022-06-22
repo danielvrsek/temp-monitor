@@ -1,17 +1,17 @@
-import { WeatherDataGranularityService } from '../../src/services/weatherDataGranularity.service';
+import { UserDataGranularityService } from '../../src/services/userDataGranularity.service';
 
-describe('WeatherDataGranuralityService', () => {
-    let service: WeatherDataGranularityService;
+describe('UserDataGranuralityService', () => {
+    let service: UserDataGranularityService;
 
     beforeEach(() => {
-        service = new WeatherDataGranularityService();
+        service = new UserDataGranularityService();
     });
 
     describe('calculateGranularity', () => {
         it('should calculate granularity', async () => {
             const dateFrom = new Date('2022-06-09T16:40:08.107Z');
             const dateTo = new Date(dateFrom);
-            dateTo.setHours(dateFrom.getHours() + WeatherDataGranularityService.DefaultCount);
+            dateTo.setHours(dateFrom.getHours() + UserDataGranularityService.DefaultCount);
 
             const result = 3600; // hour
             expect(service.calculateGranularity(dateFrom, dateTo)).toEqual(result);

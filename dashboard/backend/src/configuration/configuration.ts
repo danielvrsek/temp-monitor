@@ -22,11 +22,11 @@ export class ConfigurationProvider {
         };
     }
 
-    #getString(name): string {
+    #getString(name: string): string {
         return this.configService.get<string>(name);
     }
 
-    #getStringArray(name): string[] {
+    #getStringArray(name: string): string[] {
         return JSON.parse(this.configService.get<string>(name));
     }
 }

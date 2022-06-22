@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { SchemaConstants } from './common/schemaConstants';
+import { Entities } from './common/schemaConstants';
 import { Entity } from './entities/entity';
 import { Gateway } from './entities/gateway.entity';
 import { GatewayAuthorization } from './entities/gatewayAuthorization.entity';
 import { User } from './entities/user.entity';
-import { WeatherData } from './entities/weatherData.entity';
+import { UserData } from './entities/userData.entity';
 import { Workspace } from './entities/workspace.entity';
 import { WorkspaceMembership } from './entities/workspaceMembership.entity';
 import { entityNameWeakMap } from './entityNameWeakMap';
@@ -19,22 +19,22 @@ export class UnitOfWorkFactory {
     private readonly modelStore: ModelStore = {};
 
     constructor(
-        @InjectModel(SchemaConstants.Gateway) gatewayModel: Model<Gateway>,
-        @InjectModel(SchemaConstants.GatewayAuthorization) gatewayAuthorizationModel: Model<GatewayAuthorization>,
-        @InjectModel(SchemaConstants.User) userModel: Model<User>,
-        @InjectModel(SchemaConstants.WeatherData) weatherDataModel: Model<WeatherData>,
-        @InjectModel(SchemaConstants.Workspace) workspaceModel: Model<Workspace>,
-        @InjectModel(SchemaConstants.WorkspaceMembership) workspaceMembershipModel: Model<WorkspaceMembership>
+        @InjectModel(Entities.Gateway) gatewayModel: Model<Gateway>,
+        @InjectModel(Entities.GatewayAuthorization) gatewayAuthorizationModel: Model<GatewayAuthorization>,
+        @InjectModel(Entities.User) userModel: Model<User>,
+        @InjectModel(Entities.UserData) userDataModel: Model<UserData>,
+        @InjectModel(Entities.Workspace) workspaceModel: Model<Workspace>,
+        @InjectModel(Entities.WorkspaceMembership) workspaceMembershipModel: Model<WorkspaceMembership>
     ) {
         this.#pushModel(gatewayModel);
         this.#pushModel(gatewayAuthorizationModel);
         this.#pushModel(userModel);
-        this.#pushModel(weatherDataModel);
+        this.#pushModel(userDataModel);
         this.#pushModel(workspaceModel);
         this.#pushModel(workspaceMembershipModel);
     }
 
-    create<T extends Entity>(entityType: SchemaConstants): UnitOfWork<T> {
+    create<T extends Entity>(entityType: Entities): UnitOfWork<T> {
         return new UnitOfWork(this.modelStore[entityType], this.modelStore);
     }
 

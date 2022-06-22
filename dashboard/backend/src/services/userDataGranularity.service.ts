@@ -1,25 +1,25 @@
 import { Injectable } from '@nestjs/common';
-import { WeatherDataDto } from 'shared/dto';
-import { WeatherDataIndexer } from './weatherDataIndexer.service';
-import { WeatherDataIterator } from './weatherDataIterator.service';
+import { UserDataDto } from 'shared/dto';
+import { UserDataIndexer } from './userDataIndexer.service';
+import { UserDataIterator } from './userDataIterator.service';
 
 @Injectable()
-export class WeatherDataGranularityService {
+export class UserDataGranularityService {
     public static DefaultCount = 150;
 
     calculateGranularity(dateFrom: Date, dateTo: Date): number {
         const dateFromMillis = dateFrom.getTime();
         const dateToMillis = dateTo.getTime();
 
-        return Math.ceil((dateToMillis - dateFromMillis) / 1000 / WeatherDataGranularityService.DefaultCount);
+        return Math.ceil((dateToMillis - dateFromMillis) / 1000 / UserDataGranularityService.DefaultCount);
     }
 
     transformByGranularity(
-        data: WeatherDataDto[],
+        data: UserDataDto[],
         dateFrom: Date,
         dateTo: Date,
         granularitySeconds: number
-    ): WeatherDataDto[] {
+    ): UserDataDto[] {
         // Expect sorted data by timestamp
         const dateFromMillis = dateFrom.getTime();
         const dateToMillis = dateTo.getTime();
@@ -28,7 +28,7 @@ export class WeatherDataGranularityService {
         const ratio = Math.floor(data.length / itemCount);
 
         const timestamps = this.#generateTimestamps(itemCount, dateFromMillis, granularitySeconds * 1000);
-        const result: WeatherDataDto[] = [];
+        const result: UserDataDto[] = [];
         for (let i = 0; i < itemCount; i++) {
             const timestamp = timestamps[i];
             result.push(this.#calculateGranularityBetween(timestamp, this.#getRelatedData(timestamp, data, ratio)));
@@ -37,11 +37,11 @@ export class WeatherDataGranularityService {
         return result;
     }
 
-    #getRelatedData(timestamp: Date, data: WeatherDataDto[], ratio: number): WeatherDataDto[] {
-        const indexer = new WeatherDataIndexer();
+    #getRelatedData(timestamp: Date, data: UserDataDto[], ratio: number): UserDataDto[] {
+        const indexer = new UserDataIndexer();
         const [lowerIndex, upperIndex] = indexer.findIndex(timestamp, data, 0, data.length);
 
-        const iterator = new WeatherDataIterator(data, lowerIndex, upperIndex, ratio);
+        const iterator = new UserDataIterator(data, lowerIndex, upperIndex, ratio);
         return [...iterator.takePreviousFor(timestamp), ...iterator.takeNextFor(timestamp)];
     }
 
@@ -59,10 +59,9 @@ export class WeatherDataGranularityService {
         return Math.ceil((millisTo - millisFrom) / granularityMillis) + 1;
     }
 
-    #calculateGranularityBetween(timestamp: Date, data: WeatherDataDto[]): WeatherDataDto {
+    #calculateGranularityBetween(timestamp: Date, data: UserDataDto[]): UserDataDto {
         return {
-            temperature: this.#granularityFunction(data.map((x) => x.temperature)),
-            humidity: this.#granularityFunction(data.map((x) => x.humidity)),
+            value: this.#granularityFunction(data.map((x) => x.value)),
             timestamp,
         };
     }

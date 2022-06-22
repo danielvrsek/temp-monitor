@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';
-import { SchemaConstants } from 'dataLayer/common/schemaConstants';
+import { Entities } from 'dataLayer/common/schemaConstants';
 import { WorkspaceMembership } from 'dataLayer/entities/workspaceMembership.entity';
 import { WorkspaceMembershipRepository } from 'dataLayer/repositories/workspaceMembership.repository';
 import { UserRole } from 'dataLayer/entities/enums/userRole.enum';
@@ -14,7 +14,7 @@ export class WorkspaceMembershipService {
         private readonly workspaceMembershipRepository: WorkspaceMembershipRepository,
         unitOfWorkFactory: UnitOfWorkFactory
     ) {
-        this.unitOfWork = unitOfWorkFactory.create<WorkspaceMembership>(SchemaConstants.WorkspaceMembership);
+        this.unitOfWork = unitOfWorkFactory.create<WorkspaceMembership>(Entities.WorkspaceMembership);
     }
 
     addUserToWorkspaceAsync(workspaceId: Types.ObjectId, userId: Types.ObjectId, roles: UserRole[]) {

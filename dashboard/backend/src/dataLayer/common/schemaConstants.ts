@@ -1,8 +1,9 @@
-export enum SchemaConstants {
+export enum Entities {
     User = 'User',
     Gateway = 'Gateway',
     GatewayAuthorization = 'GatewayAuthorization',
     Workspace = 'Workspace',
     WorkspaceMembership = 'WorkspaceMembership',
-    WeatherData = 'WeatherData',
+    UserData = 'UserData',
+    UserDataGroup = 'UserDataGroup',
 }
