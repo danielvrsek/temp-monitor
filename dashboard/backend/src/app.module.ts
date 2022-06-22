@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { CommandModule } from 'nestjs-command';
 import { SeedCommand } from 'seed/seed.command';
 import { SharedModule } from 'modules/shared.module';
 import { ConfigurationProvider } from 'configuration/configuration';
@@ -26,6 +27,7 @@ import { AuthModule } from 'modules/auth.module';
         AuthModule,
         ControllersModule,
         SharedModule,
+        CommandModule,
     ],
     providers: [SeedCommand],
 })
