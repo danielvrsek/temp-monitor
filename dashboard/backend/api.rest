@@ -1,0 +1,95 @@
+### Login
+POST http://localhost:4000/auth/register
+Content-Type: application/json
+
+{
+    "email": "test2@test.com",
+    "firstName": "Test",
+    "lastname": "User 2",
+    "passwordRaw": "test2",
+}
+
+### Login
+POST http://localhost:4000/auth/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "admin"
+}
+
+### Add user to workspace
+POST http://localhost:4000/workspaces/current/users
+Content-Type: application/json
+
+{
+    "username": "user@test.com"
+}
+
+### Get all available workspaces
+
+GET http://localhost:4000/workspaces/user
+
+### Get all users in workspace
+GET http://localhost:4000/workspaces/current/users
+
+### Set current workspace
+PUT http://localhost:4000/workspaces/user/current
+Content-Type: application/json
+
+{
+    "workspaceId": "629c75a8f54e0f35c1f6bc33"
+}
+
+### Get user info
+GET http://localhost:4000/auth/user-info
+
+### Logout
+POST http://localhost:4000/auth/logout
+
+### Get available gateways
+GET http://localhost:4000/gateways
+
+### Get weather data for gateway
+GET http://localhost:4000/weather-data/gateway/629c75a8f54e0f35c1f6bc39?dateFrom=2022-06-09T16:40:08.107Z&dateTo=2022-06-10T16:40:08.107Z&granularity=3600
+
+### Get current workspace
+GET http://localhost:4000/workspace/user/current
+
+### Authorize gateway
+POST http://localhost:4000/auth/gateway/authorize
+Content-Type: application/json
+
+{
+    "workspaceId": "62a38ae739b278d0c99583a2",
+    "secret": "772cecd8f255"
+}
+
+### Insert weather data
+POST http://localhost:4000/weather-data
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJnYXRld2F5SWQiOiI2MjljNzVhOGY1NGUwZjM1YzFmNmJjMzkiLCJ3b3Jrc3BhY2VJZCI6IjYyOWM3NWE4ZjU0ZTBmMzVjMWY2YmMzMyIsInRva2VuVHlwZSI6MSwiaWF0IjoxNjU0NDIxNDc5LCJleHAiOjE2NTQ0MjE3MTl9.sCiwfxPz1FM-iwYKNmlsF-EeHSymR6cP-kO4-fWcU2c
+
+{
+    "data": [{
+        "temperature": 20,
+        "humidity": 50,
+        "timestamp": "Wed, 21 Oct 2015 18:27:50 GMT"
+    }]
+}
+
+### Create gateway
+POST http://localhost:4000/gateways
+Content-Type: application/json
+
+{
+    "name": "Houbec"
+}
+
+### Create workspace
+POST http://localhost:4000/workspace
+Content-Type: application/json
+
+{
+    "name": "Houbec"
+}

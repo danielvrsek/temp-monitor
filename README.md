@@ -1,10 +1,38 @@
-# Gateway
-How to run
-Import flows to working directory
-Config file path in settings.js
-Install these libraries
-node-red dashboard 3.1.6
-node-red-node-mongodb 0.2.5
-node-red-node-serialport  1.0.1
+# uu-biot-t06
 
+Must HAVE!
+
+- přidat vazbu na usera
+- založit v neděli SPRIT!
+- konfigurace na nodeRED {url serveru, heslo}, která povede na více userů.
+  AUTORIZACE více zařízení
+  
+  
+  Úkoly do 23.5.
+  
+  Tomáš Trnka
+  
+  - předělá React na MUI 
+
+  Jakub Pelz
+  
+  - udělá napojení dat na FE appky
+  
+  
+  Daniel Vršek
+  
+  - autorizace, authentikace
+  
+  Vít Havlík
+  
+  
+  
+  Patrik Černý
+  
+  
+  
+  Lukáš Ptašinský
+
+
+should have
 

@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "jsx": "preserve",
+        "declaration": true,
+        "declarationMap": true,
+        "outDir": "./dist",
+        "strict": true,
+        "noImplicitAny": true,
+        "typeRoots": ["./src/types"],
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "include": ["dto", "authorizations"]
+}
