@@ -9,6 +9,7 @@ import { DataLayerModule } from 'modules/dataLayer.module';
 import { ServicesModule } from 'modules/services.module';
 import { ControllersModule } from 'modules/controllers.module';
 import { AuthModule } from 'modules/auth.module';
+import { ImportDataCommand } from 'seed/importData.command';
 
 @Module({
     imports: [
@@ -29,6 +30,6 @@ import { AuthModule } from 'modules/auth.module';
         SharedModule,
         CommandModule,
     ],
-    providers: [SeedCommand],
+    providers: [SeedCommand, ImportDataCommand],
 })
 export class AppModule {}

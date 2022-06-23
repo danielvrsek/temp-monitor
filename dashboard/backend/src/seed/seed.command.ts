@@ -8,11 +8,13 @@ import { WorkspaceType } from 'dataLayer/entities/enums/workspaceType.enum';
 import { objectId } from 'utils/schemaHelper';
 import { UserRole } from 'dataLayer/entities/enums/userRole.enum';
 import { WorkspaceMembershipService } from 'services/workspaceMembership.service';
+import { UserDataGroupService } from 'services/userDataGroup.service';
 
 @Injectable()
 export class SeedCommand {
     constructor(
         private readonly userService: UserService,
+        private readonly userDataGroupService: UserDataGroupService,
         private readonly workspaceService: WorkspaceService,
         private readonly workspaceMembershipService: WorkspaceMembershipService,
         private readonly gatewayService: GatewayService
@@ -90,10 +92,15 @@ export class SeedCommand {
         );
         console.log(workspaceMembership3);
 
-        const gateway1 = await this.gatewayService.createWithIdAsync(workspace1._id, {
-            _id: objectId('629c75a8f54e0f35c1f6bc39'),
+        const gateway1 = await this.gatewayService.createAsync(workspace1._id, {
             name: 'Default gateway',
         });
         console.log(gateway1);
+
+        const userDataGroup1 = await this.userDataGroupService.createAsync({
+            gatewayId: gateway1.gateway.id,
+            name: 'Default user data group',
+        });
+        console.log(userDataGroup1);
     }
 }
