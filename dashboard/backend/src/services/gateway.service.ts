@@ -50,7 +50,7 @@ export class GatewayService {
     async createWithIdAsync(
         workspaceId: Types.ObjectId,
         createDto: CreateGatewayDto & { _id: Types.ObjectId }
-    ): Promise<GatewayViewModel> {
+    ): Promise<CreateGatewayResult> {
         const gateway = await this.unitOfWork.insertAsync({
             _id: createDto._id,
             name: createDto.name,
@@ -65,7 +65,7 @@ export class GatewayService {
             authorizationType: GatewayAuthorizationType.Master,
         });
 
-        return GatewayMapper.mapToViewModel(gateway);
+        return { gateway: GatewayMapper.mapToViewModel(gateway), secret };
     }
 
     async addSlaveToWorkspace(workspaceId: Types.ObjectId, gatewayId: Types.ObjectId): Promise<GatewayAuthorization> {

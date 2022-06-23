@@ -21,9 +21,9 @@ const ApiClient = {
     login: async (payload: LoginDto) => postMethod<void>('/auth/login', payload),
     register: (payload: RegisterDto) => postMethod<void>('/auth/register', payload),
     logout: () => postMethod<void>('/auth/logout', null),
-    getData: async (gatewayId: string, dateFrom: Date, dateTo: Date, granularity: number) =>
+    getUserData: async (gatewayId: string, dateFrom: Date, dateTo: Date, granularity: number) =>
         getMethod<UserDataViewModel[]>(
-            `/data/gateway/${gatewayId}?dateFrom=${dateFrom.toISOString()}&dateTo=${dateTo.toISOString()}&granularity=${granularity}`
+            `/user-data/gateway/${gatewayId}?dateFrom=${dateFrom.toISOString()}&dateTo=${dateTo.toISOString()}&granularity=${granularity}`
         ),
     createGateway: async (name: string) => postMethod<CreateGatewayResult>('/gateways', { name }),
     getGateway: async (gatewayId: string) => getMethod<GatewayViewModel>(`/gateways/${gatewayId}`),

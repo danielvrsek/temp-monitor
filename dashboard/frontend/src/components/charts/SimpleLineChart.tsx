@@ -27,7 +27,7 @@ const SimpleLineChart: React.FC<Props> = (props) => {
             >
                 {!props.disableGrid ? <CartesianGrid strokeDasharray="3 3" /> : null}
                 <XAxis dataKey="name" minTickGap={20} />
-                <YAxis />
+                <YAxis domain={[0, 40]} />
                 {!props.disableTooltip ? <Tooltip /> : null}
                 {!props.disableLegend ? <Legend /> : null}
                 {props.lines.map((line) => (

@@ -14,13 +14,15 @@ import { GatewayRequest } from 'common/request';
 import { UserDataGranularityService } from 'services/userDataGranularity.service';
 import { TokenType } from 'shared/authorization';
 import { UserDataMapper } from 'mappers/userData.mapper';
+import { UserDataGroupRepository } from 'dataLayer/repositories/userDataGroup.repository';
 
-@Controller('data')
+@Controller('user-data')
 @UseGuards(JwtAuthGuard, TokenTypeGuard)
 export class UserDataController extends ControllerBase {
     constructor(
         private readonly userDataGranuralityService: UserDataGranularityService,
         private readonly userDataRepository: UserDataRepository,
+        private readonly userDataGroupRepository: UserDataGroupRepository,
         private readonly userDataService: UserDataService,
         private readonly gatewayRepository: GatewayRepository,
         workspaceRepository: WorkspaceRepository,
@@ -32,7 +34,7 @@ export class UserDataController extends ControllerBase {
     @Get('gateway/:gatewayId')
     @EnforceTokenType(TokenType.User)
     async findByGatewayIdAsync(
-        @Param('gatewayId') gatewayId,
+        @Param('gatewayId') gatewayId: string,
         @Query('dateFrom') dateFromString?: string,
         @Query('dateTo') dateToString?: string,
         @Query('granularity') granularityString?: string
@@ -40,7 +42,8 @@ export class UserDataController extends ControllerBase {
         const dateFrom = new Date(dateFromString);
         const dateTo = new Date(dateToString);
 
-        let data = await this.userDataRepository.findAllByGatewayIdAsync(gatewayId, dateFrom, dateTo);
+        const group = (await this.userDataGroupRepository.findAllByGatewayIdAsync(objectId(gatewayId)))[0];
+        let data = await this.userDataRepository.findAllByGroupIdAsync(group._id, dateFrom, dateTo);
         if (data.length === 0) {
             return [];
         }

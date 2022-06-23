@@ -43,7 +43,7 @@ const MainChartLoad: React.FC<Props> = ({ gateway }) => {
             return;
         }
 
-        ApiClient.getData(gateway.id, dateFrom, dateTo, granularity)
+        ApiClient.getUserData(gateway.id, dateFrom, dateTo, granularity)
             .then((res) => {
                 if (res.status === 200) {
                     setChartData(res.data);

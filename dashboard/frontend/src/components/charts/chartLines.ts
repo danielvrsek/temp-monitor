@@ -7,12 +7,12 @@ export type ChartLine = {
 export const lines = [
     {
         type: 'monotone',
-        dataKey: 'temperature',
+        dataKey: 'value',
         stroke: '#8884d8',
     },
-    {
+    /*{
         type: 'monotone',
-        dataKey: 'humidity',
+        dataKey: 'value',
         stroke: '#82ca9d',
-    },
+    },*/
 ];
