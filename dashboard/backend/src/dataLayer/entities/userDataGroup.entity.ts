@@ -5,7 +5,7 @@ import { Entity } from './entity';
 
 @Schema()
 export class UserDataGroup extends Entity {
-    @Prop() name: number;
+    @Prop() name: string;
 
     @Prop({ type: Types.ObjectId, ref: Entities.Gateway })
     gatewayId: Types.ObjectId;

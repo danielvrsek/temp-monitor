@@ -12,6 +12,7 @@ import { GatewayRepository } from 'dataLayer/repositories/gateway.repository';
 import { GatewayAuthorizationRepository } from 'dataLayer/repositories/gatewayAuthorization.repository';
 import { UserRepository } from 'dataLayer/repositories/user.repository';
 import { UserDataRepository } from 'dataLayer/repositories/userData.repository';
+import { UserDataGroupRepository } from 'dataLayer/repositories/userDataGroup.repository';
 import { WorkspaceRepository } from 'dataLayer/repositories/workspace.repository';
 import { WorkspaceMembershipRepository } from 'dataLayer/repositories/workspaceMembership.repository';
 import { UnitOfWorkFactory } from 'dataLayer/unitOfWork';
@@ -31,6 +32,7 @@ import { UnitOfWorkFactory } from 'dataLayer/unitOfWork';
         GatewayAuthorizationRepository,
         UserRepository,
         UserDataRepository,
+        UserDataGroupRepository,
         WorkspaceRepository,
         WorkspaceMembershipRepository,
         UnitOfWorkFactory,
@@ -40,6 +42,7 @@ import { UnitOfWorkFactory } from 'dataLayer/unitOfWork';
         GatewayAuthorizationRepository,
         UserRepository,
         UserDataRepository,
+        UserDataGroupRepository,
         WorkspaceRepository,
         WorkspaceMembershipRepository,
         UnitOfWorkFactory,

@@ -14,6 +14,7 @@ export class WorkspaceService {
     constructor(unitOfWorkFactory: UnitOfWorkFactory) {
         this.unitOfWork = unitOfWorkFactory.create<Workspace>(Entities.Workspace);
     }
+
     createAsync(item: CreateWorkspaceDto, workspaceType: WorkspaceType): Promise<Workspace> {
         return this.unitOfWork.insertAsync({ ...item, type: workspaceType });
     }

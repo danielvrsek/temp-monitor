@@ -5,11 +5,11 @@ import { MicrosoftGraphApi } from 'services/microsoftGraphApi';
 import { UserService } from 'services/user.service';
 import { UserDataService } from 'services/userData.service';
 import { UserDataGranularityService } from 'services/userDataGranularity.service';
+import { UserDataGroupService } from 'services/userDataGroup.service';
 import { UserDataIndexer } from 'services/userDataIndexer.service';
 import { UserDataIterator } from 'services/userDataIterator.service';
 import { WorkspaceService } from 'services/workspace.service';
 import { WorkspaceMembershipService } from 'services/workspaceMembership.service';
-import { AuthModule } from './auth.module';
 import { DataLayerModule } from './dataLayer.module';
 import { SharedModule } from './shared.module';
 
@@ -23,6 +23,7 @@ import { SharedModule } from './shared.module';
         MicrosoftAuthorizationService,
         MicrosoftGraphApi,
         UserDataService,
+        UserDataGroupService,
         UserDataGranularityService,
         UserDataIndexer,
         UserDataIterator,
@@ -35,6 +36,7 @@ import { SharedModule } from './shared.module';
         MicrosoftAuthorizationService,
         MicrosoftGraphApi,
         UserDataService,
+        UserDataGroupService,
         UserDataGranularityService,
         UserDataIndexer,
         UserDataIterator,
