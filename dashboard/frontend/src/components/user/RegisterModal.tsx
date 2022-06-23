@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { FieldValues, useForm } from 'react-hook-form';
 import FormInputText from '../form/FormInputText';
-import ApiClient from '../../api/ApiClient';
+import ApiClient from '../../api/apiClient';
 
 const style = {
     position: 'absolute',

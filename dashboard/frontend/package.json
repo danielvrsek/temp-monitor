@@ -26,6 +26,7 @@
         "recharts": "^2.1.10",
         "serve": "^13.0.2",
         "shared": "file:../shared",
+        "socket.io-client": "^4.5.1",
         "styled-components": "^5.3.5",
         "web-vitals": "^2.1.4"
     },

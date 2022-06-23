@@ -6,7 +6,8 @@
     "license": "ISC",
     "exports": {
         "./authorization": "./dist/authorization/index.js",
-        "./dto": "./dist/dto/index.js"
+        "./dto": "./dist/dto/index.js",
+        "./websockets": "./dist/websockets/index.js"
     },
     "dependencies": {
         "typescript": "^4.7.3"

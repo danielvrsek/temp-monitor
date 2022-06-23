@@ -5,7 +5,7 @@ import { Grid, Card, Divider, CardHeader, CardContent, IconButton, Popover, Menu
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useUserContext, useWorkspaceContext } from '../../common/contexts/AuthContext';
 import Line from '../../common/Line';
-import ApiClient from '../../api/ApiClient';
+import ApiClient from '../../api/apiClient';
 import { UserRoleDto, UserViewModel } from 'shared/dto';
 
 type Props = {

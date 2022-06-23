@@ -13,5 +13,5 @@
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true
     },
-    "include": ["dto", "authorizations"]
+    "include": ["dto", "authorizations", "websockets"]
 }

@@ -3,7 +3,7 @@ import WorkspaceItem from './WorkspaceItem';
 import { Container, Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useWorkspaceContext } from '../../common/contexts/AuthContext';
-import ApiClient from '../../api/ApiClient';
+import ApiClient from '../../api/apiClient';
 import { WorkspaceViewModel } from 'shared/dto';
 
 type Props = {

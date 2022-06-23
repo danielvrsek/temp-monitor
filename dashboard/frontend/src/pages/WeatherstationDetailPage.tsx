@@ -1,7 +1,7 @@
 import { Container, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import ApiClient from '../api/ApiClient';
+import ApiClient from '../api/apiClient';
 import Error from '../common/Error';
 import Loading from '../common/Loading';
 import MainChartLoad from '../components/charts/MainChartLoad';

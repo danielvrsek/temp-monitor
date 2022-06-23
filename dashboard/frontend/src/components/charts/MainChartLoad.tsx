@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import MainChartReady from './MainChartReady';
 import { ChartGranularity, granularityList } from './chartGranularity';
-import ApiClient from '../../api/ApiClient';
 import { GatewayViewModel, UserDataViewModel } from 'shared/dto';
 import Error from '../../common/Error';
 import Loading from '../../common/Loading';
+import { useWebSocketClient } from '../../api/webSocketClient';
 
 type Props = {
     gateway: GatewayViewModel;
@@ -20,6 +20,7 @@ const MainChartLoad: React.FC<Props> = ({ gateway }) => {
     const [dateTo, setDateTo] = useState<Date>(today);
     const [availableGranularity, setAvailableGranularity] = useState<ChartGranularity[]>([]);
     const [granularity, setGranularity] = useState(-1);
+    const webSocketClient = useWebSocketClient();
 
     useEffect(() => {
         const dateRange = (dateTo.getTime() - dateFrom.getTime()) / 1000 / 150;
@@ -43,17 +44,19 @@ const MainChartLoad: React.FC<Props> = ({ gateway }) => {
             return;
         }
 
-        ApiClient.getUserData(gateway.id, dateFrom, dateTo, granularity)
+        webSocketClient
+            ?.queryUserData({
+                gatewayId: gateway.id,
+                dateFrom: dateFrom?.toString(),
+                dateTo: dateTo?.toString(),
+                granularity,
+            })
             .then((res) => {
-                if (res.status === 200) {
-                    setChartData(res.data);
-                    setStatus('success');
-                } else {
-                    setStatus('error');
-                }
+                setChartData(res);
+                setStatus('success');
             })
             .catch(() => setStatus('error'));
-    }, [gateway, dateFrom, dateTo, granularity]);
+    }, [webSocketClient, gateway, dateFrom, dateTo, granularity]);
 
     switch (status) {
         case 'success':

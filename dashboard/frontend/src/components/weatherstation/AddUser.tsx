@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import ApiClient from '../../api/ApiClient';
+import ApiClient from '../../api/apiClient';
 
 const style = {
     position: 'absolute',

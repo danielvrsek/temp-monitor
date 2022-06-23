@@ -15,7 +15,7 @@ import {
 
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useWorkspaceContext } from '../../common/contexts/AuthContext';
-import ApiClient from '../../api/ApiClient';
+import ApiClient from '../../api/apiClient';
 import Line from '../../common/Line';
 import { GatewayViewModel, UserRoleDto } from 'shared/dto';
 

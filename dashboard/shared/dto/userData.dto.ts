@@ -15,3 +15,10 @@ export interface InsertUserDataDto {
 export interface InsertUserDataResponse {
     count: number;
 }
+
+export interface UserDataQuery {
+    gatewayId: string;
+    dateFrom?: string;
+    dateTo?: string;
+    granularity?: number;
+}

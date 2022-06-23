@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import { useClearAuth } from '../contexts/AuthContext';
-import ApiClient from '../../api/ApiClient';
+import ApiClient from '../../api/apiClient';
 
 const LogoutButton = () => {
     const clearAuth = useClearAuth();

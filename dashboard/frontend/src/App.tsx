@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useUserContext, useWorkspaceContext } from './common/contexts/AuthContext';
-import ApiClient from './api/ApiClient';
+import ApiClient from './api/apiClient';
 import AppRouter from './AppRouter';
 import Loading from './common/Loading';
 

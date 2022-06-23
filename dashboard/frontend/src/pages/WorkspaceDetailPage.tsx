@@ -4,7 +4,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { Container } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
-import ApiClient from '../api/ApiClient';
+import ApiClient from '../api/apiClient';
 import Error from '../common/Error';
 import Loading from '../common/Loading';
 import { WorkspaceViewModel } from 'shared/dto';

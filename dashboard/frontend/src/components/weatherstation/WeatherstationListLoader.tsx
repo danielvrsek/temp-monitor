@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GatewayViewModel } from 'shared/dto';
-import ApiClient from '../../api/ApiClient';
+import ApiClient from '../../api/apiClient';
 import Error from '../../common/Error';
 import Loading from '../../common/Loading';
 import WeatherstationList from './WeatherstationList';

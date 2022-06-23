@@ -10,6 +10,7 @@ import { ServicesModule } from 'modules/services.module';
 import { ControllersModule } from 'modules/controllers.module';
 import { AuthModule } from 'modules/auth.module';
 import { ImportDataCommand } from 'seed/importData.command';
+import { WebSocketsModule } from 'modules/webSockets.module';
 
 @Module({
     imports: [
@@ -27,6 +28,7 @@ import { ImportDataCommand } from 'seed/importData.command';
         ServicesModule,
         AuthModule,
         ControllersModule,
+        WebSocketsModule,
         SharedModule,
         CommandModule,
     ],
