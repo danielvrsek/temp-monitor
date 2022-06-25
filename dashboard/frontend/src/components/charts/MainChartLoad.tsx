@@ -45,7 +45,7 @@ const MainChartLoad: React.FC<Props> = ({ gateway }) => {
         }
 
         webSocketClient
-            ?.queryUserData({
+            ?.querySensorData({
                 gatewayId: gateway.id,
                 dateFrom: dateFrom?.toString(),
                 dateTo: dateTo?.toString(),

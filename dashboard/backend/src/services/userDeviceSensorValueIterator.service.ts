@@ -1,11 +1,11 @@
-import { UserDataDto } from 'shared/dto';
+import { UserDeviceSensorValueDto } from 'shared/dto';
 
-export class UserDataIterator {
+export class UserDeviceSensorValueIterator {
     private lowerIndex: number;
     private upperIndex: number;
 
     constructor(
-        private readonly data: UserDataDto[],
+        private readonly data: UserDeviceSensorValueDto[],
         private readonly lowerIndexInit: number,
         private readonly upperIndexInit: number,
         private readonly ratio: number
@@ -31,7 +31,7 @@ export class UserDataIterator {
     }
 
     takePreviousFor(timestamp: number) {
-        const result: UserDataDto[] = [];
+        const result: UserDeviceSensorValueDto[] = [];
 
         while (this.hasPrevious()) {
             const previous = this.getPrevious();
@@ -44,8 +44,8 @@ export class UserDataIterator {
         return result;
     }
 
-    takeNextFor(timestamp: number): UserDataDto[] {
-        const result: UserDataDto[] = [];
+    takeNextFor(timestamp: number): UserDeviceSensorValueDto[] {
+        const result: UserDeviceSensorValueDto[] = [];
 
         while (this.hasNext()) {
             const next = this.getNext();

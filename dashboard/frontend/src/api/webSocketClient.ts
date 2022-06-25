@@ -1,4 +1,4 @@
-import { UserDataQuery, UserDataViewModel } from 'shared/dto';
+import { UserDeviceSensorValueQuery, UserDeviceSensorValueViewModel } from 'shared/dto';
 import { useUserContext } from '../common/contexts/AuthContext';
 import { io, Socket } from 'socket.io-client';
 import { useEffect, useState } from 'react';
@@ -6,7 +6,7 @@ import { Events } from 'shared/websockets';
 import { getBasePath } from '../utils/pathHelper';
 
 export type WebSocketClient = {
-    queryUserData: (query: UserDataQuery) => Promise<UserDataViewModel[]>;
+    querySensorData: (query: UserDeviceSensorValueQuery) => Promise<UserDeviceSensorValueViewModel[]>;
 };
 
 export function useWebSocketClient() {
@@ -22,8 +22,12 @@ export function useWebSocketClient() {
     useEffect(() => {
         socket?.on(Events.Connect, () => {
             setWebSocketClient({
-                queryUserData: (query: UserDataQuery) =>
-                    emit<UserDataQuery, UserDataViewModel[]>(socket, Events.QueryUserData, query),
+                querySensorData: (query: UserDeviceSensorValueQuery) =>
+                    emit<UserDeviceSensorValueQuery, UserDeviceSensorValueViewModel[]>(
+                        socket,
+                        Events.QueryUserDeviceSensorData,
+                        query
+                    ),
             });
         });
     }, [socket]);

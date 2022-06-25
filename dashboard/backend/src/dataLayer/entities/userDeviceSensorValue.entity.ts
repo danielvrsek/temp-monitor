@@ -4,12 +4,12 @@ import { Types } from 'mongoose';
 import { Entity } from './entity';
 
 @Schema()
-export class UserData extends Entity {
+export class UserDeviceSensorValue extends Entity {
     @Prop() value: number;
     @Prop() timestamp: number;
 
-    @Prop({ type: Types.ObjectId, ref: Entities.UserDataGroup })
-    userDataGroupId: Types.ObjectId;
+    @Prop({ type: Types.ObjectId, ref: Entities.UserDeviceSensor })
+    userDeviceSensorId: Types.ObjectId;
 }
 
-export const UserDataSchema = SchemaFactory.createForClass(UserData);
+export const UserDeviceSensorValueSchema = SchemaFactory.createForClass(UserDeviceSensorValue);

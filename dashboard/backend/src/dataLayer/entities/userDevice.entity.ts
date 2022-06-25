@@ -4,11 +4,11 @@ import { Types } from 'mongoose';
 import { Entity } from './entity';
 
 @Schema()
-export class UserDataGroup extends Entity {
+export class UserDevice extends Entity {
     @Prop() name: string;
 
     @Prop({ type: Types.ObjectId, ref: Entities.Gateway })
     gatewayId: Types.ObjectId;
 }
 
-export const UserDataGroupSchema = SchemaFactory.createForClass(UserDataGroup);
+export const UserDeviceSchema = SchemaFactory.createForClass(UserDevice);

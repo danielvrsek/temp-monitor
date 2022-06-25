@@ -5,16 +5,15 @@ import { UserService } from 'services/user.service';
 import { WorkspaceService } from 'services/workspace.service';
 import { GatewayService } from 'services/gateway.service';
 import { WorkspaceType } from 'dataLayer/entities/enums/workspaceType.enum';
-import { objectId } from 'utils/schemaHelper';
 import { UserRole } from 'dataLayer/entities/enums/userRole.enum';
 import { WorkspaceMembershipService } from 'services/workspaceMembership.service';
-import { UserDataGroupService } from 'services/userDataGroup.service';
+import { UserDeviceService } from 'services/userDevice.service';
 
 @Injectable()
 export class SeedCommand {
     constructor(
         private readonly userService: UserService,
-        private readonly userDataGroupService: UserDataGroupService,
+        private readonly userDeviceService: UserDeviceService,
         private readonly workspaceService: WorkspaceService,
         private readonly workspaceMembershipService: WorkspaceMembershipService,
         private readonly gatewayService: GatewayService
@@ -65,7 +64,7 @@ export class SeedCommand {
 
         const workspace1 = await this.workspaceService.createAsync(
             {
-                name: 'Default workspace',
+                name: 'Daniel Vršek',
             },
             WorkspaceType.Private
         );
@@ -93,14 +92,26 @@ export class SeedCommand {
         console.log(workspaceMembership3);
 
         const gateway1 = await this.gatewayService.createAsync(workspace1._id, {
-            name: 'Default gateway',
+            name: 'VRSEK-PC',
         });
         console.log(gateway1);
 
-        const userDataGroup1 = await this.userDataGroupService.createAsync({
+        const userDevice1 = await this.userDeviceService.createAsync({
             gatewayId: gateway1.gateway.id,
-            name: 'Default user data group',
+            name: 'HDD1',
         });
-        console.log(userDataGroup1);
+        console.log(userDevice1);
+
+        const userDevice2 = await this.userDeviceService.createAsync({
+            gatewayId: gateway1.gateway.id,
+            name: 'HDD2',
+        });
+        console.log(userDevice2);
+
+        const userDevice3 = await this.userDeviceService.createAsync({
+            gatewayId: gateway1.gateway.id,
+            name: 'SSD1',
+        });
+        console.log(userDevice3);
     }
 }

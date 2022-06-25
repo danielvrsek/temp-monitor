@@ -4,6 +4,7 @@ export enum Entities {
     GatewayAuthorization = 'GatewayAuthorization',
     Workspace = 'Workspace',
     WorkspaceMembership = 'WorkspaceMembership',
-    UserData = 'UserData',
-    UserDataGroup = 'UserDataGroup',
+    UserDevice = 'UserDevice',
+    UserDeviceSensor = 'UserDeviceSensor',
+    UserDeviceSensorValue = 'UserDeviceSensorValue',
 }

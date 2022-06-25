@@ -23,7 +23,6 @@ export class WebSocketAdapter extends IoAdapter {
         options?: ServerOptions & { namespace?: string; server?: any }
     ): Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any> {
         const server = super.create(port, options);
-        server.on('connect', () => console.log('conn'));
         return server;
     }
 }

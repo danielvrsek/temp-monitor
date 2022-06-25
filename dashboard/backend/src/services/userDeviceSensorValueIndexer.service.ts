@@ -1,9 +1,9 @@
-import { UserDataDto } from 'shared/dto';
+import { UserDeviceSensorValueDto } from 'shared/dto';
 
-export class UserDataIndexer {
+export class UserDeviceSensorValueIndexer {
     findIndex(
         timestamp: number,
-        data: UserDataDto[],
+        data: UserDeviceSensorValueDto[],
         startIndex: number,
         length: number
     ): [lowerIndex: number, upperIndex: number] {

@@ -1,17 +1,17 @@
-import { UserDataGranularityService } from '../../src/services/userDataGranularity.service';
+import { UserDeviceSensorValueGranularityService } from '../../src/services/userDeviceSensorValueGranularity.service';
 
-describe('UserDataGranuralityService', () => {
-    let service: UserDataGranularityService;
+describe('UserDeviceSensorValueGranularityService', () => {
+    let service: UserDeviceSensorValueGranularityService;
 
     beforeEach(() => {
-        service = new UserDataGranularityService();
+        service = new UserDeviceSensorValueGranularityService();
     });
 
     describe('calculateGranularity', () => {
         it('should calculate granularity', async () => {
             const dateFrom = new Date('2022-06-09T16:40:08.107Z');
             const dateTo = new Date(dateFrom);
-            dateTo.setHours(dateFrom.getHours() + UserDataGranularityService.DefaultCount);
+            dateTo.setHours(dateFrom.getHours() + UserDeviceSensorValueGranularityService.DefaultCount);
 
             const result = 3600; // hour
             expect(service.calculateGranularity(dateFrom, dateTo)).toEqual(result);

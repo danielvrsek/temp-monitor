@@ -3,19 +3,19 @@ import { Model, Types } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Entities } from 'dataLayer/common/schemaConstants';
 import { Repository } from './respository';
-import { UserDataGroup } from 'dataLayer/entities/userDataGroup.entity';
+import { UserDevice } from 'dataLayer/entities/userDevice.entity';
 
 @Injectable()
-export class UserDataGroupRepository extends Repository<UserDataGroup> {
-    constructor(@InjectModel(Entities.UserDataGroup) model: Model<UserDataGroup>) {
+export class UserDeviceRepository extends Repository<UserDevice> {
+    constructor(@InjectModel(Entities.UserDevice) model: Model<UserDevice>) {
         super(model, false);
     }
 
-    async findAllAsync(): Promise<UserDataGroup[]> {
+    async findAllAsync(): Promise<UserDevice[]> {
         return super.findAllAsync();
     }
 
-    async findAllByGatewayIdAsync(gatewayId: Types.ObjectId): Promise<UserDataGroup[]> {
+    async findAllByGatewayIdAsync(gatewayId: Types.ObjectId): Promise<UserDevice[]> {
         return await super.findAsync({ gatewayId });
     }
 }

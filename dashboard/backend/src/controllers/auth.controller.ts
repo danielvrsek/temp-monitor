@@ -26,6 +26,7 @@ import { ControllerBase } from './controllerBase';
 import { UserService } from '../services/user.service';
 import { RegisterDto, UserInfo, WorkspaceInfo } from 'shared/dto';
 import { TokenType } from 'shared/authorization';
+import { objectId } from 'utils/schemaHelper';
 
 @Controller('auth')
 export class AuthController extends ControllerBase {
@@ -33,8 +34,8 @@ export class AuthController extends ControllerBase {
         private readonly authService: AuthService,
         private readonly userService: UserService,
         private readonly cookieHelper: CookieHelper,
-        workspaceRepository: WorkspaceRepository,
-        userRepository: UserRepository
+        private readonly userRepository: UserRepository,
+        workspaceRepository: WorkspaceRepository
     ) {
         super(cookieHelper, workspaceRepository, userRepository);
     }

@@ -1,10 +1,10 @@
-import { UserDataIndexer } from '../../src/services/userDataIndexer.service';
+import { UserDeviceSensorValueIndexer } from '../../src/services/userDeviceSensorValueIndexer.service';
 
-describe('UserDataIndexer', () => {
-    let service: UserDataIndexer;
+describe('UserDeviceSensorValueIndexer', () => {
+    let service: UserDeviceSensorValueIndexer;
 
     beforeEach(() => {
-        service = new UserDataIndexer();
+        service = new UserDeviceSensorValueIndexer();
     });
 
     describe('findIndex', () => {

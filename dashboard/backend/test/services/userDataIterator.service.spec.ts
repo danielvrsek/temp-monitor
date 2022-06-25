@@ -1,6 +1,6 @@
-import { UserDataIterator } from '../../src/services/userDataIterator.service';
+import { UserDeviceSensorValueIterator } from '../../src/services/userDeviceSensorValueIterator.service';
 
-describe('UserDataIterator', () => {
+describe('UserDeviceSensorValueIterator', () => {
     describe('takePreviousFor', () => {
         it('should return one when first item equals', async () => {
             const data = [
@@ -9,7 +9,7 @@ describe('UserDataIterator', () => {
                 { value: 50, timestamp: new Date('2022-06-09T16:50:08.107Z').getTime() },
             ];
 
-            const service = new UserDataIterator(data, 0, 0, 1);
+            const service = new UserDeviceSensorValueIterator(data, 0, 0, 1);
 
             const result = [
                 {
@@ -28,7 +28,7 @@ describe('UserDataIterator', () => {
                 { value: 50, timestamp: new Date('2022-06-09T16:50:08.107Z').getTime() },
             ];
 
-            const service = new UserDataIterator(data, 0, 0, 1);
+            const service = new UserDeviceSensorValueIterator(data, 0, 0, 1);
 
             const result = [];
 
@@ -44,7 +44,7 @@ describe('UserDataIterator', () => {
                 { value: 50, timestamp: new Date('2022-06-09T16:50:08.107Z').getTime() },
             ];
 
-            const service = new UserDataIterator(data, 2, 2, 1);
+            const service = new UserDeviceSensorValueIterator(data, 2, 2, 1);
 
             const result = [
                 {
@@ -63,7 +63,7 @@ describe('UserDataIterator', () => {
                 { value: 50, timestamp: new Date('2022-06-09T16:50:08.107Z').getTime() },
             ];
 
-            const service = new UserDataIterator(data, 2, 2, 1);
+            const service = new UserDeviceSensorValueIterator(data, 2, 2, 1);
 
             const result = [];
 

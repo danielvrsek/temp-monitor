@@ -6,8 +6,9 @@ import { Entity } from './entities/entity';
 import { Gateway } from './entities/gateway.entity';
 import { GatewayAuthorization } from './entities/gatewayAuthorization.entity';
 import { User } from './entities/user.entity';
-import { UserData } from './entities/userData.entity';
-import { UserDataGroup } from './entities/userDataGroup.entity';
+import { UserDevice } from './entities/userDevice.entity';
+import { UserDeviceSensor } from './entities/userDeviceSensor.entity';
+import { UserDeviceSensorValue } from './entities/userDeviceSensorValue.entity';
 import { Workspace } from './entities/workspace.entity';
 import { WorkspaceMembership } from './entities/workspaceMembership.entity';
 import { entityNameWeakMap } from './entityNameWeakMap';
@@ -23,16 +24,18 @@ export class UnitOfWorkFactory {
         @InjectModel(Entities.Gateway) gatewayModel: Model<Gateway>,
         @InjectModel(Entities.GatewayAuthorization) gatewayAuthorizationModel: Model<GatewayAuthorization>,
         @InjectModel(Entities.User) userModel: Model<User>,
-        @InjectModel(Entities.UserData) userDataModel: Model<UserData>,
-        @InjectModel(Entities.UserDataGroup) userDataGroupModel: Model<UserDataGroup>,
+        @InjectModel(Entities.UserDevice) userDeviceModel: Model<UserDevice>,
+        @InjectModel(Entities.UserDeviceSensor) userDeviceSensorModel: Model<UserDeviceSensor>,
+        @InjectModel(Entities.UserDeviceSensorValue) userDeviceSensorValueModel: Model<UserDeviceSensorValue>,
         @InjectModel(Entities.Workspace) workspaceModel: Model<Workspace>,
         @InjectModel(Entities.WorkspaceMembership) workspaceMembershipModel: Model<WorkspaceMembership>
     ) {
         this.#pushModel(gatewayModel);
         this.#pushModel(gatewayAuthorizationModel);
         this.#pushModel(userModel);
-        this.#pushModel(userDataModel);
-        this.#pushModel(userDataGroupModel);
+        this.#pushModel(userDeviceModel);
+        this.#pushModel(userDeviceSensorModel);
+        this.#pushModel(userDeviceSensorValueModel);
         this.#pushModel(workspaceModel);
         this.#pushModel(workspaceMembershipModel);
     }

@@ -3,7 +3,6 @@ import { AuthController } from 'controllers/auth.controller';
 import { ExternalAuthController } from 'controllers/externalAuth.controller';
 import { GatewayController } from 'controllers/gateway.controller';
 import { UserController } from 'controllers/user.controller';
-import { UserDataController } from 'controllers/userData.controller';
 import { WorkspaceController } from 'controllers/workspace.controller';
 import { AuthModule } from './auth.module';
 import { DataLayerModule } from './dataLayer.module';
@@ -12,13 +11,6 @@ import { SharedModule } from './shared.module';
 
 @Module({
     imports: [DataLayerModule, ServicesModule, AuthModule, SharedModule],
-    controllers: [
-        AuthController,
-        ExternalAuthController,
-        GatewayController,
-        UserController,
-        UserDataController,
-        WorkspaceController,
-    ],
+    controllers: [AuthController, ExternalAuthController, GatewayController, UserController, WorkspaceController],
 })
 export class ControllersModule {}

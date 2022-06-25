@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { Entities } from 'dataLayer/common/schemaConstants';
+import { UserDevice } from 'dataLayer/entities/userDevice.entity';
 import { UnitOfWork, UnitOfWorkFactory } from 'dataLayer/unitOfWork';
-import { CreateUserDataGroupDto } from 'shared/dto';
-import { UserDataGroup } from 'dataLayer/entities/userDataGroup.entity';
+import { CreateDeviceDto } from 'shared/dto';
 import { objectId } from 'utils/schemaHelper';
 
 @Injectable()
-export class UserDataGroupService {
-    private unitOfWork: UnitOfWork<UserDataGroup>;
+export class UserDeviceService {
+    private unitOfWork: UnitOfWork<UserDevice>;
 
     constructor(unitOfWorkFactory: UnitOfWorkFactory) {
-        this.unitOfWork = unitOfWorkFactory.create<UserDataGroup>(Entities.UserDataGroup);
+        this.unitOfWork = unitOfWorkFactory.create<UserDevice>(Entities.UserDevice);
     }
 
-    createAsync(dto: CreateUserDataGroupDto): Promise<UserDataGroup> {
+    createAsync(dto: CreateDeviceDto): Promise<UserDevice> {
         return this.unitOfWork.insertAsync({
             gatewayId: objectId(dto.gatewayId),
             name: dto.name,
