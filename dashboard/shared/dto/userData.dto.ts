@@ -9,6 +9,7 @@ export interface UserDataDto {
 }
 
 export interface InsertUserDataDto {
+    userDataGroupId: string;
     data: UserDataDto[];
 }
 

@@ -70,7 +70,7 @@ export class UserDataController extends ControllerBase {
             throw new BadRequestException('Invalid gateway');
         }
 
-        const count = await this.userDataService.insertAsync(gateway._id, insertDto);
+        const count = await this.userDataService.insertAsync(insertDto);
         return {
             count,
         };

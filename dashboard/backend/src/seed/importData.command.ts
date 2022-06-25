@@ -9,14 +9,14 @@ import { objectId } from 'utils/schemaHelper';
 export class ImportDataCommand {
     constructor(private readonly userDataService: UserDataService) {}
 
-    @Command({ command: 'importData <userGroupDataId> <filepath>', describe: 'Import data' })
+    @Command({ command: 'importData <userDataGroupId> <filepath>', describe: 'Import data' })
     async importDataAsync(
         @Positional({
-            name: 'userGroupDataId',
-            describe: 'userGroupDataId to attach data to',
+            name: 'userDataGroupId',
+            describe: 'userDataGroupId to attach data to',
             type: 'string',
         })
-        userGroupDataId: string,
+        userDataGroupId: string,
         @Positional({
             name: 'filepath',
             describe: 'filepath of the json file containing data',
@@ -27,7 +27,8 @@ export class ImportDataCommand {
         const dataRaw = await fs.readFile(filepath, { encoding: 'utf-8' });
         const data: Date[] = JSON.parse(dataRaw);
 
-        const count = await this.userDataService.insertAsync(objectId(userGroupDataId), {
+        const count = await this.userDataService.insertAsync({
+            userDataGroupId,
             data: data.map((x) => ({ value: 20, timestamp: x.getTime() })),
         });
 

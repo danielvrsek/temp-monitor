@@ -61,8 +61,8 @@ POST http://localhost:4000/auth/gateway/authorize
 Content-Type: application/json
 
 {
-    "workspaceId": "62a38ae739b278d0c99583a2",
-    "secret": "772cecd8f255"
+    "workspaceId": "62b37c404e1b5d6134960545",
+    "secret": "8b82191db569"
 }
 
 ### Insert weather data

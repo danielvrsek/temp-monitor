@@ -54,14 +54,17 @@ export class UserDataGateway {
         return this.userDataGranularityService.transformByGranularity(dataDto, dateFrom, dateTo, granularity);
     }
 
+    @UseGuards(JwtAuthGuard, TokenTypeGuard)
+    @EnforceTokenType(TokenType.Gateway)
     @SubscribeMessage(Events.InsertUserData)
     async insertUserData(@ConnectedSocket() client: GatewaySocket, @MessageBody() data: InsertUserDataDto) {
+        console.log(data);
         const gateway = await this.gatewayRepository.findByIdAsync(objectId(client.user.gatewayId));
         if (!gateway) {
             throw new BadRequestException('Invalid gateway');
         }
 
-        const count = await this.userDataService.insertAsync(gateway._id, data);
+        const count = await this.userDataService.insertAsync(data);
         return {
             count,
         };
