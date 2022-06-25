@@ -4,11 +4,18 @@ using System.Text.Json;
 using LibreHardwareMonitor.Hardware;
 using WindowsGateway;
 using WindowsGateway.Dto;
+using WindowsGateway.Windows;
+
+string token;
+
+using (var authClient = new AuthClient(new Uri("http://localhost:4000")))
+{
+    token = await authClient.GetGatewayTokenAsync("62b730fa0281b5f7c9de9289", "5082cc1efb5f");
+}
 
 var hwMonitor = new HardwareMonitor();
-var client = new WsClient(new Uri("ws://localhost:4000/"));
-client.AddGatewayAuthorization(
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJnYXRld2F5SWQiOiI2MmIzN2M0MDRlMWI1ZDYxMzQ5NjA1NGQiLCJ3b3Jrc3BhY2VJZCI6IjYyYjM3YzQwNGUxYjVkNjEzNDk2MDU0NSIsInRva2VuVHlwZSI6MSwiaWF0IjoxNjU2MTY5NTM0LCJleHAiOjE2NTYxNjk3NzR9.Fgub75HeIgD4VJcISl1AZpPRuQscPBNL-GRWVscyi0U");
+using var client = new WsClient(new Uri("ws://localhost:4000/"));
+client.AddGatewayAuthorization(token);
 await client.ConnectAsync();
 
 while (true)
@@ -16,7 +23,10 @@ while (true)
     DateTime timestamp = DateTime.UtcNow;
     
     var storages = hwMonitor.GetStorages();
-    await client.EmitAsync("userData/insert", new InsertUserDataDto()
+    new Win32DiskDriveService().Search();
+    Console.WriteLine(String.Join("\n", storages.Select(x => $"Name: {x.Name}, Id: {x.Identifier}, Properties: {String.Join(", ", x.Properties.Keys)}")));
+    
+    /*await client.EmitAsync("userData/insert", new InsertUserDataDto()
     {
         UserDataGroupId = "62b37c404e1b5d6134960545",
         Data = storages.Select(x => new UserDataDto
@@ -24,7 +34,7 @@ while (true)
             Value = (int)x.Sensors.First(s => s.SensorType == SensorType.Temperature).Value!,
             Timestamp = GetTimestamp(timestamp)
         }).ToArray()
-    });
+    });*/
     await Task.Delay(1000);
     hwMonitor.Update();
 }
