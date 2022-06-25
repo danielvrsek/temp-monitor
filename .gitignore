@@ -3,3 +3,10 @@
 .env
 dashboard/backend/public/profile-photos/*
 !dashboard/backend/public/profile-photos/default.jpg
+*.user
+*.suo
+[Bb]in/
+[Oo]bj/
+.idea/
+.vs/
+packages/
