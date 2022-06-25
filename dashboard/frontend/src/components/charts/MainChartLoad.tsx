@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import MainChartReady from './MainChartReady';
 import { ChartGranularity, granularityList } from './chartGranularity';
-import { GatewayViewModel, UserDeviceSensorValueViewModel } from 'shared/dto';
+import { UserDeviceSensorValueViewModel, UserDeviceSensorViewModel } from 'shared/dto';
 import Error from '../../common/Error';
 import Loading from '../../common/Loading';
 import { useWebSocketClient } from '../../api/webSocketClient';
 
 type Props = {
-    gateway: GatewayViewModel;
+    sensor: UserDeviceSensorViewModel;
 };
 
-const MainChartLoad: React.FC<Props> = ({ gateway }) => {
+const MainChartLoad: React.FC<Props> = ({ sensor }) => {
     //Dates
     const today = new Date();
     const yesterday = new Date(today);
@@ -46,7 +46,7 @@ const MainChartLoad: React.FC<Props> = ({ gateway }) => {
 
         webSocketClient
             ?.querySensorData({
-                sensorId: gateway.id,
+                sensorId: sensor.id,
                 dateFrom: dateFrom.getTime(),
                 dateTo: dateTo.getTime(),
                 granularity,
@@ -56,11 +56,11 @@ const MainChartLoad: React.FC<Props> = ({ gateway }) => {
                 setStatus('success');
             })
             .catch(() => setStatus('error'));
-    }, [webSocketClient, gateway, dateFrom, dateTo, granularity]);
+    }, [webSocketClient, sensor, dateFrom, dateTo, granularity]);
 
     switch (status) {
         case 'success':
-            return gateway.state ? (
+            return (
                 <MainChartReady
                     data={chartData}
                     dateFrom={dateFrom}
@@ -72,8 +72,6 @@ const MainChartLoad: React.FC<Props> = ({ gateway }) => {
                     updateGranularity={(value: number) => setGranularity(value)}
                     handleReset={reset}
                 />
-            ) : (
-                <Error content="Žádná data pro graf nejsou zatím k dispozici." />
             );
         case 'error':
             return <Error content="Nepodařilo se načíst data pro graf." />;

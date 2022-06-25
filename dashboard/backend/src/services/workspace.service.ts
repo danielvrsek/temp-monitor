@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';
 import { Workspace } from 'dataLayer/entities/workspace.entity';
-import { Entities } from 'dataLayer/common/schemaConstants';
+import { Entities } from 'dataLayer/common/entities';
 import { WorkspaceType } from 'dataLayer/entities/enums/workspaceType.enum';
 import { CreateWorkspaceDto, UpdateWorkspaceDto } from 'shared/dto';
 import { UnitOfWork, UnitOfWorkFactory } from 'dataLayer/unitOfWork';

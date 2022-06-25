@@ -1,6 +1,6 @@
 import { Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Entities } from 'dataLayer/common/schemaConstants';
+import { Entities } from 'dataLayer/common/entities';
 import { UserRole } from './enums/userRole.enum';
 import { Entity } from './entity';
 

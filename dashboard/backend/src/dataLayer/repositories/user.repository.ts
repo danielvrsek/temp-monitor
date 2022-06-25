@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
 import { Model } from 'mongoose';
 import { User } from 'dataLayer/entities/user.entity';
-import { Entities } from 'dataLayer/common/schemaConstants';
+import { Entities } from 'dataLayer/common/entities';
 import { Repository } from './respository';
 
 @Injectable()

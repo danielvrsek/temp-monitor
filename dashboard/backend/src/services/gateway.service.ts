@@ -11,7 +11,7 @@ import { GatewayMapper } from 'mappers/gateway.mapper';
 import { GatewayState } from 'dataLayer/entities/enums/gatewayState.enum';
 import { GatewayAuthorizationType } from 'dataLayer/entities/enums/gatewayAuthorizationType';
 import { UnitOfWork, UnitOfWorkFactory } from 'dataLayer/unitOfWork';
-import { Entities } from 'dataLayer/common/schemaConstants';
+import { Entities } from 'dataLayer/common/entities';
 
 @Injectable()
 export class GatewayService {

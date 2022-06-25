@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Entities } from 'dataLayer/common/schemaConstants';
+import { Entities } from 'dataLayer/common/entities';
 import { objectId } from 'utils/schemaHelper';
 import { UnitOfWork, UnitOfWorkFactory } from 'dataLayer/unitOfWork';
 import { UserDeviceRepository } from 'dataLayer/repositories/userDevice.repository';

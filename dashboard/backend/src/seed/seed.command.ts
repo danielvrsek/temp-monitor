@@ -8,12 +8,14 @@ import { WorkspaceType } from 'dataLayer/entities/enums/workspaceType.enum';
 import { UserRole } from 'dataLayer/entities/enums/userRole.enum';
 import { WorkspaceMembershipService } from 'services/workspaceMembership.service';
 import { UserDeviceService } from 'services/userDevice.service';
+import { UserDeviceSensorService } from 'services/userDeviceSensor.service';
 
 @Injectable()
 export class SeedCommand {
     constructor(
         private readonly userService: UserService,
         private readonly userDeviceService: UserDeviceService,
+        private readonly userDeviceSensorService: UserDeviceSensorService,
         private readonly workspaceService: WorkspaceService,
         private readonly workspaceMembershipService: WorkspaceMembershipService,
         private readonly gatewayService: GatewayService
@@ -104,14 +106,15 @@ export class SeedCommand {
 
         const userDevice2 = await this.userDeviceService.createAsync({
             gatewayId: gateway1.gateway.id,
-            name: 'HDD2',
+            name: 'SSD1',
         });
         console.log(userDevice2);
 
-        const userDevice3 = await this.userDeviceService.createAsync({
-            gatewayId: gateway1.gateway.id,
-            name: 'SSD1',
+        const userDeviceSensor1 = await this.userDeviceSensorService.createAsync({
+            userDeviceId: userDevice1._id.toString(),
+            name: 'Temperature',
+            valueUnit: '°C',
         });
-        console.log(userDevice3);
+        console.log(userDeviceSensor1);
     }
 }

@@ -12,6 +12,7 @@ import { WorkspaceService } from 'services/workspace.service';
 import { WorkspaceMembershipService } from 'services/workspaceMembership.service';
 import { DataLayerModule } from './dataLayer.module';
 import { SharedModule } from './shared.module';
+import { UserDeviceSensorService } from 'services/userDeviceSensor.service';
 
 @Module({
     imports: [DataLayerModule, SharedModule],
@@ -23,6 +24,7 @@ import { SharedModule } from './shared.module';
         MicrosoftAuthorizationService,
         MicrosoftGraphApi,
         UserDeviceService,
+        UserDeviceSensorService,
         UserDeviceSensorValueService,
         UserDeviceSensorValueGranularityService,
         UserDeviceSensorValueIndexer,
@@ -36,6 +38,7 @@ import { SharedModule } from './shared.module';
         MicrosoftAuthorizationService,
         MicrosoftGraphApi,
         UserDeviceService,
+        UserDeviceSensorService,
         UserDeviceSensorValueService,
         UserDeviceSensorValueGranularityService,
         UserDeviceSensorValueIndexer,

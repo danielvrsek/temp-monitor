@@ -4,7 +4,7 @@ import { User } from 'dataLayer/entities/user.entity';
 import { CreateUserDto, UpdateUserDto, UserViewModel } from 'shared/dto';
 import { UserMapper } from 'mappers/user.mapper';
 import { UnitOfWork, UnitOfWorkFactory } from 'dataLayer/unitOfWork';
-import { Entities } from 'dataLayer/common/schemaConstants';
+import { Entities } from 'dataLayer/common/entities';
 import { objectId } from 'utils/schemaHelper';
 
 @Injectable()

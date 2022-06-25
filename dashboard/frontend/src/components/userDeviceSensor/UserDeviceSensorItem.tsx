@@ -17,14 +17,14 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useWorkspaceContext } from '../../common/contexts/AuthContext';
 import ApiClient from '../../api/apiClient';
 import Line from '../../common/Line';
-import { GatewayViewModel, UserRoleDto } from 'shared/dto';
+import { UserDeviceSensorViewModel, UserRoleDto } from 'shared/dto';
 
 type Props = {
-    data: GatewayViewModel;
-    onClick: (item: GatewayViewModel) => void;
+    data: UserDeviceSensorViewModel;
+    onClick: (item: UserDeviceSensorViewModel) => void;
 };
 
-const WeatherstationItem: React.FC<Props> = ({ data, onClick }) => {
+const UserDeviceSensorItem: React.FC<Props> = ({ data, onClick }) => {
     const [workspaceContext] = useWorkspaceContext();
 
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
@@ -84,4 +84,4 @@ const WeatherstationItem: React.FC<Props> = ({ data, onClick }) => {
     );
 };
 
-export default WeatherstationItem;
+export default UserDeviceSensorItem;

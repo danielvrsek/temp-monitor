@@ -1,6 +1,6 @@
 import React from 'react';
-import WeatherstationItem from './WeatherstationItem';
-import AddWeatherStation from './AddWeatherStation';
+import GatewayItem from './GatewayItem';
+import AddWeatherStation from './AddGateway';
 import { Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useWorkspaceContext } from '../../common/contexts/AuthContext';
@@ -10,12 +10,12 @@ type Props = {
     data: GatewayViewModel[];
 };
 
-const WeatherstationList: React.FC<Props> = ({ data }) => {
+const GatewayList: React.FC<Props> = ({ data }) => {
     const [workspaceContext] = useWorkspaceContext();
     const navigate = useNavigate();
 
     const handleItemOnClick = (item: GatewayViewModel) => {
-        navigate(`/weatherstations/${item.id}`);
+        navigate(`/gateways/${item.id}`);
     };
 
     return (
@@ -23,7 +23,7 @@ const WeatherstationList: React.FC<Props> = ({ data }) => {
             {workspaceContext?.roles.includes(UserRoleDto.Admin) ? <AddWeatherStation /> : <></>}
             <Grid container sx={{ pt: 4 }} spacing={2}>
                 {data.length ? (
-                    data.map((item) => <WeatherstationItem key={item.id} data={item} onClick={handleItemOnClick} />)
+                    data.map((item) => <GatewayItem key={item.id} data={item} onClick={handleItemOnClick} />)
                 ) : (
                     <></>
                 )}
@@ -32,4 +32,4 @@ const WeatherstationList: React.FC<Props> = ({ data }) => {
     );
 };
 
-export default WeatherstationList;
+export default GatewayList;

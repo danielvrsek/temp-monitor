@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { Entities } from 'dataLayer/common/schemaConstants';
+import { Entities } from 'dataLayer/common/entities';
 import { Types } from 'mongoose';
 import { GatewayAuthorization } from 'dataLayer/entities/gatewayAuthorization.entity';
 import { GatewayAuthorizationType } from 'dataLayer/entities/enums/gatewayAuthorizationType';

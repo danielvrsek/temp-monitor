@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Model, Types } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { Entities } from 'dataLayer/common/schemaConstants';
+import { Entities } from 'dataLayer/common/entities';
 import * as dateFns from 'date-fns';
 import { Repository } from './respository';
 import { UserDeviceSensorValue } from 'dataLayer/entities/userDeviceSensorValue.entity';

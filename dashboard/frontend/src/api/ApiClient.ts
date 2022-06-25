@@ -5,6 +5,8 @@ import {
     GatewayViewModel,
     LoginDto,
     RegisterDto,
+    UserDeviceSensorViewModel,
+    UserDeviceViewModel,
     UserInfo,
     UserViewModel,
     WorkspaceInfo,
@@ -28,6 +30,12 @@ const ApiClient = {
     getCurrentWorkspaceUsers: async () => getMethod<UserViewModel[]>(`/workspaces/current/users`),
     addUserToCurrentWorkspace: async (username: string) => postMethod<void>(`/workspaces/current/users`, { username }),
     removeUserFromCurrentWokspace: async (userId: string) => deleteMethod<void>(`/workspaces/current/users/${userId}`),
+    getUserDevice: async (userDeviceId: string) => getMethod<UserDeviceViewModel>(`/devices/${userDeviceId}`),
+    getUserDevices: async (gatewayId: string) => getMethod<UserDeviceViewModel[]>(`/devices/gateway/${gatewayId}`),
+    getUserDeviceSensor: async (userDeviceSensorId: string) =>
+        getMethod<UserDeviceSensorViewModel>(`/device-sensors/${userDeviceSensorId}`),
+    getUserDeviceSensors: async (deviceId: string) =>
+        getMethod<UserDeviceSensorViewModel[]>(`/device-sensors/device/${deviceId}`),
 };
 
 type Headers = {

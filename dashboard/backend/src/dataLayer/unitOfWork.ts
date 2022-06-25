@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { Entities } from './common/schemaConstants';
+import { Entities } from './common/entities';
 import { Entity } from './entities/entity';
 import { Gateway } from './entities/gateway.entity';
 import { GatewayAuthorization } from './entities/gatewayAuthorization.entity';

@@ -4,14 +4,14 @@ import { useEffect, useState } from 'react';
 import ApiClient from '../api/apiClient';
 import Error from '../common/Error';
 import Loading from '../common/Loading';
+import { UserDeviceSensorViewModel } from 'shared/dto';
+import UserDeviceSensorDetailReady from '../components/userDeviceSensor/UserDeviceSensorDetailReady';
 import MainChartLoad from '../components/charts/MainChartLoad';
-import { GatewayViewModel } from 'shared/dto';
-import WeatherstationDetailReady from '../components/weatherstation/WeatherstationDetailReady';
 
-const WeatherstationDetailPage = () => {
+const UserDeviceDetailPage = () => {
     const { id } = useParams();
 
-    const [data, setData] = useState<GatewayViewModel | null>(null);
+    const [data, setData] = useState<UserDeviceSensorViewModel | null>(null);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ const WeatherstationDetailPage = () => {
             return;
         }
 
-        ApiClient.getGateway(id)
+        ApiClient.getUserDeviceSensor(id)
             .then(({ data }) => setData(data))
             .catch((e) => setError(e));
     }, [id]);
@@ -35,13 +35,13 @@ const WeatherstationDetailPage = () => {
 
     return (
         <Container sx={{ pt: '32px' }}>
-            <WeatherstationDetailReady data={data} />
+            <UserDeviceSensorDetailReady data={data} />
             <Typography sx={{ mt: '48px' }} variant="h4">
                 Graf naměřených hodnot
             </Typography>
-            <MainChartLoad gateway={data} />
+            <MainChartLoad sensor={data} />
         </Container>
     );
 };
 
-export default WeatherstationDetailPage;
+export default UserDeviceDetailPage;

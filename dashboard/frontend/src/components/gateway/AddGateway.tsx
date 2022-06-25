@@ -6,7 +6,7 @@ import Modal from '@mui/material/Modal';
 import ApiClient from '../../api/apiClient';
 import { CreateGatewayResult } from 'shared/dto';
 
-const AddWeatherStation: React.FC = () => {
+const AddGateway: React.FC = () => {
     const [open, setOpen] = useState(false);
     const [name, setName] = useState('');
     const [createdGateway, setCreatedGateway] = useState<CreateGatewayResult | null>(null);
@@ -96,4 +96,4 @@ const style = {
     p: 4,
 };
 
-export default AddWeatherStation;
+export default AddGateway;

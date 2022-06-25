@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';
-import { Entities } from 'dataLayer/common/schemaConstants';
+import { Entities } from 'dataLayer/common/entities';
 import { WorkspaceMembership } from 'dataLayer/entities/workspaceMembership.entity';
 import { WorkspaceMembershipRepository } from 'dataLayer/repositories/workspaceMembership.repository';
 import { UserRole } from 'dataLayer/entities/enums/userRole.enum';

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Entities } from 'dataLayer/common/schemaConstants';
+import { Entities } from 'dataLayer/common/entities';
 import { GatewaySchema } from 'dataLayer/entities/gateway.entity';
 import { GatewayAuthorizationSchema } from 'dataLayer/entities/gatewayAuthorization.entity';
 import { UserSchema } from 'dataLayer/entities/user.entity';

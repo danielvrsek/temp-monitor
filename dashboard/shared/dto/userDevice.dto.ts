@@ -4,7 +4,7 @@ export interface UserDeviceViewModel {
     createdAt: Date;
 }
 
-export interface CreateDeviceDto {
+export interface CreateUserDeviceDto {
     gatewayId: string;
     name: string;
 }

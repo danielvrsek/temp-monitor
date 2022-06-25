@@ -9,8 +9,8 @@ import Error from '../common/Error';
 import Loading from '../common/Loading';
 import { WorkspaceViewModel } from 'shared/dto';
 import WorkspaceDetailReady from '../components/workspace/WorkspaceDetailReady';
-import WeatherstationListLoader from '../components/weatherstation/WeatherstationListLoader';
-import UserListLoader from '../components/weatherstation/UserListLoader';
+import GatewayListLoader from '../components/gateway/GatewayListLoader';
+import UserListLoader from '../components/user/UserListLoader';
 
 type Props = {
     index: number;
@@ -91,7 +91,7 @@ const WorkspaceDetailPage = () => {
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
-                    <WeatherstationListLoader />
+                    <GatewayListLoader />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                     <UserListLoader />

@@ -3,9 +3,9 @@ import { GatewayViewModel } from 'shared/dto';
 import ApiClient from '../../api/apiClient';
 import Error from '../../common/Error';
 import Loading from '../../common/Loading';
-import WeatherstationList from './WeatherstationList';
+import GatewayList from './GatewayList';
 
-const WeatherstationListLoader: React.FC = () => {
+const GatewayListLoader: React.FC = () => {
     const [gateways, setGateways] = useState<GatewayViewModel[] | null>(null);
     const [error, setError] = useState();
 
@@ -27,7 +27,7 @@ const WeatherstationListLoader: React.FC = () => {
         return <Loading />;
     }
 
-    return <WeatherstationList data={gateways} />;
+    return <GatewayList data={gateways} />;
 };
 
-export default WeatherstationListLoader;
+export default GatewayListLoader;
