@@ -1,7 +1,7 @@
-import { MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
+import { ConnectedSocket, MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 import { Events } from 'shared/websockets';
-import { UserDataQuery, UserDataViewModel } from 'shared/dto';
+import { InsertUserDataDto, UserDataQuery, UserDataViewModel } from 'shared/dto';
 import { UserDataGroupRepository } from 'dataLayer/repositories/userDataGroup.repository';
 import { UserDataRepository } from 'dataLayer/repositories/userData.repository';
 import { UserDataService } from 'services/userData.service';
@@ -10,9 +10,11 @@ import { objectId } from 'utils/schemaHelper';
 import { UserDataGranularityService } from 'services/userDataGranularity.service';
 import { TokenTypeGuard } from 'auth/guards/tokenType.guard';
 import { JwtAuthGuard } from 'auth/guards/jwt.guard';
-import { UseGuards } from '@nestjs/common';
+import { BadRequestException, UseGuards } from '@nestjs/common';
 import { EnforceTokenType } from 'auth/decorator/tokenType.decorator';
 import { TokenType } from 'shared/authorization';
+import { GatewayRepository } from 'dataLayer/repositories/gateway.repository';
+import { GatewaySocket } from './clientSocket';
 
 @WebSocketGateway()
 export class UserDataGateway {
@@ -23,7 +25,8 @@ export class UserDataGateway {
         private readonly userDataGroupRepository: UserDataGroupRepository,
         private readonly userDataRepository: UserDataRepository,
         private readonly userDataService: UserDataService,
-        private readonly userDataGranularityService: UserDataGranularityService
+        private readonly userDataGranularityService: UserDataGranularityService,
+        private readonly gatewayRepository: GatewayRepository
     ) {}
 
     @UseGuards(JwtAuthGuard, TokenTypeGuard)
@@ -49,6 +52,19 @@ export class UserDataGateway {
         }
 
         return this.userDataGranularityService.transformByGranularity(dataDto, dateFrom, dateTo, granularity);
+    }
+
+    @SubscribeMessage(Events.InsertUserData)
+    async insertUserData(@ConnectedSocket() client: GatewaySocket, @MessageBody() data: InsertUserDataDto) {
+        const gateway = await this.gatewayRepository.findByIdAsync(objectId(client.user.gatewayId));
+        if (!gateway) {
+            throw new BadRequestException('Invalid gateway');
+        }
+
+        const count = await this.userDataService.insertAsync(gateway._id, data);
+        return {
+            count,
+        };
     }
 
     @SubscribeMessage(Events.ConnectionError)

@@ -5,4 +5,5 @@ export const Events = {
     Exception: 'exception',
     ConnectionError: 'connect_error',
     QueryUserData: 'userData/query',
+    InsertUserData: 'userData/insert',
 };
