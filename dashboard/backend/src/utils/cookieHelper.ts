@@ -12,4 +12,8 @@ export class CookieHelper {
 
         return objectId(workspaceId);
     }
+
+    async getAuthToken<TPayload>(request: UserRequest<TPayload>): Promise<string> {
+        return request.cookies[Cookies.AuthCookie];
+    }
 }

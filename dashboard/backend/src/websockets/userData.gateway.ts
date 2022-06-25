@@ -8,6 +8,11 @@ import { UserDataService } from 'services/userData.service';
 import { UserDataMapper } from 'mappers/userData.mapper';
 import { objectId } from 'utils/schemaHelper';
 import { UserDataGranularityService } from 'services/userDataGranularity.service';
+import { TokenTypeGuard } from 'auth/guards/tokenType.guard';
+import { JwtAuthGuard } from 'auth/guards/jwt.guard';
+import { UseGuards } from '@nestjs/common';
+import { EnforceTokenType } from 'auth/decorator/tokenType.decorator';
+import { TokenType } from 'shared/authorization';
 
 @WebSocketGateway()
 export class UserDataGateway {
@@ -21,6 +26,8 @@ export class UserDataGateway {
         private readonly userDataGranularityService: UserDataGranularityService
     ) {}
 
+    @UseGuards(JwtAuthGuard, TokenTypeGuard)
+    @EnforceTokenType(TokenType.User)
     @SubscribeMessage(Events.QueryUserData)
     async queryUserData(@MessageBody() query: UserDataQuery): Promise<UserDataViewModel[]> {
         const dateFrom = new Date(query.dateFrom);

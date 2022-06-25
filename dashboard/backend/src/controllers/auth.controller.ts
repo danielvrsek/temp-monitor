@@ -30,9 +30,9 @@ import { TokenType } from 'shared/authorization';
 @Controller('auth')
 export class AuthController extends ControllerBase {
     constructor(
-        private authService: AuthService,
-        private userService: UserService,
-        cookieHelper: CookieHelper,
+        private readonly authService: AuthService,
+        private readonly userService: UserService,
+        private readonly cookieHelper: CookieHelper,
         workspaceRepository: WorkspaceRepository,
         userRepository: UserRepository
     ) {
@@ -85,7 +85,6 @@ export class AuthController extends ControllerBase {
     @UseGuards(JwtAuthGuard, TokenTypeGuard)
     logout(@Res() response: Response): void {
         response.clearCookie(Cookies.AuthCookie, cookieOptions);
-        response.clearCookie(Cookies.CurrentWorkspace, cookieOptions);
         response.statusCode = 200;
         response.end();
     }
@@ -94,7 +93,17 @@ export class AuthController extends ControllerBase {
     @EnforceTokenType(TokenType.User)
     @UseGuards(JwtAuthGuard, TokenTypeGuard)
     async getUserInfoAsync(@Req() request: UserRequest<void>): Promise<UserInfo> {
-        return request.user;
+        const { userId, firstName, lastname, email, username, tokenType, profilePhotoUrl } = request.user;
+
+        return {
+            userId,
+            firstName,
+            lastname,
+            email,
+            username,
+            tokenType,
+            profilePhotoUrl,
+        };
     }
 
     @Get('workspace-info')
