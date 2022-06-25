@@ -2,34 +2,31 @@
 
 namespace WindowsGateway;
 
-public class HardwareMonitor
+public class HardwareMonitor : IDisposable
 {
-    public class UpdateVisitor : IVisitor
+    private readonly Computer _computer;
+    private readonly UpdateVisitor _updateVisitor;
+    
+    public HardwareMonitor()
     {
-        public void VisitComputer(IComputer computer)
-        {
-            computer.Traverse(this);
-        }
-        public void VisitHardware(IHardware hardware)
-        {
-            hardware.Update();
-            foreach (IHardware subHardware in hardware.SubHardware) subHardware.Accept(this);
-        }
-        public void VisitSensor(ISensor sensor) { }
-        public void VisitParameter(IParameter parameter) { }
-    }
-
-    public void Monitor()
-    {
-        Computer computer = new Computer
+        _computer = new Computer
         {
             IsStorageEnabled = true
         };
+        _updateVisitor = new UpdateVisitor();
+        
+        _computer.Open();
+        _computer.Accept(_updateVisitor);
+    }
 
-        computer.Open();
-        computer.Accept(new UpdateVisitor());
-
-        foreach (IHardware hardware in computer.Hardware)
+    public IHardware[] GetStorages()
+    {
+        return _computer.Hardware.Where(x => x.HardwareType == HardwareType.Storage).ToArray();
+    }
+    
+    public void Monitor()
+    {
+        foreach (IHardware hardware in _computer.Hardware)
         {
             Console.WriteLine("Hardware: {0}", hardware.Name);
         
@@ -48,7 +45,15 @@ public class HardwareMonitor
                 Console.WriteLine("\tSensor: {0}, value: {1}", sensor.Name, sensor.Value);
             }
         }
+    }
+
+    public void Update()
+    {
+        _updateVisitor.Update();
+    }
     
-        computer.Close();
+    public void Dispose()
+    {
+        _computer.Close();
     }
 }

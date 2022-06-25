@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <PackageReference Include="LibreHardwareMonitorLib" Version="0.9.1-pre131" />
+      <PackageReference Include="SocketIOClient" Version="3.0.6" />
     </ItemGroup>
 
 </Project>
