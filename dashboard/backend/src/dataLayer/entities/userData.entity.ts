@@ -6,7 +6,7 @@ import { Entity } from './entity';
 @Schema()
 export class UserData extends Entity {
     @Prop() value: number;
-    @Prop() timestamp: Date;
+    @Prop() timestamp: number;
 
     @Prop({ type: Types.ObjectId, ref: Entities.UserDataGroup })
     userDataGroupId: Types.ObjectId;

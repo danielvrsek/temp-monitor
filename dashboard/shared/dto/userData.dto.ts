@@ -1,11 +1,11 @@
 export interface UserDataViewModel {
     value: number;
-    timestamp: Date;
+    timestamp: number;
 }
 
 export interface UserDataDto {
     value: number;
-    timestamp: Date;
+    timestamp: number;
 }
 
 export interface InsertUserDataDto {

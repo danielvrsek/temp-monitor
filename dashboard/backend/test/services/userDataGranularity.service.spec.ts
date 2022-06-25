@@ -28,23 +28,23 @@ describe('UserDataGranuralityService', () => {
     describe('transformByGranularity', () => {
         it('should upscale the data', async () => {
             const data = [
-                { value: 50, timestamp: new Date('2022-06-09T16:40:08.107Z') },
-                { value: 50, timestamp: new Date('2022-06-09T16:45:08.107Z') },
-                { value: 50, timestamp: new Date('2022-06-09T16:50:08.107Z') },
+                { value: 50, timestamp: new Date('2022-06-09T16:40:08.107Z').getTime() },
+                { value: 50, timestamp: new Date('2022-06-09T16:45:08.107Z').getTime() },
+                { value: 50, timestamp: new Date('2022-06-09T16:50:08.107Z').getTime() },
             ];
 
             const result = [
-                { value: 50, timestamp: new Date('2022-06-09T16:40:08.107Z') },
-                { value: 50, timestamp: new Date('2022-06-09T16:41:08.107Z') },
-                { value: 50, timestamp: new Date('2022-06-09T16:42:08.107Z') },
-                { value: 50, timestamp: new Date('2022-06-09T16:43:08.107Z') },
-                { value: 50, timestamp: new Date('2022-06-09T16:44:08.107Z') },
-                { value: 50, timestamp: new Date('2022-06-09T16:45:08.107Z') },
-                { value: 50, timestamp: new Date('2022-06-09T16:46:08.107Z') },
-                { value: 50, timestamp: new Date('2022-06-09T16:47:08.107Z') },
-                { value: 50, timestamp: new Date('2022-06-09T16:48:08.107Z') },
-                { value: 50, timestamp: new Date('2022-06-09T16:49:08.107Z') },
-                { value: 50, timestamp: new Date('2022-06-09T16:50:08.107Z') },
+                { value: 50, timestamp: new Date('2022-06-09T16:40:08.107Z').getTime() },
+                { value: 50, timestamp: new Date('2022-06-09T16:41:08.107Z').getTime() },
+                { value: 50, timestamp: new Date('2022-06-09T16:42:08.107Z').getTime() },
+                { value: 50, timestamp: new Date('2022-06-09T16:43:08.107Z').getTime() },
+                { value: 50, timestamp: new Date('2022-06-09T16:44:08.107Z').getTime() },
+                { value: 50, timestamp: new Date('2022-06-09T16:45:08.107Z').getTime() },
+                { value: 50, timestamp: new Date('2022-06-09T16:46:08.107Z').getTime() },
+                { value: 50, timestamp: new Date('2022-06-09T16:47:08.107Z').getTime() },
+                { value: 50, timestamp: new Date('2022-06-09T16:48:08.107Z').getTime() },
+                { value: 50, timestamp: new Date('2022-06-09T16:49:08.107Z').getTime() },
+                { value: 50, timestamp: new Date('2022-06-09T16:50:08.107Z').getTime() },
             ];
 
             expect(
@@ -59,23 +59,23 @@ describe('UserDataGranuralityService', () => {
 
         it('should downscale the data', async () => {
             const data = [
-                { value: 50, timestamp: new Date('2022-06-09T16:40:08.107Z') },
-                { value: 60, timestamp: new Date('2022-06-09T16:41:08.107Z') },
-                { value: 70, timestamp: new Date('2022-06-09T16:42:08.107Z') },
-                { value: 80, timestamp: new Date('2022-06-09T16:43:08.107Z') },
-                { value: 90, timestamp: new Date('2022-06-09T16:44:08.107Z') },
-                { value: 100, timestamp: new Date('2022-06-09T16:45:08.107Z') },
-                { value: 110, timestamp: new Date('2022-06-09T16:46:08.107Z') },
-                { value: 120, timestamp: new Date('2022-06-09T16:47:08.107Z') },
-                { value: 130, timestamp: new Date('2022-06-09T16:48:08.107Z') },
-                { value: 140, timestamp: new Date('2022-06-09T16:49:08.107Z') },
-                { value: 150, timestamp: new Date('2022-06-09T16:50:08.107Z') },
+                { value: 50, timestamp: new Date('2022-06-09T16:40:08.107Z').getTime() },
+                { value: 60, timestamp: new Date('2022-06-09T16:41:08.107Z').getTime() },
+                { value: 70, timestamp: new Date('2022-06-09T16:42:08.107Z').getTime() },
+                { value: 80, timestamp: new Date('2022-06-09T16:43:08.107Z').getTime() },
+                { value: 90, timestamp: new Date('2022-06-09T16:44:08.107Z').getTime() },
+                { value: 100, timestamp: new Date('2022-06-09T16:45:08.107Z').getTime() },
+                { value: 110, timestamp: new Date('2022-06-09T16:46:08.107Z').getTime() },
+                { value: 120, timestamp: new Date('2022-06-09T16:47:08.107Z').getTime() },
+                { value: 130, timestamp: new Date('2022-06-09T16:48:08.107Z').getTime() },
+                { value: 140, timestamp: new Date('2022-06-09T16:49:08.107Z').getTime() },
+                { value: 150, timestamp: new Date('2022-06-09T16:50:08.107Z').getTime() },
             ];
 
             const result = [
-                { value: 62, timestamp: new Date('2022-06-09T16:40:08.107Z') },
-                { value: 100, timestamp: new Date('2022-06-09T16:45:08.107Z') },
-                { value: 138, timestamp: new Date('2022-06-09T16:50:08.107Z') },
+                { value: 62, timestamp: new Date('2022-06-09T16:40:08.107Z').getTime() },
+                { value: 100, timestamp: new Date('2022-06-09T16:45:08.107Z').getTime() },
+                { value: 138, timestamp: new Date('2022-06-09T16:50:08.107Z').getTime() },
             ];
 
             expect(

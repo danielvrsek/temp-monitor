@@ -23,6 +23,6 @@ export class UserDataService {
     }
 
     sort(data: UserData[]): UserData[] {
-        return data.sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime());
+        return data.sort((a, b) => a.timestamp - b.timestamp);
     }
 }

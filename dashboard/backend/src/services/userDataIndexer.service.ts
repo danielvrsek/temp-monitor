@@ -2,7 +2,7 @@ import { UserDataDto } from 'shared/dto';
 
 export class UserDataIndexer {
     findIndex(
-        timestamp: Date,
+        timestamp: number,
         data: UserDataDto[],
         startIndex: number,
         length: number

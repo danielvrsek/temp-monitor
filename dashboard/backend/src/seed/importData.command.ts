@@ -28,7 +28,7 @@ export class ImportDataCommand {
         const data: Date[] = JSON.parse(dataRaw);
 
         const count = await this.userDataService.insertAsync(objectId(userGroupDataId), {
-            data: data.map((x) => ({ value: 20, timestamp: x })),
+            data: data.map((x) => ({ value: 20, timestamp: x.getTime() })),
         });
 
         console.log(`Imported ${count} items`);

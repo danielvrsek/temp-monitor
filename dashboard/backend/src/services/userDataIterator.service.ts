@@ -30,7 +30,7 @@ export class UserDataIterator {
         return this.data[this.upperIndex++];
     }
 
-    takePreviousFor(timestamp: Date) {
+    takePreviousFor(timestamp: number) {
         const result: UserDataDto[] = [];
 
         while (this.hasPrevious()) {
@@ -44,7 +44,7 @@ export class UserDataIterator {
         return result;
     }
 
-    takeNextFor(timestamp: Date): UserDataDto[] {
+    takeNextFor(timestamp: number): UserDataDto[] {
         const result: UserDataDto[] = [];
 
         while (this.hasNext()) {

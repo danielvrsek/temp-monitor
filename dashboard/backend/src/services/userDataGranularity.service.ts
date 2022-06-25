@@ -37,7 +37,7 @@ export class UserDataGranularityService {
         return result;
     }
 
-    #getRelatedData(timestamp: Date, data: UserDataDto[], ratio: number): UserDataDto[] {
+    #getRelatedData(timestamp: number, data: UserDataDto[], ratio: number): UserDataDto[] {
         const indexer = new UserDataIndexer();
         const [lowerIndex, upperIndex] = indexer.findIndex(timestamp, data, 0, data.length);
 
@@ -45,8 +45,8 @@ export class UserDataGranularityService {
         return [...iterator.takePreviousFor(timestamp), ...iterator.takeNextFor(timestamp)];
     }
 
-    #generateTimestamps(length: number, dateFromMillis: number, granularityMillis: number): Date[] {
-        const calculateTimestamp = (itemNumber) => new Date(dateFromMillis + itemNumber * granularityMillis);
+    #generateTimestamps(length: number, dateFromMillis: number, granularityMillis: number): number[] {
+        const calculateTimestamp = (itemNumber) => dateFromMillis + itemNumber * granularityMillis;
 
         return Array.from({ length }, (_, i) => calculateTimestamp(i));
     }
@@ -59,7 +59,7 @@ export class UserDataGranularityService {
         return Math.ceil((millisTo - millisFrom) / granularityMillis) + 1;
     }
 
-    #calculateGranularityBetween(timestamp: Date, data: UserDataDto[]): UserDataDto {
+    #calculateGranularityBetween(timestamp: number, data: UserDataDto[]): UserDataDto {
         return {
             value: this.#granularityFunction(data.map((x) => x.value)),
             timestamp,
