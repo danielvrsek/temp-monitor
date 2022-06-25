@@ -3,11 +3,11 @@ import ChartControls from './ChartControls';
 import SimpleLineChart from './SimpleLineChart';
 import { Card } from '@mui/material';
 import { ChartGranularity } from './chartGranularity';
-import { UserDataViewModel } from 'shared/dto';
+import { UserDeviceSensorValueViewModel } from 'shared/dto';
 import { lines } from './chartLines';
 
 type Props = {
-    data: UserDataViewModel[];
+    data: UserDeviceSensorValueViewModel[];
     dateFrom: Date;
     dateTo: Date;
     granularity: number;

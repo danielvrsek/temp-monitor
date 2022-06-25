@@ -30,7 +30,7 @@ export class UserDeviceSensorValueGateway {
 
     @UseGuards(JwtAuthGuard, TokenTypeGuard)
     @EnforceTokenType(TokenType.User)
-    @SubscribeMessage(Events.QueryUserDeviceSensorData)
+    @SubscribeMessage(Events.QueryUserDeviceSensorValueData)
     async queryUserDeviceSensorData(
         @MessageBody() query: UserDeviceSensorValueQuery
     ): Promise<UserDeviceSensorValueDto[]> {
@@ -61,7 +61,7 @@ export class UserDeviceSensorValueGateway {
 
     @UseGuards(JwtAuthGuard, TokenTypeGuard)
     @EnforceTokenType(TokenType.Gateway)
-    @SubscribeMessage(Events.InsertUserDeviceSensorData)
+    @SubscribeMessage(Events.InsertUserDeviceSensorValueData)
     async insertUserDeviceSensorData(
         @ConnectedSocket() client: GatewaySocket,
         @MessageBody() data: InsertUserDeviceSensorDataDto

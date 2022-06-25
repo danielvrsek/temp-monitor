@@ -4,6 +4,6 @@ export const Events = {
     Disconnect: 'disconnect',
     Exception: 'exception',
     ConnectionError: 'connect_error',
-    QueryUserDeviceSensorData: 'userDeviceSensor/query',
-    InsertUserDeviceSensorData: 'userDeviceSensor/insert',
+    QueryUserDeviceSensorValueData: 'userDeviceSensorValue/query',
+    InsertUserDeviceSensorValueData: 'userDeviceSensorValue/insert',
 };

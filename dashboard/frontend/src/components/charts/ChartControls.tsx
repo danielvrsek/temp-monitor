@@ -4,10 +4,10 @@ import { TextField, Select, MenuItem, Button, Grid } from '@mui/material';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider/LocalizationProvider';
 import { ChartGranularity } from './chartGranularity';
-import { UserDataViewModel } from 'shared/dto';
+import { UserDeviceSensorValueViewModel } from 'shared/dto';
 
 type Props = {
-    data: UserDataViewModel[];
+    data: UserDeviceSensorValueViewModel[];
     dateFrom: Date;
     dateTo: Date;
     granularity: number;

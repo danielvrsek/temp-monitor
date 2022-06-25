@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MainChartReady from './MainChartReady';
 import { ChartGranularity, granularityList } from './chartGranularity';
-import { GatewayViewModel, UserDataViewModel } from 'shared/dto';
+import { GatewayViewModel, UserDeviceSensorValueViewModel } from 'shared/dto';
 import Error from '../../common/Error';
 import Loading from '../../common/Loading';
 import { useWebSocketClient } from '../../api/webSocketClient';
@@ -30,7 +30,7 @@ const MainChartLoad: React.FC<Props> = ({ gateway }) => {
     }, [dateFrom, dateTo]);
 
     //Chart
-    const [chartData, setChartData] = useState<UserDataViewModel[]>([]);
+    const [chartData, setChartData] = useState<UserDeviceSensorValueViewModel[]>([]);
     const [status, setStatus] = useState('loading');
 
     const reset = () => {
@@ -46,9 +46,9 @@ const MainChartLoad: React.FC<Props> = ({ gateway }) => {
 
         webSocketClient
             ?.querySensorData({
-                gatewayId: gateway.id,
-                dateFrom: dateFrom?.toString(),
-                dateTo: dateTo?.toString(),
+                sensorId: gateway.id,
+                dateFrom: dateFrom.getTime(),
+                dateTo: dateTo.getTime(),
                 granularity,
             })
             .then((res) => {

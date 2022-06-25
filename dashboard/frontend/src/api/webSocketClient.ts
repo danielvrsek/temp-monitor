@@ -25,7 +25,7 @@ export function useWebSocketClient() {
                 querySensorData: (query: UserDeviceSensorValueQuery) =>
                     emit<UserDeviceSensorValueQuery, UserDeviceSensorValueViewModel[]>(
                         socket,
-                        Events.QueryUserDeviceSensorData,
+                        Events.QueryUserDeviceSensorValueData,
                         query
                     ),
             });
