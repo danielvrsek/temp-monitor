@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import ApiClient from '../../api/apiClient';
 import Error from '../../common/Error';
 import Loading from '../../common/Loading';
 import { useUserDeviceStore } from '../../stores/userDevice.store';

@@ -64,8 +64,6 @@ export class UserDeviceGateway {
                 .to(socketId)
                 .timeout(1000)
                 .emit('gateway/getAvailableDevices', (_, response) => {
-                    console.log(response);
-
                     const result = response[0].filter(
                         (x) => !currentDevices.some((device) => device.externalId === x.identifier)
                     );

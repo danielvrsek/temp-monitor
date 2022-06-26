@@ -32,16 +32,14 @@ const AddUserDevice: React.FC<Props> = ({ gatewayId }) => {
     }, [webSocketClient, open, gatewayId]);
 
     const handleClick = (item: UserDeviceAvailableViewModel) => {
-        console.log('click');
+        console.log(userDeviceStore);
         userDeviceStore
             ?.create({
                 name: item.name,
                 externalId: item.identifier,
                 gatewayId: gatewayId,
             })
-            .then(() => {
-                setOpen(false);
-            });
+            .then((x) => handleClose());
     };
 
     return (

@@ -30,8 +30,10 @@ export const useUserDeviceStore = (): [UserDeviceViewModel[] | null, UserDeviceS
                 }),
             create: (dto) =>
                 webSocketClient.createUserDevice(dto).then((res) => {
-                    console.log('create');
+                    console.log(userDevices);
                     if (userDevices) {
+                        console.log(res);
+
                         setUserDevices([...userDevices, res]);
                     }
                     return res;
@@ -39,13 +41,12 @@ export const useUserDeviceStore = (): [UserDeviceViewModel[] | null, UserDeviceS
             delete: (entity) =>
                 webSocketClient.deleteUserDevice(entity.id).then((res) => {
                     if (userDevices) {
-                        console.log(res.id);
                         setUserDevices(userDevices.filter((x) => x.id !== res.id));
                     }
                     return res;
                 }),
         });
-    }, [webSocketClient, setUserDevices, setStore]);
+    }, [webSocketClient, userDevices, setUserDevices, setStore]);
 
     return [userDevices, store];
 };
