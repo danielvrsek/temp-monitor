@@ -7,6 +7,7 @@ import { Entity } from './entity';
 export class UserDeviceSensor extends Entity {
     @Prop() name: string;
     @Prop() valueUnit: string;
+    @Prop() externalId: string;
     @Prop() createdAt?: Date;
 
     @Prop({ type: Types.ObjectId, ref: Entities.UserDevice })

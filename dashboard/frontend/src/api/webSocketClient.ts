@@ -1,4 +1,9 @@
-import { UserDeviceSensorValueQuery, UserDeviceSensorValueViewModel } from 'shared/dto';
+import {
+    CreateUserDeviceDto,
+    UserDeviceSensorValueQuery,
+    UserDeviceSensorValueViewModel,
+    UserDeviceViewModel,
+} from 'shared/dto';
 import { useUserContext } from '../common/contexts/AuthContext';
 import { io, Socket } from 'socket.io-client';
 import { useEffect, useState } from 'react';
@@ -7,7 +12,10 @@ import { getBasePath } from '../utils/pathHelper';
 
 export type WebSocketClient = {
     querySensorData: (query: UserDeviceSensorValueQuery) => Promise<UserDeviceSensorValueViewModel[]>;
-    queryAvailableSensors: (gatewayId: string) => Promise<any>;
+    queryAvailableDevices: (gatewayId: string) => Promise<any>;
+    queryAvailableSensors: (deviceId: string) => Promise<any>;
+    createUserDevice: (dto: CreateUserDeviceDto) => Promise<UserDeviceViewModel>;
+    deleteUserDevice: (userDeviceId: string) => Promise<UserDeviceViewModel>;
 };
 
 export function useWebSocketClient() {
@@ -18,7 +26,7 @@ export function useWebSocketClient() {
     useEffect(() => {
         socket?.disconnect();
         setWebSocketClient(null);
-        setSocket(io(getBasePath(), { withCredentials: true, extraHeaders: { 'x-client-type': 'dashboard' } }));
+        setSocket(io(getBasePath(), { withCredentials: true }));
     }, [userContext]);
 
     useEffect(() => {
@@ -30,8 +38,14 @@ export function useWebSocketClient() {
                         Events.QueryUserDeviceSensorValueData,
                         query
                     ),
-                queryAvailableSensors: (gatewayId: string) =>
-                    emit<string, any>(socket, Events.QueryAvailableSensors, gatewayId),
+                queryAvailableDevices: (gatewayId: string) =>
+                    emit<string, any>(socket, Events.QueryAvailableDevices, gatewayId),
+                queryAvailableSensors: (deviceId: string) =>
+                    emit<string, any>(socket, Events.QueryAvailableSensors, deviceId),
+                createUserDevice: (dto: CreateUserDeviceDto) =>
+                    emit<CreateUserDeviceDto, UserDeviceViewModel>(socket, Events.CreateUserDevice, dto),
+                deleteUserDevice: (userDeviceId: string) =>
+                    emit<string, UserDeviceViewModel>(socket, Events.DeleteUserDevice, userDeviceId),
             });
         });
     }, [socket]);

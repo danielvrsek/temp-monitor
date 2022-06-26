@@ -4,12 +4,16 @@ import { useEffect, useState } from 'react';
 import ApiClient from '../api/apiClient';
 import Error from '../common/Error';
 import Loading from '../common/Loading';
-import { GatewayViewModel } from 'shared/dto';
+import { GatewayViewModel, UserRoleDto } from 'shared/dto';
 import GatewayDetailReady from '../components/gateway/GatewayDetailReady';
 import UserDeviceListLoader from '../components/userDevice/UserDeviceListLoader';
+import AddUserDevice from '../components/userDevice/AddUserDevice';
+import { useWorkspaceContext } from '../common/contexts/AuthContext';
 
 const GatewayDetailPage = () => {
     const { id } = useParams();
+
+    const [workspaceContext] = useWorkspaceContext();
 
     const [data, setData] = useState<GatewayViewModel | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -37,6 +41,9 @@ const GatewayDetailPage = () => {
         <Container sx={{ pt: '32px' }}>
             <GatewayDetailReady data={data} />
             <Box>
+                {workspaceContext?.roles.some((role) => role === UserRoleDto.Admin) && (
+                    <AddUserDevice gatewayId={data.id} />
+                )}
                 <UserDeviceListLoader gatewayId={data.id} />
             </Box>
         </Container>

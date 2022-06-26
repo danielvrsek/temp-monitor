@@ -7,6 +7,7 @@ export const UserDeviceSensorMapper = {
             id: userDeviceSensor._id.toString(),
             name: userDeviceSensor.name,
             valueUnit: userDeviceSensor.valueUnit,
+            externalId: userDeviceSensor.externalId,
             createdAt: userDeviceSensor.createdAt,
         };
     },

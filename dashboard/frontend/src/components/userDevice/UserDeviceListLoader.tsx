@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { UserDeviceViewModel } from 'shared/dto';
 import ApiClient from '../../api/apiClient';
 import Error from '../../common/Error';
 import Loading from '../../common/Loading';
+import { useUserDeviceStore } from '../../stores/userDevice.store';
 import UserDeviceList from './UserDeviceList';
 
 type Props = {
@@ -10,18 +10,16 @@ type Props = {
 };
 
 const UserDeviceListLoader: React.FC<Props> = ({ gatewayId }) => {
-    const [userDevices, setUserDevices] = useState<UserDeviceViewModel[] | null>(null);
+    const [userDevices, userDeviceStore] = useUserDeviceStore();
     const [error, setError] = useState();
 
     useEffect(() => {
-        ApiClient.getUserDevices(gatewayId)
-            .then((response) => {
-                setUserDevices(response.data);
-            })
-            .catch((error) => {
-                setError(error);
-            });
-    }, []);
+        console.log(userDevices);
+
+        if (!userDevices) {
+            userDeviceStore?.load(gatewayId).catch((e) => setError(e));
+        }
+    }, [userDevices, userDeviceStore, gatewayId]);
 
     if (error) {
         return <Error content={error} />;

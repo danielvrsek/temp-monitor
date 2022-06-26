@@ -1,5 +1,5 @@
-const AddUserDevice: React.FC = () => {
+const AddUserDeviceSensor: React.FC = () => {
     return <></>;
 };
 
-export default AddUserDevice;
+export default AddUserDeviceSensor;

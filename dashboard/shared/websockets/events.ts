@@ -7,5 +7,9 @@ export const Events = {
     RegisterGateway: 'gateway/register',
     QueryUserDeviceSensorValueData: 'userDeviceSensorValue/query',
     InsertUserDeviceSensorValueData: 'userDeviceSensorValue/insert',
+    QueryAvailableDevices: 'dashboard/getAvailableDevices',
     QueryAvailableSensors: 'dashboard/getAvailableSensors',
+    QueryRegisteredDevices: 'cloud/getRegisteredDevices',
+    CreateUserDevice: 'userDevice/create',
+    DeleteUserDevice: 'userDevice/delete',
 };

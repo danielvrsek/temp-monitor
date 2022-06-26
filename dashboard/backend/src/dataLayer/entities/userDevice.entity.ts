@@ -6,6 +6,7 @@ import { Entity } from './entity';
 @Schema({ timestamps: true })
 export class UserDevice extends Entity {
     @Prop() name: string;
+    @Prop() externalId: string;
     @Prop() createdAt?: Date;
 
     @Prop({ type: Types.ObjectId, ref: Entities.Gateway })

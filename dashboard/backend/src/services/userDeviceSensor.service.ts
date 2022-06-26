@@ -18,6 +18,7 @@ export class UserDeviceSensorService {
             userDeviceId: objectId(dto.userDeviceId),
             name: dto.name,
             valueUnit: dto.valueUnit,
+            externalId: dto.externalId,
         });
     }
 }

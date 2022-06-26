@@ -18,6 +18,8 @@ import { useWorkspaceContext } from '../../common/contexts/AuthContext';
 import ApiClient from '../../api/apiClient';
 import Line from '../../common/Line';
 import { UserDeviceViewModel, UserRoleDto } from 'shared/dto';
+import { useWebSocketClient } from '../../api/webSocketClient';
+import { useUserDeviceStore } from '../../stores/userDevice.store';
 
 type Props = {
     data: UserDeviceViewModel;
@@ -26,6 +28,7 @@ type Props = {
 
 const UserDeviceItem: React.FC<Props> = ({ data, onClick }) => {
     const [workspaceContext] = useWorkspaceContext();
+    const [, userDeviceStore] = useUserDeviceStore();
 
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
@@ -37,8 +40,8 @@ const UserDeviceItem: React.FC<Props> = ({ data, onClick }) => {
         setAnchorEl(null);
     };
 
-    const handleRemoveGateway = () => {
-        ApiClient.removeGatewayFromWokspace(data.id).then(() => window.location.reload());
+    const handleRemove = () => {
+        userDeviceStore?.delete(data);
     };
 
     const open = Boolean(anchorEl);
@@ -60,7 +63,7 @@ const UserDeviceItem: React.FC<Props> = ({ data, onClick }) => {
                 }}
             >
                 <MenuList>
-                    <MenuItem onClick={handleRemoveGateway}>Odebrat stanici</MenuItem>
+                    <MenuItem onClick={handleRemove}>Remove device</MenuItem>
                 </MenuList>
             </Popover>
         </div>

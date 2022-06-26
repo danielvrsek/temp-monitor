@@ -22,6 +22,7 @@ export class UserDeviceSensorGateway {
     server: Server & { gateways: { [id: string]: string } };
 
     constructor(
+        private readonly userDeviceRepository: UserDeviceRepository,
         private readonly userDeviceSensorValueRepository: UserDeviceSensorValueRepository,
         private readonly userDeviceSensorValueService: UserDeviceSensorValueService,
         private readonly userDeviceSensorValueGranularityService: UserDeviceSensorValueGranularityService,
@@ -31,8 +32,13 @@ export class UserDeviceSensorGateway {
     @UseGuards(JwtAuthGuard, TokenTypeGuard)
     @EnforceTokenType(TokenType.User)
     @SubscribeMessage(Events.QueryAvailableSensors)
-    async queryAvailableSensorsAsync(@MessageBody() gatewayId: string): Promise<string | null> {
-        const socketId = this.getGatewaySocketId(gatewayId);
+    async queryAvailableSensorsAsync(@MessageBody() deviceId: string): Promise<string | null> {
+        const device = await this.userDeviceRepository.findByIdAsync(objectId(deviceId));
+        if (!device) {
+            throw new BadRequestException('Invalid device');
+        }
+
+        const socketId = this.getGatewaySocketId(device.gatewayId.toString());
         if (!socketId) {
             return null;
         }
@@ -41,7 +47,7 @@ export class UserDeviceSensorGateway {
             this.server.sockets
                 .to(socketId)
                 .timeout(1000)
-                .emit('gateway/getAvailableSensors', (_, response) => {
+                .emit('gateway/getAvailableSensors', deviceId, (_, response) => {
                     resolve(response[0]);
                 });
         });

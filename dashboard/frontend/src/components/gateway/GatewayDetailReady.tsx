@@ -1,19 +1,11 @@
 import { Typography, Table, TableBody, TableRow, TableCell, Chip } from '@mui/material';
-import { useEffect } from 'react';
 import { GatewayViewModel } from 'shared/dto';
-import { useWebSocketClient } from '../../api/webSocketClient';
 
 type Props = {
     data: GatewayViewModel;
 };
 
 const GatewayDetailReady: React.FC<Props> = ({ data }) => {
-    const webSocketClient = useWebSocketClient();
-
-    useEffect(() => {
-        webSocketClient?.queryAvailableSensors(data.id).then((x) => console.log(x));
-    }, [webSocketClient, data.id]);
-
     return (
         <div>
             <Typography mt={8} variant="h3">
