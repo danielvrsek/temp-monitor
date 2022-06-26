@@ -8,7 +8,7 @@ import { UserDeviceSensorViewModel } from 'shared/dto';
 import UserDeviceSensorDetailReady from '../components/userDeviceSensor/UserDeviceSensorDetailReady';
 import MainChartLoad from '../components/charts/MainChartLoad';
 
-const UserDeviceDetailPage = () => {
+const UserDeviceSensorDetailPage = () => {
     const { id } = useParams();
 
     const [data, setData] = useState<UserDeviceSensorViewModel | null>(null);
@@ -44,4 +44,4 @@ const UserDeviceDetailPage = () => {
     );
 };
 
-export default UserDeviceDetailPage;
+export default UserDeviceSensorDetailPage;

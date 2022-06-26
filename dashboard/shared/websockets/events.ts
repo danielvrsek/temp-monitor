@@ -4,6 +4,8 @@ export const Events = {
     Disconnect: 'disconnect',
     Exception: 'exception',
     ConnectionError: 'connect_error',
+    RegisterGateway: 'gateway/register',
     QueryUserDeviceSensorValueData: 'userDeviceSensorValue/query',
     InsertUserDeviceSensorValueData: 'userDeviceSensorValue/insert',
+    QueryAvailableSensors: 'dashboard/getAvailableSensors',
 };

@@ -31,12 +31,12 @@
         "@nestjs/mongoose": "^9.0.3",
         "@nestjs/passport": "^8.2.1",
         "@nestjs/platform-express": "^8.0.0",
-        "@nestjs/platform-socket.io": "^8.4.7",
         "@nestjs/websockets": "^8.4.7",
         "@types/bcrypt": "^5.0.0",
         "bcrypt": "^5.0.1",
         "cookie-parser": "^1.4.6",
         "date-fns": "^2.28.0",
+        "debug": "^4.3.4",
         "isomorphic-fetch": "^3.0.0",
         "mongoose": "^6.2.9",
         "nestjs-command": "^3.1.1",
@@ -47,6 +47,7 @@
         "rimraf": "^3.0.2",
         "rxjs": "^7.2.0",
         "shared": "file:../shared",
+        "socket.io": "^4.5.1",
         "yargs": "^16.2.0"
     },
     "devDependencies": {

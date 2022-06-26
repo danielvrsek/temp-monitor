@@ -7,6 +7,7 @@ import { getBasePath } from '../utils/pathHelper';
 
 export type WebSocketClient = {
     querySensorData: (query: UserDeviceSensorValueQuery) => Promise<UserDeviceSensorValueViewModel[]>;
+    queryAvailableSensors: (gatewayId: string) => Promise<any>;
 };
 
 export function useWebSocketClient() {
@@ -15,8 +16,9 @@ export function useWebSocketClient() {
     const [webSocketClient, setWebSocketClient] = useState<WebSocketClient | null>(null);
 
     useEffect(() => {
+        socket?.disconnect();
         setWebSocketClient(null);
-        setSocket(io(getBasePath(), { withCredentials: true }));
+        setSocket(io(getBasePath(), { withCredentials: true, extraHeaders: { 'x-client-type': 'dashboard' } }));
     }, [userContext]);
 
     useEffect(() => {
@@ -28,6 +30,8 @@ export function useWebSocketClient() {
                         Events.QueryUserDeviceSensorValueData,
                         query
                     ),
+                queryAvailableSensors: (gatewayId: string) =>
+                    emit<string, any>(socket, Events.QueryAvailableSensors, gatewayId),
             });
         });
     }, [socket]);

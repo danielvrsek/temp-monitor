@@ -16,6 +16,7 @@ export class LocalGatewayStrategy extends PassportStrategy(Strategy, Guards.Loca
         if (!gateway) {
             throw new UnauthorizedException();
         }
+
         return gateway;
     }
 }

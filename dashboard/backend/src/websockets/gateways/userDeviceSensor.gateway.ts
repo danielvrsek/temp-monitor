@@ -11,15 +11,15 @@ import { BadRequestException, UseGuards } from '@nestjs/common';
 import { EnforceTokenType } from 'auth/decorator/tokenType.decorator';
 import { TokenType } from 'shared/authorization';
 import { GatewayRepository } from 'dataLayer/repositories/gateway.repository';
-import { GatewaySocket } from './clientSocket';
+import { GatewaySocket } from '../clientSocket';
 import { UserDeviceSensorValueRepository } from 'dataLayer/repositories/userDeviceSensorValue.repository';
 import { UserDeviceSensorValueService } from 'services/userDeviceSensorValue.service';
 import { InsertUserDeviceSensorDataDto, UserDeviceSensorValueDto, UserDeviceSensorValueQuery } from 'shared/dto';
 
 @WebSocketGateway()
-export class UserDeviceSensorValueGateway {
+export class UserDeviceSensorGateway {
     @WebSocketServer()
-    server: Server;
+    server: Server & { gateways: { [id: string]: string } };
 
     constructor(
         private readonly userDeviceSensorValueRepository: UserDeviceSensorValueRepository,
@@ -27,6 +27,25 @@ export class UserDeviceSensorValueGateway {
         private readonly userDeviceSensorValueGranularityService: UserDeviceSensorValueGranularityService,
         private readonly gatewayRepository: GatewayRepository
     ) {}
+
+    @UseGuards(JwtAuthGuard, TokenTypeGuard)
+    @EnforceTokenType(TokenType.User)
+    @SubscribeMessage(Events.QueryAvailableSensors)
+    async queryAvailableSensorsAsync(@MessageBody() gatewayId: string): Promise<string | null> {
+        const socketId = this.getGatewaySocketId(gatewayId);
+        if (!socketId) {
+            return null;
+        }
+
+        return await new Promise<string>((resolve, reject) => {
+            this.server.sockets
+                .to(socketId)
+                .timeout(1000)
+                .emit('gateway/getAvailableSensors', (_, response) => {
+                    resolve(response[0]);
+                });
+        });
+    }
 
     @UseGuards(JwtAuthGuard, TokenTypeGuard)
     @EnforceTokenType(TokenType.User)
@@ -78,13 +97,11 @@ export class UserDeviceSensorValueGateway {
         };
     }
 
-    @SubscribeMessage(Events.ConnectionError)
-    async logConnectError(@MessageBody() err: any): Promise<void> {
-        console.log(err);
-    }
+    private getGatewaySocketId(gatewayId: string): string | null {
+        if (!this.server.gateways) {
+            return null;
+        }
 
-    @SubscribeMessage(Events.Exception)
-    async logException(@MessageBody() err: any): Promise<void> {
-        console.log(err);
+        return this.server.gateways[gatewayId];
     }
 }
