@@ -1,6 +1,6 @@
 ﻿namespace WindowsGateway.Dto;
 
-public enum SensorType
+public enum DeviceTypeDto
 {
     Storage
 }

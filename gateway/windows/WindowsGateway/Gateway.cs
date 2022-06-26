@@ -1,5 +1,7 @@
-﻿using SocketIOClient;
+﻿using LibreHardwareMonitor.Hardware;
+using SocketIOClient;
 using WindowsGateway.Dto;
+using WindowsGateway.Mappers;
 
 namespace WindowsGateway;
 
@@ -16,6 +18,7 @@ public class Gateway : IDisposable
         _hwMonitor = new HardwareMonitor();
         _client = new WsClient(_cloudHost)
         {
+            OnGetAvailableDevices = GetAvailableDevicesAsyncHandler,
             OnGetAvailableSensors = GetAvailableSensorsAsyncHandler
         };
     }
@@ -50,13 +53,32 @@ public class Gateway : IDisposable
         _hwMonitor.Update();
     }
 
-    async void GetAvailableSensorsAsyncHandler(SocketIOResponse response)
+    async void GetAvailableDevicesAsyncHandler(SocketIOResponse response)
     {
-        var sensors = _hwMonitor.GetStorages().Select(x => new AvailableSensor()
+        Console.WriteLine("Get available devices");
+        
+        var sensors = _hwMonitor.GetStorages().Select(x => new AvailableDevice()
         {
             Identifier = x.Identifier.ToString(),
             Name = x.Name,
-            SensorType = WindowsGateway.Dto.SensorType.Storage
+            DeviceType = DeviceTypeDto.Storage
+        });
+    
+        await response.CallbackAsync(sensors);
+    }
+    
+    async void GetAvailableSensorsAsyncHandler(SocketIOResponse response)
+    {
+        string deviceId = response.GetValue<string>();
+        var device = _hwMonitor.GetStorages().First(x => x.Identifier.ToString() == deviceId);
+        
+        var sensors = device.Sensors
+            .Where(x => x.SensorType == SensorType.Temperature)
+            .Select(x => new AvailableDeviceSensor
+        {
+            Identifier = x.Identifier.ToString(),
+            Name = x.Name,
+            SensorType = SensorTypeMapper.MapToDto(x.SensorType)
         });
     
         await response.CallbackAsync(sensors);
