@@ -2,6 +2,6 @@
 
 public class InsertUserDataDto
 {
-    public string UserDataGroupId { get; set; }
+    public string UserDeviceSensorId { get; set; }
     public UserDataDto[]? Data { get; set; }
 }

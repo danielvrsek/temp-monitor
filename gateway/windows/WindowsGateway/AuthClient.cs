@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using WindowsGateway.Dto;
 
 namespace WindowsGateway;
 
@@ -23,8 +24,9 @@ public class AuthClient : IDisposable
         {
             throw new Exception();
         }
-        
-        return await response.Content.ReadAsStringAsync();
+
+        var responseBody = await response.Content.ReadFromJsonAsync<AuthorizeGatewayResponse>();
+        return responseBody!.Token;
     }
 
     public void Dispose()
