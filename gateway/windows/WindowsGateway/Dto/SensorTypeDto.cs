@@ -2,5 +2,7 @@
 
 public enum SensorTypeDto
 {
-    Temperature
+    Temperature,
+    Load,
+    Unknown
 }

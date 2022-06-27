@@ -1,7 +1,6 @@
 ﻿using System.Text.Json;
 using SocketIOClient;
 using SocketIOClient.JsonSerializer;
-using WindowsGateway.Dto;
 
 namespace WindowsGateway;
 
@@ -12,8 +11,6 @@ public class WsClient : IDisposable
     public WsClient(Uri url)
     {
         _client = new SocketIO(url);
-        _client.OnConnected += (sender, args) => RegisterGatewayAsync();
-        _client.OnReconnected += (sender, i) => RegisterGatewayAsync();
 
         var jsonSerializer = _client.JsonSerializer as SystemTextJsonSerializer;
         jsonSerializer!.OptionsProvider = () => new JsonSerializerOptions
@@ -22,16 +19,38 @@ public class WsClient : IDisposable
         };
     }
 
+    public EventHandler OnConnected
+    {
+        set => _client.OnConnected += value;
+    }
+    
+    public EventHandler<int> OnReconnected
+    {
+        set => _client.OnReconnected += value;
+    }
+    
+    public Action<SocketIOResponse> OnDeviceSensorAdded
+    {
+        set => _client.On("gateway/deviceSensorAdded", value);
+    }
+    
+    public Action<SocketIOResponse> OnDeviceSensorRemoved
+    {
+        set => _client.On("gateway/deviceSensorRemoved", value);
+    }
+    
     public Action<SocketIOResponse> OnGetAvailableDevices
     {
-        set { _client.On("gateway/getAvailableDevices", value); }
+        set => _client.On("gateway/getAvailableDevices", value);
     }
     
     public Action<SocketIOResponse> OnGetAvailableSensors
     {
-        set { _client.On("gateway/getAvailableSensors", value); }
+        set => _client.On("gateway/getAvailableSensors", value);
     }
 
+    public bool IsConnected => _client.Connected;
+    
     public void AddGatewayAuthorization(string token)
     {
         if (_client.Connected)
@@ -48,6 +67,11 @@ public class WsClient : IDisposable
         return _client.ConnectAsync();
     }
 
+    public Task EmitAsync(string eventName)
+    {
+        return _client.EmitAsync(eventName);
+    }
+    
     public Task EmitAsync(string eventName, Action<SocketIOResponse> ack)
     {
         return _client.EmitAsync(eventName, ack);
@@ -62,25 +86,4 @@ public class WsClient : IDisposable
     {
         _client.Dispose();
     }
-
-    private async void RegisterGatewayAsync()
-    {
-        Console.WriteLine("Register");
-
-        try
-        {
-            await _client.EmitAsync("gateway/register");
-
-            await _client.EmitAsync("cloud/getRegisteredDevices",
-                response =>
-                {
-                    Console.WriteLine(response);
-                });
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.ToString());
-        }
-    }
-
 }

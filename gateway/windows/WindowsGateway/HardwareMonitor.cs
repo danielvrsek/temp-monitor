@@ -11,6 +11,8 @@ public class HardwareMonitor : IDisposable
     {
         _computer = new Computer
         {
+            IsCpuEnabled = true,
+            IsMemoryEnabled = true,
             IsStorageEnabled = true
         };
         _updateVisitor = new UpdateVisitor();
@@ -19,9 +21,9 @@ public class HardwareMonitor : IDisposable
         _computer.Accept(_updateVisitor);
     }
 
-    public IHardware[] GetStorages()
+    public IHardware[] GetHardware()
     {
-        return _computer.Hardware.Where(x => x.HardwareType == HardwareType.Storage).ToArray();
+        return _computer.Hardware.ToArray();
     }
     
     public void Monitor()

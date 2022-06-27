@@ -11,8 +11,10 @@ public static class SensorTypeMapper
         {
             case SensorType.Temperature:
                 return SensorTypeDto.Temperature;
+            case SensorType.Load:
+                return SensorTypeDto.Load;
             default:
-                throw new NotImplementedException(sensorType.ToString());
+                return SensorTypeDto.Unknown;
         }
     }
 }
