@@ -12,4 +12,6 @@ export const Events = {
     QueryRegisteredDevices: 'cloud/getRegisteredDevices',
     CreateUserDevice: 'userDevice/create',
     DeleteUserDevice: 'userDevice/delete',
+    CreateUserDeviceSensor: 'userDeviceSensor/create',
+    DeleteUserDeviceSensor: 'userDeviceSensor/delete',
 };

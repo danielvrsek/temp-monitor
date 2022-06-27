@@ -6,6 +6,12 @@ export interface UserDeviceSensorViewModel {
     createdAt: Date;
 }
 
+export interface UserDeviceSensorAvailableViewModel {
+    identifier: string;
+    name: string;
+    sensorType: string;
+}
+
 export interface UserDeviceSensorRegisteredViewModel {
     id: string;
     name: string;

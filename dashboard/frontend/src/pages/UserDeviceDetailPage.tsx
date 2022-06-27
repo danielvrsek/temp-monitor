@@ -7,6 +7,7 @@ import Loading from '../common/Loading';
 import { UserDeviceViewModel } from 'shared/dto';
 import UserDeviceDetailReady from '../components/userDevice/UserDeviceDetailReady';
 import UserDeviceSensorListLoader from '../components/userDeviceSensor/UserDeviceSensorListLoader';
+import AddUserDeviceSensor from '../components/userDeviceSensor/AddUserDeviceSensor';
 
 const UserDeviceDetailPage = () => {
     const { id } = useParams();
@@ -39,7 +40,8 @@ const UserDeviceDetailPage = () => {
                 <UserDeviceDetailReady data={data} />
             </div>
             <Box>
-                <UserDeviceSensorListLoader userDeviceId={data.id} />
+                <AddUserDeviceSensor deviceId={data.id} />
+                <UserDeviceSensorListLoader deviceId={data.id} />
             </Box>
         </Container>
     );

@@ -1,7 +1,9 @@
 import {
     CreateUserDeviceDto,
+    CreateUserDeviceSensorDto,
     UserDeviceSensorValueQuery,
     UserDeviceSensorValueViewModel,
+    UserDeviceSensorViewModel,
     UserDeviceViewModel,
 } from 'shared/dto';
 import { useUserContext } from '../common/contexts/AuthContext';
@@ -15,7 +17,9 @@ export type WebSocketClient = {
     queryAvailableDevices: (gatewayId: string) => Promise<any>;
     queryAvailableSensors: (deviceId: string) => Promise<any>;
     createUserDevice: (dto: CreateUserDeviceDto) => Promise<UserDeviceViewModel>;
-    deleteUserDevice: (userDeviceId: string) => Promise<UserDeviceViewModel>;
+    deleteUserDevice: (deviceId: string) => Promise<UserDeviceViewModel>;
+    createUserDeviceSensor: (dto: CreateUserDeviceSensorDto) => Promise<UserDeviceSensorViewModel>;
+    deleteUserDeviceSensor: (deviceSensorId: string) => Promise<UserDeviceSensorViewModel>;
 };
 
 export function useWebSocketClient() {
@@ -46,6 +50,14 @@ export function useWebSocketClient() {
                     emit<CreateUserDeviceDto, UserDeviceViewModel>(socket, Events.CreateUserDevice, dto),
                 deleteUserDevice: (userDeviceId: string) =>
                     emit<string, UserDeviceViewModel>(socket, Events.DeleteUserDevice, userDeviceId),
+                createUserDeviceSensor: (dto: CreateUserDeviceSensorDto) =>
+                    emit<CreateUserDeviceSensorDto, UserDeviceSensorViewModel>(
+                        socket,
+                        Events.CreateUserDeviceSensor,
+                        dto
+                    ),
+                deleteUserDeviceSensor: (deviceSensorId: string) =>
+                    emit<string, UserDeviceSensorViewModel>(socket, Events.DeleteUserDeviceSensor, deviceSensorId),
             });
         });
     }, [socket]);

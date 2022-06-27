@@ -14,7 +14,16 @@ import { GatewayRepository } from 'dataLayer/repositories/gateway.repository';
 import { GatewaySocket } from '../clientSocket';
 import { UserDeviceSensorValueRepository } from 'dataLayer/repositories/userDeviceSensorValue.repository';
 import { UserDeviceSensorValueService } from 'services/userDeviceSensorValue.service';
-import { InsertUserDeviceSensorDataDto, UserDeviceSensorValueDto, UserDeviceSensorValueQuery } from 'shared/dto';
+import {
+    CreateUserDeviceSensorDto,
+    InsertUserDeviceSensorDataDto,
+    UserDeviceSensorValueDto,
+    UserDeviceSensorValueQuery,
+    UserDeviceSensorViewModel,
+} from 'shared/dto';
+import { UserDeviceSensorMapper } from 'mappers/userDeviceSensor.mapper';
+import { UserDeviceSensorService } from 'services/userDeviceSensor.service';
+import { UserDeviceSensorRepository } from 'dataLayer/repositories/userDeviceSensor.repository';
 
 @WebSocketGateway()
 export class UserDeviceSensorGateway {
@@ -23,11 +32,45 @@ export class UserDeviceSensorGateway {
 
     constructor(
         private readonly userDeviceRepository: UserDeviceRepository,
+        private readonly userDeviceSensorService: UserDeviceSensorService,
+        private readonly userDeviceSensorRepository: UserDeviceSensorRepository,
         private readonly userDeviceSensorValueRepository: UserDeviceSensorValueRepository,
         private readonly userDeviceSensorValueService: UserDeviceSensorValueService,
         private readonly userDeviceSensorValueGranularityService: UserDeviceSensorValueGranularityService,
         private readonly gatewayRepository: GatewayRepository
     ) {}
+
+    @UseGuards(JwtAuthGuard, TokenTypeGuard)
+    @EnforceTokenType(TokenType.User)
+    @SubscribeMessage(Events.CreateUserDeviceSensor)
+    async createDeviceAsync(@MessageBody() dto: CreateUserDeviceSensorDto): Promise<UserDeviceSensorViewModel> {
+        const deviceSensor = await this.userDeviceSensorService.createAsync(dto);
+        const device = await this.userDeviceRepository.findByIdAsync(deviceSensor.userDeviceId);
+
+        const socketId = this.getGatewaySocketId(device.gatewayId.toString());
+        if (socketId) {
+            const sensorViewModel = UserDeviceSensorMapper.mapToViewModel(deviceSensor);
+            this.server.sockets.to(socketId).timeout(1000).emit('gateway/deviceSensorAdded', sensorViewModel);
+        }
+
+        return UserDeviceSensorMapper.mapToViewModel(deviceSensor);
+    }
+
+    @UseGuards(JwtAuthGuard, TokenTypeGuard)
+    @EnforceTokenType(TokenType.User)
+    @SubscribeMessage(Events.DeleteUserDeviceSensor)
+    async deleteDeviceSensorAsync(@MessageBody() deviceSensorId: string): Promise<UserDeviceSensorViewModel> {
+        const deviceSensor = await this.userDeviceSensorService.deleteAsync(deviceSensorId);
+        const device = await this.userDeviceRepository.findByIdAsync(deviceSensor.userDeviceId);
+
+        const socketId = this.getGatewaySocketId(device.gatewayId.toString());
+        if (socketId) {
+            const sensorViewModel = UserDeviceSensorMapper.mapToViewModel(deviceSensor);
+            this.server.sockets.to(socketId).timeout(1000).emit('gateway/deviceSensorRemoved', deviceSensorId);
+        }
+
+        return UserDeviceSensorMapper.mapToViewModel(deviceSensor);
+    }
 
     @UseGuards(JwtAuthGuard, TokenTypeGuard)
     @EnforceTokenType(TokenType.User)
@@ -43,12 +86,18 @@ export class UserDeviceSensorGateway {
             return null;
         }
 
+        const currentDeviceSensors = await this.userDeviceSensorRepository.findAllByDeviceIdAsync(device._id);
+
         return await new Promise<string>((resolve, reject) => {
             this.server.sockets
                 .to(socketId)
                 .timeout(1000)
-                .emit('gateway/getAvailableSensors', deviceId, (_, response) => {
-                    resolve(response[0]);
+                .emit('gateway/getAvailableSensors', device.externalId, (_, response) => {
+                    const result = response[0].filter(
+                        (x) => !currentDeviceSensors.some((device) => device.externalId === x.identifier)
+                    );
+
+                    resolve(result);
                 });
         });
     }
@@ -91,7 +140,6 @@ export class UserDeviceSensorGateway {
         @ConnectedSocket() client: GatewaySocket,
         @MessageBody() data: InsertUserDeviceSensorDataDto
     ) {
-        console.log(data);
         const gateway = await this.gatewayRepository.findByIdAsync(objectId(client.user.gatewayId));
         if (!gateway) {
             throw new BadRequestException('Invalid gateway');

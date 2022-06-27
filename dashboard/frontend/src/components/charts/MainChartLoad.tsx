@@ -14,7 +14,7 @@ const MainChartLoad: React.FC<Props> = ({ sensor }) => {
     //Dates
     const today = new Date();
     const yesterday = new Date(today);
-    yesterday.setDate(yesterday.getDate() - 1);
+    yesterday.setMinutes(yesterday.getMinutes() - 5);
 
     const [dateFrom, setDateFrom] = useState<Date>(yesterday);
     const [dateTo, setDateTo] = useState<Date>(today);

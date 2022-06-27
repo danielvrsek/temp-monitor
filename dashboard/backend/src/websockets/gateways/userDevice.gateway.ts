@@ -43,7 +43,6 @@ export class UserDeviceGateway {
     @EnforceTokenType(TokenType.User)
     @SubscribeMessage(Events.DeleteUserDevice)
     async deleteDeviceAsync(@MessageBody() userDeviceId: string): Promise<UserDeviceViewModel> {
-        console.log('delete');
         const device = await this.userDeviceService.deleteAsync(userDeviceId);
         return UserDeviceMapper.mapToViewModel(device);
     }
@@ -89,7 +88,7 @@ export class UserDeviceGateway {
                 name: device.name,
                 externalId: device.externalId,
                 createdAt: device.createdAt,
-                sensors: (await this.userDeviceSensorRepository.findAllByUserDeviceIdAsync(device._id)).map(
+                sensors: (await this.userDeviceSensorRepository.findAllByDeviceIdAsync(device._id)).map(
                     UserDeviceSensorMapper.mapToViewModel
                 ),
             };

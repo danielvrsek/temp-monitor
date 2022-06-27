@@ -32,8 +32,8 @@ export class UserDeviceSensorController extends ControllerBase {
     }
 
     @Get('device/:deviceId')
-    async findAllByGatewayAsync(@Param('deviceId') deviceId: string): Promise<UserDeviceSensorViewModel[]> {
-        const data = await this.userDeviceSensorRepository.findAllByUserDeviceIdAsync(objectId(deviceId));
+    async findAllByDeviceIdAsync(@Param('deviceId') deviceId: string): Promise<UserDeviceSensorViewModel[]> {
+        const data = await this.userDeviceSensorRepository.findAllByDeviceIdAsync(objectId(deviceId));
         return data.map(UserDeviceSensorMapper.mapToViewModel);
     }
 

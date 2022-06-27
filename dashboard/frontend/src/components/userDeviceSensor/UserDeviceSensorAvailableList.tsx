@@ -1,11 +1,11 @@
 import React from 'react';
 import { Grid } from '@mui/material';
-import { UserDeviceAvailableViewModel } from 'shared/dto';
-import UserDeviceSensorAvailableItem from './UserDeviceAvailableItem';
+import { UserDeviceSensorAvailableViewModel } from 'shared/dto';
+import UserDeviceSensorAvailableItem from './UserDeviceSensorAvailableItem';
 
 type Props = {
-    data: UserDeviceAvailableViewModel[];
-    onClick: (item: UserDeviceAvailableViewModel) => void;
+    data: UserDeviceSensorAvailableViewModel[];
+    onClick: (item: UserDeviceSensorAvailableViewModel) => void;
 };
 
 const UserDeviceSensorAvailableList: React.FC<Props> = ({ data, onClick }) => {

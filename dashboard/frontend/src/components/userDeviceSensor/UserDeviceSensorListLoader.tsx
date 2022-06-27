@@ -1,37 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { UserDeviceSensorViewModel } from 'shared/dto';
-import ApiClient from '../../api/apiClient';
 import Error from '../../common/Error';
 import Loading from '../../common/Loading';
+import { useUserDeviceSensorStore } from '../../stores/userDeviceSensor.store ';
 import UserDeviceSensorList from './UserDeviceSensorList';
 
 type Props = {
-    userDeviceId: string;
+    deviceId: string;
 };
 
-const UserDeviceSensorListLoader: React.FC<Props> = ({ userDeviceId }) => {
-    const [userDevices, setUserDevices] = useState<UserDeviceSensorViewModel[] | null>(null);
+const UserDeviceSensorListLoader: React.FC<Props> = ({ deviceId }) => {
+    const [userDeviceSensors, userDeviceSensorStore] = useUserDeviceSensorStore(deviceId);
     const [error, setError] = useState();
 
     useEffect(() => {
-        ApiClient.getUserDeviceSensors(userDeviceId)
-            .then((response) => {
-                setUserDevices(response.data);
-            })
-            .catch((error) => {
-                setError(error);
-            });
-    }, []);
+        if (!userDeviceSensors) {
+            userDeviceSensorStore?.load().catch((e) => setError(e));
+        }
+    }, [userDeviceSensors, userDeviceSensorStore]);
 
     if (error) {
         return <Error content={error} />;
     }
 
-    if (!userDevices) {
+    if (!userDeviceSensors) {
         return <Loading />;
     }
 
-    return <UserDeviceSensorList data={userDevices} />;
+    return <UserDeviceSensorList data={userDeviceSensors} />;
 };
 
 export default UserDeviceSensorListLoader;

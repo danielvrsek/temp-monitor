@@ -15,7 +15,7 @@ export class UserDeviceSensorRepository extends Repository<UserDeviceSensor> {
         return super.findAllAsync();
     }
 
-    async findAllByUserDeviceIdAsync(userDeviceId: Types.ObjectId): Promise<UserDeviceSensor[]> {
+    async findAllByDeviceIdAsync(userDeviceId: Types.ObjectId): Promise<UserDeviceSensor[]> {
         return await super.findAsync({ userDeviceId });
     }
 }

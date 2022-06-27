@@ -15,9 +15,9 @@ import {
 
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useWorkspaceContext } from '../../common/contexts/AuthContext';
-import ApiClient from '../../api/apiClient';
 import Line from '../../common/Line';
 import { UserDeviceSensorViewModel, UserRoleDto } from 'shared/dto';
+import { useUserDeviceSensorStore } from '../../stores/userDeviceSensor.store ';
 
 type Props = {
     data: UserDeviceSensorViewModel;
@@ -26,6 +26,7 @@ type Props = {
 
 const UserDeviceSensorItem: React.FC<Props> = ({ data, onClick }) => {
     const [workspaceContext] = useWorkspaceContext();
+    const [, userDeviceSensorStore] = useUserDeviceSensorStore(data.id);
 
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
@@ -38,7 +39,7 @@ const UserDeviceSensorItem: React.FC<Props> = ({ data, onClick }) => {
     };
 
     const handleRemoveGateway = () => {
-        ApiClient.removeGatewayFromWokspace(data.id).then(() => window.location.reload());
+        userDeviceSensorStore?.delete(data);
     };
 
     const open = Boolean(anchorEl);
@@ -60,7 +61,7 @@ const UserDeviceSensorItem: React.FC<Props> = ({ data, onClick }) => {
                 }}
             >
                 <MenuList>
-                    <MenuItem onClick={handleRemoveGateway}>Odebrat stanici</MenuItem>
+                    <MenuItem onClick={handleRemoveGateway}>Remove device sensor</MenuItem>
                 </MenuList>
             </Popover>
         </div>
