@@ -1,6 +1,7 @@
 import {
     CreateUserDeviceDto,
     CreateUserDeviceSensorDto,
+    UserDeviceSensorValueDataDto,
     UserDeviceSensorValueQuery,
     UserDeviceSensorValueViewModel,
     UserDeviceSensorViewModel,
@@ -20,6 +21,7 @@ export type WebSocketClient = {
     deleteUserDevice: (deviceId: string) => Promise<UserDeviceViewModel>;
     createUserDeviceSensor: (dto: CreateUserDeviceSensorDto) => Promise<UserDeviceSensorViewModel>;
     deleteUserDeviceSensor: (deviceSensorId: string) => Promise<UserDeviceSensorViewModel>;
+    queryDeviceSensorValueData: (deviceSensorId: string) => Promise<UserDeviceSensorValueDataDto>;
 };
 
 export function useWebSocketClient() {
@@ -58,6 +60,12 @@ export function useWebSocketClient() {
                     ),
                 deleteUserDeviceSensor: (deviceSensorId: string) =>
                     emit<string, UserDeviceSensorViewModel>(socket, Events.DeleteUserDeviceSensor, deviceSensorId),
+                queryDeviceSensorValueData: (deviceSensorId: string) =>
+                    emit<string, UserDeviceSensorValueDataDto>(
+                        socket,
+                        Events.QueryUserDeviceSensorValue,
+                        deviceSensorId
+                    ),
             });
         });
     }, [socket]);

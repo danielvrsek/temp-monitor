@@ -10,3 +10,4 @@ dashboard/backend/public/profile-photos/*
 .idea/
 .vs/
 packages/
+build/

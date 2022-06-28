@@ -17,6 +17,7 @@ import { UserDeviceSensorValueService } from 'services/userDeviceSensorValue.ser
 import {
     CreateUserDeviceSensorDto,
     InsertUserDeviceSensorDataDto,
+    UserDeviceSensorValueDataDto,
     UserDeviceSensorValueDto,
     UserDeviceSensorValueQuery,
     UserDeviceSensorViewModel,
@@ -97,6 +98,31 @@ export class UserDeviceSensorGateway {
                         (x) => !currentDeviceSensors.some((device) => device.externalId === x.identifier)
                     );
 
+                    resolve(result);
+                });
+        });
+    }
+
+    @UseGuards(JwtAuthGuard, TokenTypeGuard)
+    @EnforceTokenType(TokenType.User)
+    @SubscribeMessage(Events.QueryUserDeviceSensorValue)
+    async queryDeviceSensorValueAsync(
+        @MessageBody() deviceSensorId: string
+    ): Promise<UserDeviceSensorValueDataDto | null> {
+        const deviceSensor = await this.userDeviceSensorRepository.findByIdAsync(objectId(deviceSensorId));
+        const device = await this.userDeviceRepository.findByIdAsync(deviceSensor.userDeviceId);
+
+        const socketId = this.getGatewaySocketId(device.gatewayId.toString());
+        if (!socketId) {
+            return null;
+        }
+
+        return await new Promise<UserDeviceSensorValueDataDto>((resolve, reject) => {
+            this.server.sockets
+                .to(socketId)
+                .timeout(1000)
+                .emit('gateway/getDeviceSensorValue', deviceSensor.externalId, (_, response) => {
+                    const result: UserDeviceSensorValueDataDto = response[0];
                     resolve(result);
                 });
         });

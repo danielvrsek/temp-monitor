@@ -14,4 +14,5 @@ export const Events = {
     DeleteUserDevice: 'userDevice/delete',
     CreateUserDeviceSensor: 'userDeviceSensor/create',
     DeleteUserDeviceSensor: 'userDeviceSensor/delete',
+    QueryUserDeviceSensorValue: 'userDeviceSensor/queryValue',
 };

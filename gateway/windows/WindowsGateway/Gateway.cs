@@ -26,7 +26,8 @@ public class Gateway : IDisposable
             OnDeviceSensorAdded = DeviceSensorAddedHandler,
             OnDeviceSensorRemoved = DeviceSensorRemovedHandler,
             OnGetAvailableDevices = GetAvailableDevicesAsyncHandler,
-            OnGetAvailableSensors = GetAvailableSensorsAsyncHandler
+            OnGetAvailableSensors = GetAvailableSensorsAsyncHandler,
+            OnGetAvailableSensorValue = GetDeviceSensorValueAsyncHandler
         };
     }
 
@@ -136,6 +137,29 @@ public class Gateway : IDisposable
         });
     
         await response.CallbackAsync(sensors);
+    }
+
+    private async void GetDeviceSensorValueAsyncHandler(SocketIOResponse response)
+    {
+        Console.WriteLine("Get device sensor value");
+        
+        string identifierString = response.GetValue<string>();
+        var identifier = new Identifier(identifierString.Split('/').Skip(1).ToArray());
+        
+        var sensors = _hwMonitor.GetHardware().SelectMany(x => x.Sensors).ToDictionary(x => x.Identifier);
+        if (!sensors.TryGetValue(identifier, out var sensor))
+        {
+            Console.WriteLine("Sensor not found");
+            await response.CallbackAsync(null);
+            return;
+        }
+
+        await response.CallbackAsync(new UserDeviceSensorValueDataDto
+        {
+            Value = (int)sensor.Value!,
+            ValueMin = 0,
+            ValueMax = 100
+        });
     }
 
     void RegisterSensors(UserDeviceSensorViewModel[] sensors)

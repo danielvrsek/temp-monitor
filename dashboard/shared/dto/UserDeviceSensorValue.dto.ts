@@ -17,6 +17,12 @@ export interface InsertUserDeviceSensorDataResponse {
     count: number;
 }
 
+export interface UserDeviceSensorValueDataDto {
+    value: number;
+    valueMin: number;
+    valueMax: number;
+}
+
 export interface UserDeviceSensorValueQuery {
     sensorId: string;
     dateFrom?: number;

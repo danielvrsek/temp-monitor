@@ -48,6 +48,11 @@ public class WsClient : IDisposable
     {
         set => _client.On("gateway/getAvailableSensors", value);
     }
+    
+    public Action<SocketIOResponse> OnGetAvailableSensorValue
+    {
+        set => _client.On("gateway/getDeviceSensorValue", value);
+    }
 
     public bool IsConnected => _client.Connected;
     
