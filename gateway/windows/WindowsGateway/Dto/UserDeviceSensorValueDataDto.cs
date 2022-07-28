@@ -2,7 +2,9 @@
 
 public class UserDeviceSensorValueDataDto
 {
-    public int Value { get; set; }
-    public int ValueMin { get; set; }
-    public int ValueMax { get; set; }
+    public float Value { get; set; }
+    public float ValueMin { get; set; }
+    public float ValueMax { get; set; }
+    
+    public string Unit { get; set; }
 }

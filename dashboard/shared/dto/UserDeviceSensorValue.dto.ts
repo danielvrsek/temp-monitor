@@ -21,6 +21,7 @@ export interface UserDeviceSensorValueDataDto {
     value: number;
     valueMin: number;
     valueMax: number;
+    unit: string;
 }
 
 export interface UserDeviceSensorValueQuery {

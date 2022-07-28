@@ -141,8 +141,6 @@ public class Gateway : IDisposable
 
     private async void GetDeviceSensorValueAsyncHandler(SocketIOResponse response)
     {
-        Console.WriteLine("Get device sensor value");
-        
         string identifierString = response.GetValue<string>();
         var identifier = new Identifier(identifierString.Split('/').Skip(1).ToArray());
         
@@ -156,9 +154,10 @@ public class Gateway : IDisposable
 
         await response.CallbackAsync(new UserDeviceSensorValueDataDto
         {
-            Value = (int)sensor.Value!,
-            ValueMin = 0,
-            ValueMax = 100
+            Value = sensor.Value ?? 0,
+            ValueMin = sensor.Min ?? 0,
+            ValueMax = sensor.Max ?? 100,
+            Unit = SensorUnitMapper.MapToUnit(sensor.SensorType)
         });
     }
 
